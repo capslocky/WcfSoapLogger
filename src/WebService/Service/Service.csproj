@@ -57,6 +57,9 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WcfSoapLogger">
+      <HintPath>..\..\Library\WcfSoapLogger\bin\Debug\WcfSoapLogger.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Database.svc" />
