@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
+using System.Xml;
 using WcfSoapLogger;
 
 namespace Service
@@ -17,10 +18,9 @@ namespace Service
 
         public JuiceInfo[] FindSimilar(JuiceInfo juice)
         {
-            string request;
-            SoapLoggerThreadStatic.SetService(this, out request);
-
-            ProcessRequestLog(request);
+            byte[] requestBody;
+            SoapLoggerThreadStatic.SetService(this, out requestBody);
+            LogRequestBody(requestBody);
 
             return new JuiceInfo[]
             {
@@ -42,18 +42,22 @@ namespace Service
             
         }
 
-        private void ProcessRequestLog(string request)
+        private void LogRequestBody(byte[] requestBody)
         {
             Directory.CreateDirectory(LogDirectory);
-            string filePath = Path.Combine(LogDirectory, "Request_" + Guid.NewGuid() + ".xml");
-            File.WriteAllText(filePath, request);
+//            string filePath = Path.Combine(LogDirectory, "Request_" + Guid.NewGuid() + ".xml");
+//            File.WriteAllText(filePath, requestBody);
+
+            SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
         }
 
-        public void ProcessResponseLog(string response)
+        public void LogResponseBody(byte[] responseBody)
         {
             Directory.CreateDirectory(LogDirectory);
-            string filePath = Path.Combine(LogDirectory, "Response_" + Guid.NewGuid() + ".xml");
-            File.WriteAllText(filePath, response);
+            //            string filePath = Path.Combine(LogDirectory, "Response_" + Guid.NewGuid() + ".xml");
+            //            File.WriteAllText(filePath, response);
+
+            SoapLoggerTools.LogBytes(responseBody, true, LogDirectory);
         }
 
 

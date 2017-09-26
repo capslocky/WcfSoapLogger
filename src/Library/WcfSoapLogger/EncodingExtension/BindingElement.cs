@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.EncodingExtension
 {
     public class BindingElement : MessageEncodingBindingElement, IWsdlExportExtension
     {

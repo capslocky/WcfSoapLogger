@@ -42,13 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISoapLoggerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BindingElement.cs" />
-    <Compile Include="ExtensionElement.cs" />
-    <Compile Include="LoggingEncoder.cs" />
-    <Compile Include="LoggingEncoderFactory.cs" />
+    <Compile Include="EncodingExtension\BindingElement.cs" />
+    <Compile Include="EncodingExtension\ExtensionElement.cs" />
+    <Compile Include="EncodingExtension\LoggingEncoder.cs" />
+    <Compile Include="EncodingExtension\LoggingEncoderFactory.cs" />
     <Compile Include="SoapLoggerThreadStatic.cs" />
+    <Compile Include="SoapLoggerTools.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

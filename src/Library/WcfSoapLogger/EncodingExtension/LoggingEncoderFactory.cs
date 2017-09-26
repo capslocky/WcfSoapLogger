@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel.Channels;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel.Channels;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.EncodingExtension
 {
     public class LoggingEncoderFactory : MessageEncoderFactory
     {

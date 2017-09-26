@@ -2,10 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http.Headers;
-using System.Runtime.Remoting.Lifetime;
-using System.ServiceModel;
-using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,80 +9,11 @@ using System.Xml;
 
 namespace WcfSoapLogger
 {
-    public class LoggingEncoder : MessageEncoder
+    public static class SoapLoggerTools
     {
-        private readonly LoggingEncoderFactory _factory;
-        private readonly string _contentType;
-        private readonly MessageEncoder _innerEncoder;
-
-        private string LogPath { get; set; }
-
-
-        public override string ContentType {
-            get {
-                return _contentType;
-            }
-        }
-
-        public override string MediaType {
-            get {
-                return _factory.MediaType;
-            }
-        }
-
-        public override MessageVersion MessageVersion {
-            get {
-                return _factory.MessageVersion;
-            }
-        }
-
-        public LoggingEncoder(LoggingEncoderFactory factory) {
-            SoapLoggerThreadStatic.SetEncoder(this);
-
-            _factory = factory;
-            _innerEncoder = factory.InnerMessageFactory.Encoder;
-            _contentType = _factory.MediaType;
-            LogPath = _factory.LogPath;
-
-            Directory.CreateDirectory(LogPath);
-        }
-
-        public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {
-            byte[] bytes = new byte[buffer.Count];
-            Array.Copy(buffer.Array, buffer.Offset, bytes, 0, bytes.Length);
-
-            LogBytes(bytes, false);
-//            string text = new UTF8Encoding().GetString(incomingBytes);
-
-            return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
-        }
-
-        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType) {
-            return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
-        }
-
-
-
-        public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) {
-            ArraySegment<byte> arraySegment = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
-
-            var bytes = new byte[arraySegment.Count];
-            Array.Copy(arraySegment.Array, arraySegment.Offset, bytes, 0, bytes.Length);
-
-            LogBytes(bytes, true);
-
-            return arraySegment;
-        }
-
-        public override void WriteMessage(Message message, Stream stream) {
-            _innerEncoder.WriteMessage(message, stream);
-        }
-
-
-
         private const string Response = "Response";
 
-        private void AddFileNamePart(StringBuilder fileName, string value) {
+        public static void AddFileNamePart(StringBuilder fileName, string value) {
             if (value == null)
             {
                 return;
@@ -101,11 +28,11 @@ namespace WcfSoapLogger
             fileName.Append(value).Append(" @ ");
         }
 
-        private void WriteFile(string fileName, string text, byte[] bytes, bool error) {
+        public static void WriteFile(string fileName, string text, byte[] bytes, bool error, string logPath) {
             fileName = fileName.Remove(fileName.Length - 3, 3);
             fileName += ".xml";
 
-            string folder = Path.Combine(LogPath, DateTime.Now.ToString("yyyy-MM-dd"));
+            string folder = Path.Combine(logPath, DateTime.Now.ToString("yyyy-MM-dd"));
             Directory.CreateDirectory(folder);
             string filePath = Path.Combine(folder, fileName);
 
@@ -125,7 +52,7 @@ namespace WcfSoapLogger
         }
 
 
-        private string GetRequestId(XmlDocument xmlDoc) {
+        public static string GetRequestId(XmlDocument xmlDoc) {
             XmlNode node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
 
             if (node == null)
@@ -152,7 +79,7 @@ namespace WcfSoapLogger
         }
 
 
-        private string GetProductIdentifier(XmlDocument xmlDoc) {
+        public static string GetProductIdentifier(XmlDocument xmlDoc) {
             XmlNode node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
 
             if (node == null)
@@ -163,9 +90,9 @@ namespace WcfSoapLogger
             return node.InnerText;
         }
 
-        private void LogBytes(byte[] bytes, bool response)
-        {
+        public static void LogBytes(byte[] bytes, bool response, string logPath) {
             var thread = Thread.CurrentThread;
+            //            string text = new UTF8Encoding().GetString(incomingBytes);
 
             var xmlDoc = new XmlDocument();
             var fileName = new StringBuilder();
@@ -193,26 +120,14 @@ namespace WcfSoapLogger
 
                 string indentedXml = GetIndentedXml(xmlDoc);
 
-
-                if (response)
-                {
-                    SoapLoggerThreadStatic.Service.ProcessResponseLog(indentedXml);
-                }
-                else
-                {
-                    SoapLoggerThreadStatic.ContentRequest = indentedXml;
-                }
-
-                
-
-                WriteFile(fileName.ToString(), indentedXml, null, false);
+                WriteFile(fileName.ToString(), indentedXml, null, false, logPath);
             } catch (Exception ex)
             {
                 AddFileNamePart(fileName, "ERROR non-xml");
-                WriteFile(fileName.ToString(), null, bytes, true);
+                WriteFile(fileName.ToString(), null, bytes, true, logPath);
 
                 AddFileNamePart(fileName, "exception");
-                WriteFile(fileName.ToString(), ex.ToString(), null, true);
+                WriteFile(fileName.ToString(), ex.ToString(), null, true, logPath);
             }
         }
 
@@ -222,19 +137,19 @@ namespace WcfSoapLogger
 
 
 
-        private string GetDateTimeText() {
+        public static string GetDateTimeText() {
             DateTime dateTime = DateTime.Now;
 
-            string text =  dateTime.ToString("yyyy-MM-dd") + " at " + dateTime.ToString("HH-mm-ss-fff");
+            string text = dateTime.ToString("yyyy-MM-dd") + " at " + dateTime.ToString("HH-mm-ss-fff");
 
-//            fileName += "@ " + methodName;
-//
-//            int ordinal = GetConcurrentOrdinal(methodName, dateTime);
-//
-//            if (ordinal > 0)
-//            {
-//                fileName += "_" + ordinal.ToString("00");
-//            }
+            //            fileName += "@ " + methodName;
+            //
+            //            int ordinal = GetConcurrentOrdinal(methodName, dateTime);
+            //
+            //            if (ordinal > 0)
+            //            {
+            //                fileName += "_" + ordinal.ToString("00");
+            //            }
 
             return text;
         }
@@ -258,33 +173,33 @@ namespace WcfSoapLogger
             return xml;
         }
 
-        internal Dictionary<string, DateTime> dicDate = new Dictionary<string, DateTime>();
-        internal Dictionary<string, int> dicCount = new Dictionary<string, int>();
-
-        private int GetConcurrentOrdinal(string method, DateTime dateTime) {
-            if (!dicDate.ContainsKey(method))
-            {
-                dicDate.Add(method, new DateTime(2000, 1, 1));
-            }
-
-            if (!dicCount.ContainsKey(method))
-            {
-                dicCount.Add(method, 0);
-            }
-
-            DateTime lastDate = dicDate[method];
-
-            if (lastDate == dateTime)
-            {
-                dicCount[method] = dicCount[method] + 1;
-                return dicCount[method];
-            }
-
-            dicDate[method] = dateTime;
-            dicCount[method] = 0;
-
-            return 0;
-        }
+//        internal Dictionary<string, DateTime> dicDate = new Dictionary<string, DateTime>();
+//        internal Dictionary<string, int> dicCount = new Dictionary<string, int>();
+//
+//        private int GetConcurrentOrdinal(string method, DateTime dateTime) {
+//            if (!dicDate.ContainsKey(method))
+//            {
+//                dicDate.Add(method, new DateTime(2000, 1, 1));
+//            }
+//
+//            if (!dicCount.ContainsKey(method))
+//            {
+//                dicCount.Add(method, 0);
+//            }
+//
+//            DateTime lastDate = dicDate[method];
+//
+//            if (lastDate == dateTime)
+//            {
+//                dicCount[method] = dicCount[method] + 1;
+//                return dicCount[method];
+//            }
+//
+//            dicDate[method] = dateTime;
+//            dicCount[method] = 0;
+//
+//            return 0;
+//        }
 
 
         private static string GetMethodName(XmlDocument xml) {
