@@ -21,12 +21,6 @@ namespace WcfSoapLogger
 
         private string LogPath { get; set; }
 
-        [ThreadStatic]
-        public static string ContentRequest_ThreadStatic;
-
-        [ThreadStatic]
-        public static Action<string> ContentResponse_ThreadStatic;
-
 
         public override string ContentType {
             get {
@@ -47,10 +41,13 @@ namespace WcfSoapLogger
         }
 
         public LoggingEncoder(LoggingEncoderFactory factory) {
+            SoapLoggerThreadStatic.SetEncoder(this);
+
             _factory = factory;
             _innerEncoder = factory.InnerMessageFactory.Encoder;
             _contentType = _factory.MediaType;
             LogPath = _factory.LogPath;
+
             Directory.CreateDirectory(LogPath);
         }
 
@@ -199,14 +196,11 @@ namespace WcfSoapLogger
 
                 if (response)
                 {
-                    if (LoggingEncoder.ContentResponse_ThreadStatic != null)
-                    {
-                        LoggingEncoder.ContentResponse_ThreadStatic(indentedXml);
-                    }
+                    SoapLoggerThreadStatic.Service.ProcessResponseLog(indentedXml);
                 }
                 else
                 {
-                    LoggingEncoder.ContentRequest_ThreadStatic = indentedXml;
+                    SoapLoggerThreadStatic.ContentRequest = indentedXml;
                 }
 
                 

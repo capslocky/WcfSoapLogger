@@ -14,6 +14,7 @@ namespace Client
             var client = new DatabaseClient();
 
             var juiceInfo = new JuiceInfo();
+            juiceInfo.Name = "Amazing lemon";
             juiceInfo.Id = 2;
 
             var similarArray = client.FindSimilar(juiceInfo);
