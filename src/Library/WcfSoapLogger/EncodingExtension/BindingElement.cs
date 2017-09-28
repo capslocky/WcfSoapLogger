@@ -12,6 +12,7 @@ namespace WcfSoapLogger.EncodingExtension
         private MessageEncodingBindingElement _innerBindingElement;
 
         public string LogPath { get; set; }
+        public string CustomCode { get; set; }
 
         public MessageEncodingBindingElement InnerMessageEncodingBindingElement {
             get {
@@ -33,9 +34,10 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        public BindingElement(string logPath) : this(new TextMessageEncodingBindingElement())
+        public BindingElement(string logPath, string customCode) : this(new TextMessageEncodingBindingElement())
         {
             LogPath = logPath;
+            CustomCode = customCode;
         }
 
         public BindingElement(MessageEncodingBindingElement messageEncoderBindingElement) 
@@ -45,12 +47,13 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
         public override MessageEncoderFactory CreateMessageEncoderFactory() {
-            return new LoggingEncoderFactory("text/xml", "utf-8", _messageVersion, _innerBindingElement.CreateMessageEncoderFactory(), LogPath);
+            return new LoggingEncoderFactory("text/xml", "utf-8", _messageVersion, _innerBindingElement.CreateMessageEncoderFactory(), LogPath, CustomCode);
         }
 
         public override System.ServiceModel.Channels.BindingElement Clone() {
             return new BindingElement(_innerBindingElement) {
-                LogPath = LogPath
+                LogPath = LogPath,
+                CustomCode = CustomCode
             };
         }
 

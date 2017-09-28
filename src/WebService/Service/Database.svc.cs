@@ -12,15 +12,19 @@ using WcfSoapLogger;
 
 namespace Service
 {
-    public class Database : IDatabase, ISoapLoggerService
+    public class Database : IDatabase//, ISoapLoggerService
     {
-        private const string LogDirectory = @"C:\SoapLogService";
+        private const string LogDirectory = @"C:\SoapLogCustom";
 
         public JuiceInfo[] FindSimilar(JuiceInfo juice)
         {
-            byte[] requestBody;
-            SoapLoggerThreadStatic.SetService(this, out requestBody);
-            LogRequestBody(requestBody);
+//            byte[] requestBody;
+//            SoapLoggerThreadStatic.SetService(this, out requestBody);
+//
+//            if (requestBody != null)
+//            {
+//                LogRequestBody(requestBody);
+//            }
 
             return new JuiceInfo[]
             {

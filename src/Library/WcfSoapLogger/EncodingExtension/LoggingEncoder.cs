@@ -14,6 +14,7 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
         private readonly string _logPath;
+        private readonly string _customCode;
 
 
         public override string ContentType {
@@ -41,6 +42,7 @@ namespace WcfSoapLogger.EncodingExtension
             _innerEncoder = factory.InnerMessageFactory.Encoder;
             _contentType = _factory.MediaType;
             _logPath = _factory.LogPath;
+            _customCode = _factory.CustomCode;
 
             Directory.CreateDirectory(_logPath);
         }
@@ -75,6 +77,20 @@ namespace WcfSoapLogger.EncodingExtension
 
 
         private void LogBytes(byte[] bytes, bool response)
+        {
+            bool customCode = !string.IsNullOrEmpty(_customCode) && Boolean.Parse(_customCode);
+
+            if (customCode)
+            {
+                LogBytesCustomCode(bytes, response);
+                return;
+            }
+
+            Directory.CreateDirectory(_logPath);
+            SoapLoggerTools.LogBytes(bytes, response, _logPath);
+        }
+
+        private void LogBytesCustomCode(byte[] bytes, bool response)
         {
             if (response)
             {
