@@ -173,33 +173,7 @@ namespace WcfSoapLogger
             return xml;
         }
 
-//        internal Dictionary<string, DateTime> dicDate = new Dictionary<string, DateTime>();
-//        internal Dictionary<string, int> dicCount = new Dictionary<string, int>();
-//
-//        private int GetConcurrentOrdinal(string method, DateTime dateTime) {
-//            if (!dicDate.ContainsKey(method))
-//            {
-//                dicDate.Add(method, new DateTime(2000, 1, 1));
-//            }
-//
-//            if (!dicCount.ContainsKey(method))
-//            {
-//                dicCount.Add(method, 0);
-//            }
-//
-//            DateTime lastDate = dicDate[method];
-//
-//            if (lastDate == dateTime)
-//            {
-//                dicCount[method] = dicCount[method] + 1;
-//                return dicCount[method];
-//            }
-//
-//            dicDate[method] = dateTime;
-//            dicCount[method] = 0;
-//
-//            return 0;
-//        }
+
 
 
         private static string GetMethodName(XmlDocument xml) {
