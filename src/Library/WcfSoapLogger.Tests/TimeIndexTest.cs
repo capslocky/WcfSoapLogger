@@ -12,7 +12,7 @@ namespace WcfSoapLogger.Tests
     public class TimeIndexTest
     {
         [TestMethod]
-        public void MultipleTasksSameKey()
+        public void OneKeyMultipleTasks()
         {
             const string key = "'alpha";
             const int count = 1000;
@@ -21,7 +21,7 @@ namespace WcfSoapLogger.Tests
                 new Task<TimeIndex>(() =>
                     {
                         var timeIndex = TimeIndex.GetUnique(key);
-                        Trace.WriteLine("Result = " + timeIndex + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
+                        Trace.WriteLine("Result = " + timeIndex + " Index = " + index.ToString("000") + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
                         return timeIndex;
                     }
             )).ToArray();
@@ -31,12 +31,12 @@ namespace WcfSoapLogger.Tests
 
             var results = taskArray.Select(task => task.Result).ToArray();
 
-            CheckResults(results);
+            CheckOneKeyResults(results);
         }
 
 
         [TestMethod]
-        public void MultipleThreadsWithSameArguments() 
+        public void OneKeyMultipleThreads() 
         {
             const string key = "'beta";
             const int count = 1000;
@@ -47,8 +47,8 @@ namespace WcfSoapLogger.Tests
                 new Thread(() =>
                 {
                     var timeIndex = TimeIndex.GetUnique(key);
+                    Trace.WriteLine("Result = " + timeIndex + " Index = " + index.ToString("000") + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
                     results[index] = timeIndex;
-                    Trace.WriteLine("Result = " + timeIndex + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
                 }
             )).ToArray();
 
@@ -56,11 +56,31 @@ namespace WcfSoapLogger.Tests
             Array.ForEach(threadArray, thread => thread.Start());
             Array.ForEach(threadArray, thread => thread.Join());
 
-            CheckResults(results);
+            CheckOneKeyResults(results);
         }
 
 
-        private void CheckResults(TimeIndex[] results)
+
+        /* should look like this
+        2017-10-06 21:20:57.766 / 00
+        2017-10-06 21:20:57.767 / 00
+        2017-10-06 21:20:57.770 / 00
+        2017-10-06 21:20:57.793 / 00
+        2017-10-06 21:20:57.814 / 00
+        2017-10-06 21:20:57.814 / 01
+        2017-10-06 21:20:57.814 / 02
+        2017-10-06 21:20:57.814 / 03
+        2017-10-06 21:20:57.814 / 04
+        2017-10-06 21:20:57.814 / 05
+        2017-10-06 21:20:57.815 / 00
+        2017-10-06 21:20:57.815 / 01
+        2017-10-06 21:20:57.815 / 02
+        2017-10-06 21:20:57.818 / 00
+        2017-10-06 21:20:57.822 / 00
+        2017-10-06 21:20:57.826 / 00
+        2017-10-06 21:20:57.832 / 00
+        */
+        private void CheckOneKeyResults(TimeIndex[] results)
         {
             results = results.OrderBy(x => x.DateTime).ThenBy(x => x.Index).ToArray();
 
@@ -84,69 +104,33 @@ namespace WcfSoapLogger.Tests
         }
 
 
-//        [TestMethod]
-//        public void OneKeyDifferentDates() 
-//        {
-//            const string key = "'gamma";
-//            DateTime datetimeA = new DateTime(2017, 01, 03);
-//            DateTime datetimeB = new DateTime(2017, 01, 04);
-//
-//            int indexA1 = ConcurrentIndex.GetUniqueIndex(key, datetimeA);
-//            int indexA2 = ConcurrentIndex.GetUniqueIndex(key, datetimeA);
-//            int indexA3 = ConcurrentIndex.GetUniqueIndex(key, datetimeA);
-//
-//            int indexB1 = ConcurrentIndex.GetUniqueIndex(key, datetimeB);
-//            int indexB2 = ConcurrentIndex.GetUniqueIndex(key, datetimeB);
-//            int indexB3 = ConcurrentIndex.GetUniqueIndex(key, datetimeB);
-//
-//            Assert.AreEqual(0, indexA1);
-//            Assert.AreEqual(1, indexA2);
-//            Assert.AreEqual(2, indexA3);
-//
-//            Assert.AreEqual(0, indexB1);
-//            Assert.AreEqual(1, indexB2);
-//            Assert.AreEqual(2, indexB3);
-//        }
-//
-//
-//        [TestMethod]
-//        public void DifferentKeysOneDate() 
-//        {
-//            const string keyA = "'keyA";
-//            const string keyB = "'keyB";
-//            const string keyC = "'keyC";
-//            DateTime datetime = new DateTime(2017, 01, 05);
-//
-//            int resultA = ConcurrentIndex.GetUniqueIndex(keyA, datetime);
-//            int resultB = ConcurrentIndex.GetUniqueIndex(keyB, datetime);
-//            int resultC = ConcurrentIndex.GetUniqueIndex(keyC, datetime);
-//
-//            Assert.AreEqual(0, resultA);
-//            Assert.AreEqual(0, resultB);
-//            Assert.AreEqual(0, resultC);
-//        }
+        [TestMethod]
+        public void OneKey() 
+        {
+            const string key = "'gamma";
+            const int count = 10000;
+
+            var results = Enumerable.Range(0, count).Select(index => TimeIndex.GetUnique(key)).ToArray();
+
+            CheckOneKeyResults(results);
+        }
 
 
+        [TestMethod]
+        public void DifferentKeys() 
+        {
+            const string keyA = "'keyA";
+            const string keyB = "'keyB";
+            const string keyC = "'keyC";
 
-//        [TestMethod]
-//        public void OneKey() 
-//        {
-//            const string key = "'delta";
-//            int count = 1000;
-//            var results = new int[count];
-//            var datetimes = new DateTime[count];
-//
-//            for (int i = 0; i < count; i++)
-//            {
-//                DateTime dateTime = DateTime.Now;
-//                datetimes[i] = dateTime;
-//                results[i] = ConcurrentIndex.GetUniqueIndex(key, dateTime);
-//                Thread.Sleep(TimeSpan.FromTicks(1));
-//            }
-//
-//            int z = 1;
-//        }
+            var resultA = TimeIndex.GetUnique(keyA);
+            var resultB = TimeIndex.GetUnique(keyB);
+            var resultC = TimeIndex.GetUnique(keyC);
 
+            Assert.AreEqual(0, resultA.Index);
+            Assert.AreEqual(0, resultB.Index);
+            Assert.AreEqual(0, resultC.Index);
+        }
 
 
     }
