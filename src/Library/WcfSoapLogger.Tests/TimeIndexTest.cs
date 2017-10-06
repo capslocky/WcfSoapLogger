@@ -17,7 +17,7 @@ namespace WcfSoapLogger.Tests
             const string key = "'alpha";
             const int count = 1000;
 
-            var taskArray = Enumerable.Range(0, count).Select(x => 
+            var taskArray = Enumerable.Range(0, count).Select(index => 
                 new Task<TimeIndex>(() =>
                     {
                         var timeIndex = TimeIndex.GetUnique(key);
@@ -29,14 +29,47 @@ namespace WcfSoapLogger.Tests
             Array.ForEach(taskArray, task => task.Start());
             Task.WaitAll(taskArray);
 
-            var results = taskArray.Select(task => task.Result).OrderBy(x => x.DateTime).ThenBy(x => x.Index).ToArray();
+            var results = taskArray.Select(task => task.Result).ToArray();
+
+            CheckResults(results);
+        }
+
+
+        [TestMethod]
+        public void MultipleThreadsWithSameArguments() 
+        {
+            const string key = "'beta";
+            const int count = 1000;
+
+            var results = new TimeIndex[count];
+        
+            var threadArray = Enumerable.Range(0, count).Select(index => 
+                new Thread(() =>
+                {
+                    var timeIndex = TimeIndex.GetUnique(key);
+                    results[index] = timeIndex;
+                    Trace.WriteLine("Result = " + timeIndex + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
+                }
+            )).ToArray();
+
+
+            Array.ForEach(threadArray, thread => thread.Start());
+            Array.ForEach(threadArray, thread => thread.Join());
+
+            CheckResults(results);
+        }
+
+
+        private void CheckResults(TimeIndex[] results)
+        {
+            results = results.OrderBy(x => x.DateTime).ThenBy(x => x.Index).ToArray();
 
             for (int i = 0; i < results.Length - 1; i++)
             {
                 var current = results[i];
                 var next = results[i + 1];
 
-                if(next.DateTime == current.DateTime && next.Index == (current.Index + 1))
+                if (next.DateTime == current.DateTime && next.Index == (current.Index + 1))
                 {
                     continue;
                 }
@@ -49,32 +82,6 @@ namespace WcfSoapLogger.Tests
                 Assert.Fail();
             }
         }
-
-
-//        [TestMethod]
-//        public void MultipleThreadsWithSameArguments() 
-//        {
-//            const string key = "'beta";
-//            DateTime datetime = new DateTime(2017, 01, 02);
-//            const int count = 100;
-//
-//            var results = new int[count];
-//        
-//            var threadArray = Enumerable.Range(0, count).Select(index => 
-//                new Thread(() =>
-//                {
-//                    int result = ConcurrentIndex.GetUniqueIndex(key, datetime);
-//                    results[index] = result;
-//                    Trace.WriteLine("Result = " + result.ToString("000") + "  Index = " + index.ToString("000") + " ThreadId = " + Thread.CurrentThread.ManagedThreadId);
-//                }
-//            )).ToArray();
-//
-//            Array.ForEach(threadArray, thread => thread.Start());
-//            Array.ForEach(threadArray, thread => thread.Join());
-//
-//            int uniqueCount = new HashSet<int>(results).Count;
-//            Assert.AreEqual(count, uniqueCount);
-//        }
 
 
 //        [TestMethod]

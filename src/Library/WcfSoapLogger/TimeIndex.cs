@@ -26,7 +26,7 @@ namespace WcfSoapLogger
 
         public override string ToString()
         {
-            return DateTime.ToString("yyyy-MM-dd HH:mm:ss.fff - ") + Index;
+            return DateTime.ToString("yyyy-MM-dd HH:mm:ss.fff // ") + Index.ToString("00");
         }
 
 

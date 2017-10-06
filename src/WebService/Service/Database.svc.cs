@@ -55,7 +55,7 @@ namespace Service
             SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
         }
 
-        public void LogResponseBody(byte[] responseBody)
+        private void LogResponseBody(byte[] responseBody)
         {
             Directory.CreateDirectory(LogDirectory);
             //            string filePath = Path.Combine(LogDirectory, "Response_" + Guid.NewGuid() + ".xml");

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Client.DatabaseService;
 
@@ -18,12 +19,26 @@ namespace Client
 
         private static void SpawnThreads()
         {
-            int count = 30;
+            int threadCount = 5;
 
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < threadCount; i++)
             {
                 int id = i;
-                var task = Task.Factory.StartNew(() => SendRequest(id));
+                Task.Factory.StartNew(() => SendMultipleRequests(id));
+            }
+        }
+
+        private static void SendMultipleRequests(int id)
+        {
+            Random random = new Random();
+
+            int messageCount = 20;
+
+            for (int i = 0; i < messageCount; i++)
+            {
+                int requestId = 1000 * id + i;
+                SendRequest(requestId);
+                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 3000)));
             }
         }
 

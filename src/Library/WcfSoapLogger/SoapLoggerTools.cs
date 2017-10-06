@@ -30,9 +30,20 @@ namespace WcfSoapLogger
 
         public static void WriteFile(string fileName, string text, byte[] bytes, bool error, string logPath) {
             fileName = fileName.Remove(fileName.Length - 3, 3);
+
+            var timeIndex = TimeIndex.GetUnique(fileName);
+
+            string dateTimeText = GetDateTimeText(timeIndex.DateTime);
+            fileName = dateTimeText + " @ " + fileName;
+
+            if (timeIndex.Index > 0)
+            {
+                fileName += "_" + timeIndex.Index.ToString("00");
+            }
+
             fileName += ".xml";
 
-            string folder = Path.Combine(logPath, DateTime.Now.ToString("yyyy-MM-dd"));
+            string folder = Path.Combine(logPath, timeIndex.DateTime.ToString("yyyy-MM-dd"));
             Directory.CreateDirectory(folder);
             string filePath = Path.Combine(folder, fileName);
 
@@ -91,13 +102,10 @@ namespace WcfSoapLogger
         }
 
         public static void LogBytes(byte[] bytes, bool response, string logPath) {
-            var thread = Thread.CurrentThread;
             //            string text = new UTF8Encoding().GetString(incomingBytes);
 
             var xmlDoc = new XmlDocument();
             var fileName = new StringBuilder();
-
-            AddFileNamePart(fileName, GetDateTimeText());
 
             try
             {
@@ -137,20 +145,8 @@ namespace WcfSoapLogger
 
 
 
-        public static string GetDateTimeText() {
-            DateTime dateTime = DateTime.Now;
-
+        public static string GetDateTimeText(DateTime dateTime) {
             string text = dateTime.ToString("yyyy-MM-dd") + " at " + dateTime.ToString("HH-mm-ss-fff");
-
-            //            fileName += "@ " + methodName;
-            //
-            //            int ordinal = GetConcurrentOrdinal(methodName, dateTime);
-            //
-            //            if (ordinal > 0)
-            //            {
-            //                fileName += "_" + ordinal.ToString("00");
-            //            }
-
             return text;
         }
 

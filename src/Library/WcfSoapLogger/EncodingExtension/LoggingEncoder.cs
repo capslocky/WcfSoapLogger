@@ -86,7 +86,6 @@ namespace WcfSoapLogger.EncodingExtension
                 return;
             }
 
-            Directory.CreateDirectory(_logPath);
             SoapLoggerTools.LogBytes(bytes, response, _logPath);
         }
 
