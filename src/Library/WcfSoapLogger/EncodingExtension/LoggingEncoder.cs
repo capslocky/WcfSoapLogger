@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading;
@@ -13,8 +14,7 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly LoggingEncoderFactory _factory;
         private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
-        private readonly string _logPath;
-        private readonly string _customCode;
+        private readonly SoapLoggerSettings _settings;
 
 
         public override string ContentType {
@@ -35,16 +35,18 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
+        public Guid InstanceID { get; private set; }
+
         public LoggingEncoder(LoggingEncoderFactory factory) {
             SoapLoggerThreadStatic.SetEncoder(this);
 
             _factory = factory;
-            _innerEncoder = factory.InnerMessageFactory.Encoder;
-            _contentType = _factory.MediaType;
-            _logPath = _factory.LogPath;
-            _customCode = _factory.CustomCode;
 
-            Directory.CreateDirectory(_logPath);
+            _innerEncoder = _factory.InnerMessageFactory.Encoder;
+            _contentType = _factory.MediaType;
+            _settings = _factory.Settings;
+
+            this.InstanceID = Guid.NewGuid();
         }
 
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {
@@ -76,17 +78,22 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        private void LogBytes(byte[] bytes, bool response)
+        private void LogBytes(byte[] bytes, bool writeMessage)
         {
-            bool customCode = !string.IsNullOrEmpty(_customCode) && Boolean.Parse(_customCode);
+            var thread = Thread.CurrentThread;
+            var context = Thread.CurrentContext;
 
-            if (customCode)
-            {
-                LogBytesCustomCode(bytes, response);
-                return;
-            }
+            bool response = writeMessage ^ _settings.IsClient;
 
-            SoapLoggerTools.LogBytes(bytes, response, _logPath);
+//            bool customCode = !string.IsNullOrEmpty(_customCode) && Boolean.Parse(_customCode);
+//
+//            if (customCode)
+//            {
+//                LogBytesCustomCode(bytes, response);
+//                return;
+//            }
+
+            SoapLoggerTools.LogBytes(bytes, response, _settings.LogPath);
         }
 
         private void LogBytesCustomCode(byte[] bytes, bool response)

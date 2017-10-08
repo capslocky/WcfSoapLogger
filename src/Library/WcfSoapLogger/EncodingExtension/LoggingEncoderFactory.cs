@@ -10,8 +10,7 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly string _charSet;
         private readonly MessageEncoderFactory _innerMessageFactory;
 
-        public string LogPath { get; set; }
-        public string CustomCode { get; set; }
+        public SoapLoggerSettings Settings { get; private set; }
 
         public override MessageEncoder Encoder {
             get {
@@ -43,10 +42,9 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
-        internal LoggingEncoderFactory(string mediaType, string charSet, MessageVersion version, MessageEncoderFactory messageFactory, string logPath, string customCode) {
-            LogPath = logPath;
-            CustomCode = customCode;
-
+        internal LoggingEncoderFactory(string mediaType, string charSet, MessageVersion version, MessageEncoderFactory messageFactory, SoapLoggerSettings settings)
+        {
+            this.Settings = settings;
             _version = version;
             _mediaType = mediaType;
             _charSet = charSet;

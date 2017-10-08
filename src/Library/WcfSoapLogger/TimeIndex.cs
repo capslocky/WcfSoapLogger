@@ -1,13 +1,27 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace WcfSoapLogger
 {
+    /* Problem: 
+     * There is always a probability to have 2 similar requests at the same moment of time.
+     * Which results in file name collisions. Let's take as example '2017-10-06 at 23-04-41-410 @ FindSimilar.xml'
+     * 
+     * Solution 1:
+     * Always add unique part to every file name, in this case it will look like this:
+     * '2017-10-06 at 23-04-41-410 @ c2c14a7f-8adb-4a78-8723-d3e0da98036a @ FindSimilar.xml'
+     * '2017-10-06 at 23-04-41-410 @ b3ba2f75-0784-4791-8266-df00efe0d678 @ FindSimilar.xml'
+     *  
+     * Solution 2:
+     * Add unique part only if needed. TimeIndex facilitates this approach.
+     * '2017-10-06 at 23-04-41-410 @ FindSimilar.xml'
+     * '2017-10-06 at 23-04-41-410 @ FindSimilar_1.xml'
+     *  
+     * Note:
+     * By default filenames are generated using only full datetime and soap operation name with solution 2 for collisions.
+     * But we can easily implement any custom logging logic. 
+     */
+
     public class TimeIndex
     {
         public DateTime DateTime { get; private set; }

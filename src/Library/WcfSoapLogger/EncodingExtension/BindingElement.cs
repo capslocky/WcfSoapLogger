@@ -11,8 +11,9 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly MessageVersion _messageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap11, AddressingVersion.None);
         private MessageEncodingBindingElement _innerBindingElement;
 
-        public string LogPath { get; set; }
-        public string CustomCode { get; set; }
+//        public string LogPath { get; set; }
+//        public string CustomCode { get; set; }
+        public SoapLoggerSettings Settings { get; set; }
 
         public MessageEncodingBindingElement InnerMessageEncodingBindingElement {
             get {
@@ -36,8 +37,8 @@ namespace WcfSoapLogger.EncodingExtension
 
         public BindingElement(string logPath, string customCode) : this(new TextMessageEncodingBindingElement())
         {
-            LogPath = logPath;
-            CustomCode = customCode;
+            this.Settings = new SoapLoggerSettings();
+            this.Settings.LogPath = logPath;
         }
 
         public BindingElement(MessageEncodingBindingElement messageEncoderBindingElement) 
@@ -47,13 +48,12 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
         public override MessageEncoderFactory CreateMessageEncoderFactory() {
-            return new LoggingEncoderFactory("text/xml", "utf-8", _messageVersion, _innerBindingElement.CreateMessageEncoderFactory(), LogPath, CustomCode);
+            return new LoggingEncoderFactory("text/xml", "utf-8", _messageVersion, _innerBindingElement.CreateMessageEncoderFactory(), this.Settings);
         }
 
         public override System.ServiceModel.Channels.BindingElement Clone() {
             return new BindingElement(_innerBindingElement) {
-                LogPath = LogPath,
-                CustomCode = CustomCode
+                Settings = this.Settings
             };
         }
 
@@ -61,20 +61,25 @@ namespace WcfSoapLogger.EncodingExtension
             return typeof(T) == typeof(XmlDictionaryReaderQuotas) ? _innerBindingElement.GetProperty<T>(context) : base.GetProperty<T>(context);
         }
 
+        public override bool CanBuildChannelFactory<TChannel>(BindingContext context)
+        {
+            if (context == null)
+                throw new ArgumentNullException("context");
+
+            context.BindingParameters.Add(this);
+
+            return context.CanBuildInnerChannelFactory<TChannel>();
+        }
+
         public override IChannelFactory<TChannel> BuildChannelFactory<TChannel>(BindingContext context) {
             if (context == null)
                 throw new ArgumentNullException("context");
+
+            this.Settings.IsService = false;
             context.BindingParameters.Add(this);
             return context.BuildInnerChannelFactory<TChannel>();
         }
 
-        public override IChannelListener<TChannel> BuildChannelListener<TChannel>(BindingContext context) {
-            if (context == null)
-                throw new ArgumentNullException("context");
-
-            context.BindingParameters.Add(this);
-            return context.BuildInnerChannelListener<TChannel>();
-        }
 
         public override bool CanBuildChannelListener<TChannel>(BindingContext context) {
             if (context == null)
@@ -84,8 +89,17 @@ namespace WcfSoapLogger.EncodingExtension
             return context.CanBuildInnerChannelListener<TChannel>();
         }
 
-        public void ExportContract(WsdlExporter exporter, WsdlContractConversionContext context) {
+        public override IChannelListener<TChannel> BuildChannelListener<TChannel>(BindingContext context) {
+            if (context == null)
+                throw new ArgumentNullException("context");
 
+            this.Settings.IsService = true;
+            context.BindingParameters.Add(this);
+            return context.BuildInnerChannelListener<TChannel>();
+        }
+
+
+        public void ExportContract(WsdlExporter exporter, WsdlContractConversionContext context) {
         }
 
         public void ExportEndpoint(WsdlExporter exporter, WsdlEndpointConversionContext context) {

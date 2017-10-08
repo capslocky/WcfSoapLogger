@@ -13,13 +13,16 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            SpawnThreads();
+            Console.WriteLine("Press any key to start client.");
             Console.ReadKey();
+
+            SpawnThreads();
+            Console.ReadLine();
         }
 
         private static void SpawnThreads()
         {
-            int threadCount = 5;
+            int threadCount = 3;
 
             for (int i = 0; i < threadCount; i++)
             {
@@ -38,7 +41,7 @@ namespace Client
             {
                 int requestId = 1000 * id + i;
                 SendRequest(requestId);
-                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 3000)));
+                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 300)));
             }
         }
 

@@ -104,6 +104,9 @@ namespace WcfSoapLogger
         public static void LogBytes(byte[] bytes, bool response, string logPath) {
             //            string text = new UTF8Encoding().GetString(incomingBytes);
 
+//            throw new InvalidOperationException("oops!");
+
+
             var xmlDoc = new XmlDocument();
             var fileName = new StringBuilder();
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Service
 {
-    public class Database : IDatabase//, ISoapLoggerService
+    public class Database : IDatabase
     {
         private const string LogDirectory = @"C:\SoapLogCustom";
 
@@ -23,7 +23,7 @@ namespace Service
             {
                 new JuiceInfo()
                 {
-                    Id = 5,
+                    Id = juice.Id,
                     Name = "Happy apple",
                     Location = "Warehouse Zeta",
                     Price = 430
