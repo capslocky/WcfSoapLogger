@@ -84,6 +84,8 @@ namespace WcfSoapLogger.Tests
         {
             results = results.OrderBy(x => x.DateTime).ThenBy(x => x.Index).ToArray();
 
+            Assert.AreEqual(0, results[0].Index);
+
             for (int i = 0; i < results.Length - 1; i++)
             {
                 var current = results[i];

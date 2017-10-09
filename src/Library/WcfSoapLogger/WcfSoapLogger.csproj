@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoapLoggerHandler.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="TimeIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

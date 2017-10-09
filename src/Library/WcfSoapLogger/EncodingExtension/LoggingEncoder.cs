@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.Text;
 using System.Threading;
-using System.Xml;
 
 namespace WcfSoapLogger.EncodingExtension
 {
@@ -15,7 +11,6 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
         private readonly SoapLoggerSettings _settings;
-
 
         public override string ContentType {
             get {
@@ -35,25 +30,19 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
-        public Guid InstanceID { get; private set; }
 
         public LoggingEncoder(LoggingEncoderFactory factory) {
-            SoapLoggerThreadStatic.SetEncoder(this);
-
             _factory = factory;
-
             _innerEncoder = _factory.InnerMessageFactory.Encoder;
             _contentType = _factory.MediaType;
             _settings = _factory.Settings;
-
-            this.InstanceID = Guid.NewGuid();
         }
 
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {
-            byte[] bytes = new byte[buffer.Count];
-            Array.Copy(buffer.Array, buffer.Offset, bytes, 0, bytes.Length);
+            byte[] body = new byte[buffer.Count];
+            Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
+            ProcessMessage(body, false);
 
-            LogBytes(bytes, false);
             return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
         }
 
@@ -66,10 +55,10 @@ namespace WcfSoapLogger.EncodingExtension
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) {
             ArraySegment<byte> arraySegment = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
 
-            var bytes = new byte[arraySegment.Count];
-            Array.Copy(arraySegment.Array, arraySegment.Offset, bytes, 0, bytes.Length);
+            var body = new byte[arraySegment.Count];
+            Array.Copy(arraySegment.Array, arraySegment.Offset, body, 0, body.Length);
+            ProcessMessage(body, true);
 
-            LogBytes(bytes, true);
             return arraySegment;
         }
 
@@ -78,36 +67,12 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        private void LogBytes(byte[] bytes, bool writeMessage)
+        private void ProcessMessage(byte[] body, bool writeMessage)
         {
-            var thread = Thread.CurrentThread;
-            var context = Thread.CurrentContext;
-
+            //XOR, because response is writeMessage on web-service and readMessage on client
             bool response = writeMessage ^ _settings.IsClient;
-
-//            bool customCode = !string.IsNullOrEmpty(_customCode) && Boolean.Parse(_customCode);
-//
-//            if (customCode)
-//            {
-//                LogBytesCustomCode(bytes, response);
-//                return;
-//            }
-
-            SoapLoggerTools.LogBytes(bytes, response, _settings.LogPath);
+            SoapLoggerHandler.ProcessBody(body, response, _settings);
         }
-
-        private void LogBytesCustomCode(byte[] bytes, bool response)
-        {
-            if (response)
-            {
-                SoapLoggerThreadStatic.Service.LogResponseBody(bytes);
-            }
-            else
-            {
-                SoapLoggerThreadStatic.RequestBody = bytes;
-            }
-        }
-
 
 
     }

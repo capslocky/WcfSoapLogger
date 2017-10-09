@@ -3,21 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WcfSoapLogger;
 
 namespace Service
 {
     public class Database : IDatabase
     {
-        private const string LogDirectory = @"C:\SoapLogCustom";
+        private const string LogDirectory = @"C:\SoapLogCustomService";
 
-        public JuiceInfo[] FindSimilar(JuiceInfo juice) {
-            //            byte[] requestBody;
-            //            SoapLoggerThreadStatic.SetService(this, out requestBody);
-            //
-            //            if (requestBody != null)
-            //            {
-            //                LogRequestBody(requestBody);
-            //            }
+        public JuiceInfo[] FindSimilar(JuiceInfo juice)
+        {
+
+            byte[] requestBody;
+            SoapLoggerSettings settings;
+
+            SoapLoggerThreadStatic.GetRequestSetResponse(out requestBody, out settings, ResponseCallback);
+            SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
+
 
             return new JuiceInfo[]
             {
@@ -37,6 +39,11 @@ namespace Service
                 },
             };
 
+        }
+
+        private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
+        {
+            SoapLoggerTools.LogBytes(responseBody, true, LogDirectory);
         }
 
 
