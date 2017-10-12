@@ -17,7 +17,7 @@ namespace Service
             byte[] requestBody;
             SoapLoggerSettings settings;
 
-            SoapLoggerThreadStatic.GetRequestSetResponse(out requestBody, out settings, ResponseCallback);
+            SoapLoggerForService.ReadRequestSetResponseCallback(out requestBody, out settings, ResponseCallback);
             SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
 
 

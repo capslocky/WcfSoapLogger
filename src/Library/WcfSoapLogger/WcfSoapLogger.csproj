@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SoapLoggerForClient.cs" />
     <Compile Include="SoapLoggerHandler.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="TimeIndex.cs" />
@@ -50,7 +51,7 @@
     <Compile Include="EncodingExtension\ExtensionElement.cs" />
     <Compile Include="EncodingExtension\LoggingEncoder.cs" />
     <Compile Include="EncodingExtension\LoggingEncoderFactory.cs" />
-    <Compile Include="SoapLoggerThreadStatic.cs" />
+    <Compile Include="SoapLoggerForService.cs" />
     <Compile Include="SoapLoggerTools.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,12 +30,11 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
-
         public LoggingEncoder(LoggingEncoderFactory factory) {
             _factory = factory;
-            _innerEncoder = _factory.InnerMessageFactory.Encoder;
-            _contentType = _factory.MediaType;
-            _settings = _factory.Settings;
+            _innerEncoder = factory.InnerMessageFactory.Encoder;
+            _contentType = factory.MediaType;
+            _settings = factory.Settings;
         }
 
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {

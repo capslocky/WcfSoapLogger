@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Client.DatabaseService;
+using WcfSoapLogger;
 
 namespace Client
 {
@@ -54,10 +55,28 @@ namespace Client
             juiceInfo.Name = "Amazing lemon";
             juiceInfo.Id = id;
 
+
+            SoapLoggerForClient.SetRequestAndResponseCallbacks(RequestCallback, ResponseCallback);
+
             var similarArray = client.FindSimilar(juiceInfo);
             Console.WriteLine(id + ": finished. Count: " + similarArray.Length);
         }
 
 
+        private const string LogDirectory = @"C:\SoapLogCustomClient";
+
+        private static void RequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
+        {
+            SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
+        }
+
+        private static void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings) 
+        {
+            SoapLoggerTools.LogBytes(responseBody, true, LogDirectory);
+        }
+
+
     }
+
+    
 }

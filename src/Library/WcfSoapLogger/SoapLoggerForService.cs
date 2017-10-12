@@ -2,7 +2,7 @@
 
 namespace WcfSoapLogger
 {
-    public static class SoapLoggerThreadStatic
+    public static class SoapLoggerForService
     {
         // 'ThreadStaticAttribute' makes static field unique for every separate thread
         // That's how we can relate intercepted request/response bodies with appropriate execution of external method
@@ -17,7 +17,7 @@ namespace WcfSoapLogger
         private static Action<byte[], SoapLoggerSettings> ResponseBodyCallback;
 
 
-        public static void GetRequestSetResponse(out byte[] requestBody, out SoapLoggerSettings settings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
+        public static void ReadRequestSetResponseCallback(out byte[] requestBody, out SoapLoggerSettings settings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
         {
             if (responseBodyCallback == null)
             {

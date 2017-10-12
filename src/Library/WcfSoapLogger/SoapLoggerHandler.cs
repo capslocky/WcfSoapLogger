@@ -10,15 +10,32 @@ namespace WcfSoapLogger
     {
         public static void ProcessBody(byte[] body, bool response, SoapLoggerSettings settings)
         {
+            //TODO allow disabling default logging from config
             SoapLoggerTools.LogBytes(body, response, settings.LogPath);
 
-            if (response)
+
+            if (settings.IsService)
             {
-                SoapLoggerThreadStatic.CallResponseCallback(body, settings);
+                if (response)
+                {
+                    SoapLoggerForService.CallResponseCallback(body, settings);
+                }
+                else
+                {
+                    SoapLoggerForService.SetRequestBody(body, settings);
+                }
             }
-            else
+
+            if (settings.IsClient)
             {
-                SoapLoggerThreadStatic.SetRequestBody(body, settings);
+                if (response)
+                {
+                    SoapLoggerForClient.CallResponseCallback(body, settings);
+                }
+                else
+                {
+                    SoapLoggerForClient.CallRequestCallback(body, settings);
+                }
             }
         }
     }
