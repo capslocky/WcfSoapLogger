@@ -47,8 +47,8 @@
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="TimeIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="EncodingExtension\BindingElement.cs" />
-    <Compile Include="EncodingExtension\ExtensionElement.cs" />
+    <Compile Include="EncodingExtension\LoggingBindingElement.cs" />
+    <Compile Include="EncodingExtension\LoggingExtensionElement.cs" />
     <Compile Include="EncodingExtension\LoggingEncoder.cs" />
     <Compile Include="EncodingExtension\LoggingEncoderFactory.cs" />
     <Compile Include="SoapLoggerForService.cs" />

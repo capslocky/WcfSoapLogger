@@ -30,14 +30,16 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
-        public LoggingEncoder(LoggingEncoderFactory factory) {
+        public LoggingEncoder(LoggingEncoderFactory factory) 
+        {
             _factory = factory;
             _innerEncoder = factory.InnerMessageFactory.Encoder;
             _contentType = factory.MediaType;
             _settings = factory.Settings;
         }
 
-        public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {
+        public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) 
+        {
             byte[] body = new byte[buffer.Count];
             Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
             HandleMessage(body, false);
@@ -45,13 +47,15 @@ namespace WcfSoapLogger.EncodingExtension
             return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
         }
 
-        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType) {
+        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType) 
+        {
             return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
         }
 
 
 
-        public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) {
+        public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) 
+        {
             ArraySegment<byte> arraySegment = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
 
             var body = new byte[arraySegment.Count];
@@ -61,7 +65,8 @@ namespace WcfSoapLogger.EncodingExtension
             return arraySegment;
         }
 
-        public override void WriteMessage(Message message, Stream stream) {
+        public override void WriteMessage(Message message, Stream stream) 
+        {
             _innerEncoder.WriteMessage(message, stream);
         }
 
@@ -72,7 +77,6 @@ namespace WcfSoapLogger.EncodingExtension
             bool request = writeMessage ^ _settings.IsService;
             SoapLoggerHandler.HandleBody(body, request, _settings);
         }
-
 
     }
 }

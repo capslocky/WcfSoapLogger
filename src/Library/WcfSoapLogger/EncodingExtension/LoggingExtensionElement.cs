@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Configuration;
+using System.ServiceModel.Channels;
 using System.ServiceModel.Configuration;
 
 namespace WcfSoapLogger.EncodingExtension
 {
-    public class ExtensionElement : BindingElementExtensionElement
+    public class LoggingExtensionElement : BindingElementExtensionElement
     {
         private const string LogPathName = "logPath";
         private const string UseCustomHandlerName = "useCustomHandler";
@@ -23,14 +24,15 @@ namespace WcfSoapLogger.EncodingExtension
             }
         }
 
-        protected override System.ServiceModel.Channels.BindingElement CreateBindingElement() {
-            var bindingElement = new BindingElement(LogPath, UseCustomHandler);
+        protected override BindingElement CreateBindingElement() 
+        {
+            var bindingElement = new LoggingBindingElement(LogPath, UseCustomHandler);
             ApplyConfiguration(bindingElement);
             return bindingElement;
         }
 
         public override Type BindingElementType {
-            get { return typeof(BindingElement); }
+            get { return typeof(LoggingBindingElement); }
         }
     }
 }
