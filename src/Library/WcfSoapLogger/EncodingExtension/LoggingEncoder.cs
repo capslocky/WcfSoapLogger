@@ -40,7 +40,7 @@ namespace WcfSoapLogger.EncodingExtension
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) {
             byte[] body = new byte[buffer.Count];
             Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
-            ProcessMessage(body, false);
+            HandleMessage(body, false);
 
             return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
         }
@@ -56,7 +56,7 @@ namespace WcfSoapLogger.EncodingExtension
 
             var body = new byte[arraySegment.Count];
             Array.Copy(arraySegment.Array, arraySegment.Offset, body, 0, body.Length);
-            ProcessMessage(body, true);
+            HandleMessage(body, true);
 
             return arraySegment;
         }
@@ -66,11 +66,11 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        private void ProcessMessage(byte[] body, bool writeMessage)
+        private void HandleMessage(byte[] body, bool writeMessage)
         {
-            //XOR, because response is writeMessage on web-service and readMessage on client
-            bool response = writeMessage ^ _settings.IsClient;
-            SoapLoggerHandler.ProcessBody(body, response, _settings);
+            //XOR, because request is writeMessage for client and readMessage for web-service
+            bool request = writeMessage ^ _settings.IsService;
+            SoapLoggerHandler.HandleBody(body, request, _settings);
         }
 
 

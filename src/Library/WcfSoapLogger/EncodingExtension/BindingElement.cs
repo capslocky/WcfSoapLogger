@@ -11,8 +11,6 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly MessageVersion _messageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap11, AddressingVersion.None);
         private MessageEncodingBindingElement _innerBindingElement;
 
-//        public string LogPath { get; set; }
-//        public string CustomCode { get; set; }
         public SoapLoggerSettings Settings { get; set; }
 
         public MessageEncodingBindingElement InnerMessageEncodingBindingElement {
@@ -35,10 +33,11 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        public BindingElement(string logPath, string customCode) : this(new TextMessageEncodingBindingElement())
+        public BindingElement(string logPath, string useCustomHandler) : this(new TextMessageEncodingBindingElement())
         {
             this.Settings = new SoapLoggerSettings();
             this.Settings.LogPath = logPath;
+            this.Settings.UseCustomHandler = useCustomHandler.Equals(Boolean.TrueString, StringComparison.InvariantCultureIgnoreCase);
         }
 
         public BindingElement(MessageEncodingBindingElement messageEncoderBindingElement) 

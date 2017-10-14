@@ -19,9 +19,11 @@ namespace WcfSoapLogger
 
         public static void ReadRequestSetResponseCallback(out byte[] requestBody, out SoapLoggerSettings settings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
         {
-            if (responseBodyCallback == null)
+            if (Settings == null)
             {
-                throw new ArgumentNullException("responseBodyCallback");
+                requestBody = null;
+                settings = null;
+                return;
             }
 
             if (RequestBody == null)
@@ -29,9 +31,9 @@ namespace WcfSoapLogger
                 throw new InvalidOperationException("RequestBody is null");
             }
 
-            if (Settings == null)
+            if (responseBodyCallback == null)
             {
-                throw new InvalidOperationException("Settings is null");
+                throw new ArgumentNullException("responseBodyCallback");
             }
 
             requestBody = RequestBody;

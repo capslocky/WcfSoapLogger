@@ -36,7 +36,7 @@ namespace Client
         {
             Random random = new Random();
 
-            int messageCount = 20;
+            int messageCount = 5;
 
             for (int i = 0; i < messageCount; i++)
             {
@@ -67,12 +67,12 @@ namespace Client
 
         private static void RequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
         {
-            SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
+            SoapLoggerTools.LogBytes(requestBody, true, LogDirectory);
         }
 
         private static void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings) 
         {
-            SoapLoggerTools.LogBytes(responseBody, true, LogDirectory);
+            SoapLoggerTools.LogBytes(responseBody, false, LogDirectory);
         }
 
 

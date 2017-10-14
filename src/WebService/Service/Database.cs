@@ -18,8 +18,11 @@ namespace Service
             SoapLoggerSettings settings;
 
             SoapLoggerForService.ReadRequestSetResponseCallback(out requestBody, out settings, ResponseCallback);
-            SoapLoggerTools.LogBytes(requestBody, false, LogDirectory);
 
+            if (settings != null)
+            {
+                SoapLoggerTools.LogBytes(requestBody, true, LogDirectory);
+            }
 
             return new JuiceInfo[]
             {
@@ -43,7 +46,7 @@ namespace Service
 
         private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-            SoapLoggerTools.LogBytes(responseBody, true, LogDirectory);
+            SoapLoggerTools.LogBytes(responseBody, false, LogDirectory);
         }
 
 

@@ -101,7 +101,7 @@ namespace WcfSoapLogger
             return node.InnerText;
         }
 
-        public static void LogBytes(byte[] bytes, bool response, string logPath) {
+        public static void LogBytes(byte[] bytes, bool request, string logPath) {
             //            string text = new UTF8Encoding().GetString(incomingBytes);
 
 //            throw new InvalidOperationException("oops!");
@@ -120,13 +120,13 @@ namespace WcfSoapLogger
                 AddFileNamePart(fileName, GetMethodName(xmlDoc));
                 AddFileNamePart(fileName, GetRequestId(xmlDoc));
 
-                if (response)
+                if (request)
                 {
-                    AddFileNamePart(fileName, Response);
+                    AddFileNamePart(fileName, GetProductIdentifier(xmlDoc));
                 }
                 else
                 {
-                    AddFileNamePart(fileName, GetProductIdentifier(xmlDoc));
+                    AddFileNamePart(fileName, Response);
                 }
 
                 string indentedXml = GetIndentedXml(xmlDoc);

@@ -6,35 +6,37 @@ using System.Threading.Tasks;
 
 namespace WcfSoapLogger
 {
-    public static class SoapLoggerHandler
+    internal static class SoapLoggerHandler
     {
-        public static void ProcessBody(byte[] body, bool response, SoapLoggerSettings settings)
+        internal static void HandleBody(byte[] body, bool request, SoapLoggerSettings settings)
         {
-            //TODO allow disabling default logging from config
-            SoapLoggerTools.LogBytes(body, response, settings.LogPath);
-
+            if (!settings.UseCustomHandler)
+            {
+                SoapLoggerTools.LogBytes(body, request, settings.LogPath);
+                return;
+            }
 
             if (settings.IsService)
             {
-                if (response)
+                if (request)
                 {
-                    SoapLoggerForService.CallResponseCallback(body, settings);
+                    SoapLoggerForService.SetRequestBody(body, settings);
                 }
                 else
                 {
-                    SoapLoggerForService.SetRequestBody(body, settings);
+                    SoapLoggerForService.CallResponseCallback(body, settings);
                 }
             }
 
             if (settings.IsClient)
             {
-                if (response)
+                if (request)
                 {
-                    SoapLoggerForClient.CallResponseCallback(body, settings);
+                    SoapLoggerForClient.CallRequestCallback(body, settings);
                 }
                 else
                 {
-                    SoapLoggerForClient.CallRequestCallback(body, settings);
+                    SoapLoggerForClient.CallResponseCallback(body, settings);
                 }
             }
         }

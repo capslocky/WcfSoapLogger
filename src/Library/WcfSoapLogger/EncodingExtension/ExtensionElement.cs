@@ -7,33 +7,24 @@ namespace WcfSoapLogger.EncodingExtension
     public class ExtensionElement : BindingElementExtensionElement
     {
         private const string LogPathName = "logPath";
-        private const string CustomCodeName = "customCode";
+        private const string UseCustomHandlerName = "useCustomHandler";
 
         [ConfigurationProperty(LogPathName, IsRequired = true)]
         public string LogPath {
             get {
                 return (string)base[LogPathName];
             }
-
-            set {
-                base[LogPathName] = value;
-            }
         }
 
-
-        [ConfigurationProperty(CustomCodeName, IsRequired = false)]
-        public string CustomCode {
+        [ConfigurationProperty(UseCustomHandlerName, IsRequired = false)]
+        public string UseCustomHandler {
             get {
-                return (string)base[CustomCodeName];
-            }
-
-            set {
-                base[CustomCodeName] = value;
+                return (string)base[UseCustomHandlerName];
             }
         }
 
         protected override System.ServiceModel.Channels.BindingElement CreateBindingElement() {
-            var bindingElement = new BindingElement(LogPath, CustomCode);
+            var bindingElement = new BindingElement(LogPath, UseCustomHandler);
             ApplyConfiguration(bindingElement);
             return bindingElement;
         }
