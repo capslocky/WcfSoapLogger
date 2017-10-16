@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml;
 
 namespace WcfSoapLogger
@@ -63,43 +59,7 @@ namespace WcfSoapLogger
         }
 
 
-        public static string GetRequestId(XmlDocument xmlDoc) {
-            XmlNode node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
-
-            if (node == null)
-            {
-                node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProductResponse", "SendProductResult", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersData", "metadata", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersDataResponse", "SendClustersDataResult", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            return node.InnerText;
-        }
-
-
-        public static string GetProductIdentifier(XmlDocument xmlDoc) {
-            XmlNode node = FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            return node.InnerText;
-        }
+       
 
         public static void LogBytes(byte[] bytes, bool request, string logPath) {
             //            string text = new UTF8Encoding().GetString(incomingBytes);
@@ -118,11 +78,9 @@ namespace WcfSoapLogger
                 }
 
                 AddFileNamePart(fileName, GetMethodName(xmlDoc));
-                AddFileNamePart(fileName, GetRequestId(xmlDoc));
 
                 if (request)
                 {
-                    AddFileNamePart(fileName, GetProductIdentifier(xmlDoc));
                 }
                 else
                 {
@@ -188,7 +146,7 @@ namespace WcfSoapLogger
         }
 
 
-        private static XmlNode FindNodeByPath(XmlDocument xmlDoc, params string[] array) {
+        public static XmlNode FindNodeByPath(XmlDocument xmlDoc, params string[] array) {
             int index = 0;
             XmlNode node = xmlDoc;
 

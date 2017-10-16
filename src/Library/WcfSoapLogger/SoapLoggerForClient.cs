@@ -31,8 +31,24 @@ namespace WcfSoapLogger
         {
             if (RequestBodyCallback != null)
             {
-                RequestBodyCallback(requestBody, settings);
-                RequestBodyCallback = null;
+                try
+                {
+                    RequestBodyCallback(requestBody, settings);
+                }
+                catch (Exception ex)
+                {
+                    //TODO save exception info
+                    HandleRequestError(requestBody, settings);
+                }
+                finally
+                {
+                    RequestBodyCallback = null;
+                }
+            }
+            else
+            {
+                //method 'SetRequestAndResponseCallbacks' has not been called by client
+                HandleRequestError(requestBody, settings);
             }
         }
 
@@ -41,11 +57,37 @@ namespace WcfSoapLogger
         {
             if (ResponseBodyCallback != null)
             {
-                ResponseBodyCallback(responseBody, settings);
-                ResponseBodyCallback = null;
+                try
+                {
+                    ResponseBodyCallback(responseBody, settings);
+                }
+                catch (Exception ex)
+                {
+                    //TODO save exception info
+                    HandleResponseError(responseBody, settings);
+                }
+                finally
+                {
+                    ResponseBodyCallback = null;
+                }
+            }
+            else
+            {
+                //method 'SetRequestAndResponseCallbacks' has not been called by client
+                HandleResponseError(responseBody, settings);
             }
         }
 
+
+        private static void HandleRequestError(byte[] requestBody, SoapLoggerSettings settings)
+        {
+            SoapLoggerTools.LogBytes(requestBody, true, settings.LogPath);
+        }
+
+        private static void HandleResponseError(byte[] responseBody, SoapLoggerSettings settings) 
+        {
+            SoapLoggerTools.LogBytes(responseBody, false, settings.LogPath);
+        }
 
     }
 }

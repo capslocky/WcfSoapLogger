@@ -17,6 +17,14 @@ namespace WcfSoapLogger
         private static Action<byte[], SoapLoggerSettings> ResponseBodyCallback;
 
 
+        internal static void SetRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
+        {
+            //TODO may be check fields for being null
+            RequestBody = requestBody;
+            Settings = settings;
+        }
+
+
         public static void ReadRequestSetResponseCallback(out byte[] requestBody, out SoapLoggerSettings settings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
         {
             if (Settings == null)
@@ -46,20 +54,42 @@ namespace WcfSoapLogger
         }
 
 
-        internal static void SetRequestBody(byte[] requestBody, SoapLoggerSettings settings)
-        {
-            //TODO may be check fields for being null
-            RequestBody = requestBody;
-            Settings = settings;
-        }
-
         internal static void CallResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
+            if (RequestBody != null)
+            {
+                //something went wrong, either pipeline execution didn't reach web-service method 
+                //or web-service method didn't call 'ReadRequestSetResponseCallback'
+                HandleRequestError(RequestBody, settings);
+                HandleResponseError(responseBody, settings);
+                return;
+            }
+
             if (ResponseBodyCallback != null)
             {
-                ResponseBodyCallback(responseBody, settings);
-                ResponseBodyCallback = null;
+                try
+                {
+                    ResponseBodyCallback(responseBody, settings);
+                }
+                catch (Exception ex)
+                {
+                    //TODO save exception info
+                    HandleResponseError(responseBody, settings);
+                }
+                finally
+                {
+                    ResponseBodyCallback = null;
+                }
             }
+        }
+        private static void HandleRequestError(byte[] requestBody, SoapLoggerSettings settings) 
+        {
+            SoapLoggerTools.LogBytes(requestBody, true, settings.LogPath);
+        }
+
+        private static void HandleResponseError(byte[] responseBody, SoapLoggerSettings settings) 
+        {
+            SoapLoggerTools.LogBytes(responseBody, false, settings.LogPath);
         }
     }
 }

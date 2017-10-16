@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using WcfSoapLogger;
 
 namespace Service
@@ -13,6 +14,7 @@ namespace Service
 
         public JuiceInfo[] FindSimilar(JuiceInfo juice)
         {
+//            throw new Exception("oops");
 
             byte[] requestBody;
             SoapLoggerSettings settings;
@@ -50,5 +52,44 @@ namespace Service
         }
 
 
+
+
+        public static string GetRequestId(XmlDocument xmlDoc) {
+            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
+
+            if (node == null)
+            {
+                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProductResponse", "SendProductResult", "RequestMessageId");
+            }
+
+            if (node == null)
+            {
+                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersData", "metadata", "RequestMessageId");
+            }
+
+            if (node == null)
+            {
+                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersDataResponse", "SendClustersDataResult", "RequestMessageId");
+            }
+
+            if (node == null)
+            {
+                return null;
+            }
+
+            return node.InnerText;
+        }
+
+
+        public static string GetProductIdentifier(XmlDocument xmlDoc) {
+            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
+
+            if (node == null)
+            {
+                return null;
+            }
+
+            return node.InnerText;
+        }
     }
 }
