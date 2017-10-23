@@ -10,9 +10,18 @@ namespace WcfSoapLogger
     {
         internal static void HandleBody(byte[] body, bool request, SoapLoggerSettings settings)
         {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
             if (!settings.UseCustomHandler)
             {
-                SoapLoggerTools.LogBytes(body, request, settings.LogPath);
+                SoapLoggerTools.WriteFileDefault(body, request, settings.LogPath);
                 return;
             }
 

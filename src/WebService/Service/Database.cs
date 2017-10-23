@@ -23,7 +23,7 @@ namespace Service
 
             if (settings != null)
             {
-                SoapLoggerTools.LogBytes(requestBody, true, LogDirectory);
+                SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
             }
 
             return new JuiceInfo[]
@@ -48,48 +48,48 @@ namespace Service
 
         private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-            SoapLoggerTools.LogBytes(responseBody, false, LogDirectory);
+            SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 
 
 
 
-        public static string GetRequestId(XmlDocument xmlDoc) {
-            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
-
-            if (node == null)
-            {
-                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProductResponse", "SendProductResult", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersData", "metadata", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersDataResponse", "SendClustersDataResult", "RequestMessageId");
-            }
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            return node.InnerText;
-        }
-
-
-        public static string GetProductIdentifier(XmlDocument xmlDoc) {
-            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
-
-            if (node == null)
-            {
-                return null;
-            }
-
-            return node.InnerText;
-        }
+//        public static string GetRequestId(XmlDocument xmlDoc) {
+//            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
+//
+//            if (node == null)
+//            {
+//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProductResponse", "SendProductResult", "RequestMessageId");
+//            }
+//
+//            if (node == null)
+//            {
+//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersData", "metadata", "RequestMessageId");
+//            }
+//
+//            if (node == null)
+//            {
+//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersDataResponse", "SendClustersDataResult", "RequestMessageId");
+//            }
+//
+//            if (node == null)
+//            {
+//                return null;
+//            }
+//
+//            return node.InnerText;
+//        }
+//
+//
+//        public static string GetProductIdentifier(XmlDocument xmlDoc) {
+//            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
+//
+//            if (node == null)
+//            {
+//                return null;
+//            }
+//
+//            return node.InnerText;
+//        }
     }
 }

@@ -81,12 +81,12 @@ namespace WcfSoapLogger
 
         private static void HandleRequestError(byte[] requestBody, SoapLoggerSettings settings)
         {
-            SoapLoggerTools.LogBytes(requestBody, true, settings.LogPath);
+            SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
         }
 
         private static void HandleResponseError(byte[] responseBody, SoapLoggerSettings settings) 
         {
-            SoapLoggerTools.LogBytes(responseBody, false, settings.LogPath);
+            SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
         }
 
     }

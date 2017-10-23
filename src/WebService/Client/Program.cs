@@ -68,13 +68,13 @@ namespace Client
         private static void RequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
         {
 //            throw new Exception("oops");
-            SoapLoggerTools.LogBytes(requestBody, true, LogDirectory);
+            SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
         }
 
         private static void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings) 
         {
 //            throw new Exception("oops");
-            SoapLoggerTools.LogBytes(responseBody, false, LogDirectory);
+            SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 
 

@@ -11,11 +11,21 @@ namespace Service
     {
         static void Main(string[] args) 
         {
-            Console.WriteLine("Press any key to start service.");
-            Console.ReadKey();
+//            Console.WriteLine("Press any key to start service.");
+//            Console.ReadKey();
 
             var serviceHost = new ServiceHost(typeof(Database));
-            serviceHost.Open();
+
+            try
+            {
+                serviceHost.Open();
+            }
+            catch (AddressAccessDeniedException)
+            {
+                Console.WriteLine("ERROR. Please run this application with needed rights.");
+                throw;
+            }
+
             Console.WriteLine("Service started.");
 
             Console.WriteLine("Press Enter to stop.");

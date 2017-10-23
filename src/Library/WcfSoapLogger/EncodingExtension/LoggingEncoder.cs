@@ -58,7 +58,7 @@ namespace WcfSoapLogger.EncodingExtension
         {
             ArraySegment<byte> arraySegment = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
 
-            var body = new byte[arraySegment.Count];
+            byte[] body = new byte[arraySegment.Count];
             Array.Copy(arraySegment.Array, arraySegment.Offset, body, 0, body.Length);
             HandleMessage(body, true);
 
