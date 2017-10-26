@@ -24,6 +24,8 @@ namespace WcfSoapLogger
 
     public class TimeIndex
     {
+        public const string DateTimeMask = "yyyy-MM-dd HH:mm:ss.fff";
+
         public DateTime DateTime { get; private set; }
         public int Index { get; private set; }
 
@@ -40,7 +42,7 @@ namespace WcfSoapLogger
 
         public override string ToString()
         {
-            return DateTime.ToString("yyyy-MM-dd HH:mm:ss.fff") + Index.ToString(" / 00");
+            return DateTime.ToString(DateTimeMask) + Index.ToString(" / 00");
         }
 
 
@@ -65,10 +67,17 @@ namespace WcfSoapLogger
                     {
                         time.Index++;
                     }
-                    else
+                    else if (time.DateTime < now)
                     {
                         time.DateTime = now;
                         time.Index = 0;
+                    }
+                    else
+                    {
+                        //very rare and strange case (time.DateTime > now)
+                        time.Index++;
+                        throw new InvalidOperationException(string.Format("Temporary exception. 'time.DateTime > now' '{0}' > '{1}'", 
+                            time.DateTime.ToString(DateTimeMask), now.ToString(DateTimeMask)));
                     }
 
                     return time.GetCopy();

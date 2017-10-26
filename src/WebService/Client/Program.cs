@@ -23,7 +23,7 @@ namespace Client
 
         private static void SpawnThreads()
         {
-            int threadCount = 3;
+            int threadCount = 5;
 
             for (int i = 0; i < threadCount; i++)
             {
@@ -34,15 +34,15 @@ namespace Client
 
         private static void SendMultipleRequests(int id)
         {
-            Random random = new Random();
+//            Random random = new Random();
 
-            int messageCount = 5;
+            int messageCount = 10;
 
             for (int i = 0; i < messageCount; i++)
             {
                 int requestId = 1000 * id + i;
                 SendRequest(requestId);
-                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 300)));
+//                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 300)));
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.ServiceModel.Channels;
+using System.Text;
 using System.Threading;
 
 namespace WcfSoapLogger.EncodingExtension
@@ -42,7 +43,16 @@ namespace WcfSoapLogger.EncodingExtension
         {
             byte[] body = new byte[buffer.Count];
             Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
-            HandleMessage(body, false);
+
+            try
+            {
+                HandleMessage(body, false);
+            }
+            catch (FileSystemAcccesDeniedException ex)
+            {
+                string xmlError = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body></s:Body></s:Envelope>";
+                buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(xmlError));
+            }
 
             return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
         }
@@ -60,9 +70,23 @@ namespace WcfSoapLogger.EncodingExtension
 
             byte[] body = new byte[arraySegment.Count];
             Array.Copy(arraySegment.Array, arraySegment.Offset, body, 0, body.Length);
-            HandleMessage(body, true);
+
+            try
+            {
+                HandleMessage(body, true);
+            }
+            catch (FileSystemAcccesDeniedException ex)
+            {
+                arraySegment = new ArraySegment<byte>(ErrorText(ex.Message));
+            }
 
             return arraySegment;
+        }
+
+        private byte[] ErrorText(string text)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes("Error. " + text);
+            return bytes;
         }
 
         public override void WriteMessage(Message message, Stream stream) 
