@@ -39,22 +39,18 @@ namespace WcfSoapLogger.EncodingExtension
             _settings = factory.Settings;
         }
 
+
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) 
         {
-            byte[] body = new byte[buffer.Count];
-            Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
+            ArraySegment<byte> bufferError = HandleMessage(buffer, false);
 
-            try
+            if (bufferError.Count > 0)
             {
-                HandleMessage(body, false);
-            }
-            catch (FileSystemAcccesDeniedException ex)
-            {
-                string xmlError = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body></s:Body></s:Envelope>";
-                buffer = new ArraySegment<byte>(Encoding.UTF8.GetBytes(xmlError));
+                buffer = bufferError;
             }
 
-            return _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
+            var message = _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
+            return message;
         }
 
         public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType) 
@@ -63,30 +59,17 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) 
         {
-            ArraySegment<byte> arraySegment = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
+            ArraySegment<byte> buffer = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
+            ArraySegment<byte> bufferError = HandleMessage(buffer, true);
 
-            byte[] body = new byte[arraySegment.Count];
-            Array.Copy(arraySegment.Array, arraySegment.Offset, body, 0, body.Length);
-
-            try
+            if (bufferError.Count > 0)
             {
-                HandleMessage(body, true);
-            }
-            catch (FileSystemAcccesDeniedException ex)
-            {
-                arraySegment = new ArraySegment<byte>(ErrorText(ex.Message));
+                buffer = bufferError;
             }
 
-            return arraySegment;
-        }
-
-        private byte[] ErrorText(string text)
-        {
-            byte[] bytes = Encoding.UTF8.GetBytes("Error. " + text);
-            return bytes;
+            return buffer;
         }
 
         public override void WriteMessage(Message message, Stream stream) 
@@ -95,11 +78,33 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        private void HandleMessage(byte[] body, bool writeMessage)
+        private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage) 
         {
             //XOR, because request is writeMessage for client and readMessage for web-service
             bool request = writeMessage ^ _settings.IsService;
-            SoapLoggerHandler.HandleBody(body, request, _settings);
+
+            byte[] body = new byte[buffer.Count];
+            Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
+
+            Handler handler;
+
+            if (_settings.IsService)
+            {
+                handler = request ? (Handler) new HandlerServiceRequest() : new HandlerServiceResponse();
+            }
+            else
+            {
+                handler = request ? (Handler) new HandlerClientRequest() : new HandlerClientResponse();
+            }
+
+            byte[] errorBody =  handler.HandleBody(_settings, body);
+
+            if (errorBody != null)
+            {
+                return new ArraySegment<byte>(errorBody);
+            }
+
+            return new ArraySegment<byte>();
         }
 
     }

@@ -8,7 +8,7 @@ namespace WcfSoapLogger
 {
     public class FileSystemAcccesDeniedException : Exception
     {
-        public FileSystemAcccesDeniedException() 
+        public FileSystemAcccesDeniedException() : base("No access to file system.")
         {
         }
 

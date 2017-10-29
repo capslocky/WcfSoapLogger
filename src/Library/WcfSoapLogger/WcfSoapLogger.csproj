@@ -43,6 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystemAcccesDeniedException.cs" />
+    <Compile Include="HandlerClientRequest.cs" />
+    <Compile Include="HandlerClientResponse.cs" />
+    <Compile Include="Handler.cs" />
+    <Compile Include="HandlerServiceRequest.cs" />
+    <Compile Include="HandlerServiceResponse.cs" />
     <Compile Include="SoapLoggerForClient.cs" />
     <Compile Include="SoapLoggerHandler.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
