@@ -41,8 +41,17 @@ namespace Client
             for (int i = 0; i < messageCount; i++)
             {
                 int requestId = 1000 * id + i;
-                SendRequest(requestId);
-//                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 300)));
+
+                try
+                {
+                    SendRequest(requestId);
+                    //                Thread.Sleep(TimeSpan.FromMilliseconds(random.Next(0, 300)));    
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.ToString());
+                    break;
+                }
             }
         }
 
@@ -55,7 +64,6 @@ namespace Client
             juiceInfo.Name = "Amazing lemon";
             juiceInfo.Id = id;
 
-
             SoapLoggerForClient.SetRequestAndResponseCallbacks(RequestCallback, ResponseCallback);
 
             var similarArray = client.FindSimilar(juiceInfo);
@@ -67,13 +75,13 @@ namespace Client
 
         private static void RequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
         {
-//            throw new Exception("oops");
+//            throw new Exception("Problem in Client - RequestCallback"); //TODO message is lost now
             SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
         }
 
         private static void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings) 
         {
-//            throw new Exception("oops");
+//            throw new Exception("Problem in Client - ResponseCallback"); //TODO message is lost now
             SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 

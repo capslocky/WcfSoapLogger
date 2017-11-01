@@ -1,23 +1,26 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Security.Principal;
 
 namespace WcfSoapLogger
 {
-    public class FileSystemAcccesDeniedException : Exception
+    public class FileSystemAcccesDeniedException : LoggerException
     {
-        public FileSystemAcccesDeniedException() : base("No access to file system.")
+        private readonly string originalMessage;
+        private readonly string currentUserName;
+
+        public FileSystemAcccesDeniedException(UnauthorizedAccessException ex) : base(null, ex)
         {
+            //"Access to the path 'C:\SoapLogDefaultService\2017-10-31' is denied."
+            originalMessage = ex.Message;
+
+            //never returns null
+            currentUserName = WindowsIdentity.GetCurrent().Name;
         }
 
-        public FileSystemAcccesDeniedException(string message): base(message)
-        {
-        }
-
-        public FileSystemAcccesDeniedException(string message, Exception inner): base(message, inner)
-        {
+        public override string Message{
+            get{
+                return originalMessage + " You need grant access to the user: " + currentUserName;
+            }
         }
     }
 }

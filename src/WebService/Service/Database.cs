@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -14,17 +15,19 @@ namespace Service
 
         public JuiceInfo[] FindSimilar(JuiceInfo juice)
         {
-//            throw new Exception("oops");
+//            throw new InvalidOperationException("Oops, went wrong.");
 
             byte[] requestBody;
             SoapLoggerSettings settings;
 
             SoapLoggerForService.ReadRequestSetResponseCallback(out requestBody, out settings, ResponseCallback);
 
-            if (settings != null)
+            if (requestBody != null)
             {
                 SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
             }
+
+            var context = OperationContext.Current;
 
             return new JuiceInfo[]
             {
@@ -48,6 +51,7 @@ namespace Service
 
         private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
+//            throw new InvalidOperationException("Problem in Service - ResponseCallback.");
             SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 

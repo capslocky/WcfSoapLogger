@@ -8,9 +8,16 @@ namespace WcfSoapLogger
 {
     internal class HandlerServiceResponse : Handler
     {
-        internal override byte[] HandleBody(SoapLoggerSettings settings, byte[] body)
+        internal override bool IsRequest {
+            get{
+                return false;
+            }
+        }
+
+        protected override string CustomHandler(SoapLoggerSettings settings, byte[] body) 
         {
-            throw new NotImplementedException();
+            SoapLoggerForService.CallResponseCallback(body, settings);
+            return null;
         }
     }
 }

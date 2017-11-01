@@ -45,62 +45,19 @@ namespace WcfSoapLogger
 
             string folder = Path.Combine(logPath, timeIndex.DateTime.ToString("yyyy-MM-dd"));
 
-            try
-            {
-                Directory.CreateDirectory(folder);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                throw new FileSystemAcccesDeniedException("No access to file system", ex);
-            }
-            catch (Exception ex)
-            {
-                throw; //TODO
-            }
+            FileSystem.CreateDirectory(folder);
 
             string filePath = Path.Combine(folder, fileName);
 
             if (text != null)
             {
-                try
-                {
-                    File.WriteAllText(filePath, text);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    throw; //TODO
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    throw new FileSystemAcccesDeniedException("No access to file system", ex);
-                }
-                catch (Exception ex)
-                {
-                    throw; //TODO
-                }
-
+                FileSystem.WriteAllText(filePath, text);
                 return;
             }
 
             if (bytes != null)
             {
-                try
-                {
-                    File.WriteAllBytes(filePath, bytes);
-                }
-                catch (DirectoryNotFoundException ex)
-                {
-                    throw; //TODO
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    throw new FileSystemAcccesDeniedException("No access to file system", ex);
-                }
-                catch (Exception ex)
-                {
-                    throw; //TODO
-                }
-
+                FileSystem.WriteAllBytes(filePath, bytes);
                 return;
             }
 
@@ -141,10 +98,6 @@ namespace WcfSoapLogger
                 string indentedXml = GetIndentedXml(xmlDoc);
 
                 WriteFile(fileName.ToString(), indentedXml, null, false, logPath);
-            }
-            catch (FileSystemAcccesDeniedException)
-            {
-                throw;
             }
             catch (Exception ex)
             {

@@ -15,12 +15,12 @@ namespace WcfSoapLogger
         {
             if (requestBodyCallback == null)
             {
-                throw new ArgumentNullException("requestBodyCallback");
+                throw new ArgumentNullException(nameof(requestBodyCallback));
             }
 
             if (responseBodyCallback == null)
             {
-                throw new ArgumentNullException("responseBodyCallback");
+                throw new ArgumentNullException(nameof(responseBodyCallback));
             }
 
             RequestBodyCallback = requestBodyCallback;
@@ -29,65 +29,39 @@ namespace WcfSoapLogger
 
         internal static void CallRequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
         {
-            if (RequestBodyCallback != null)
+            if (RequestBodyCallback == null)
             {
-                try
-                {
-                    RequestBodyCallback(requestBody, settings);
-                }
-                catch (Exception ex)
-                {
-                    //TODO save exception info
-                    HandleRequestError(requestBody, settings);
-                }
-                finally
-                {
-                    RequestBodyCallback = null;
-                }
+                throw new LoggerException("method 'SetRequestAndResponseCallbacks' has not been called by client");
             }
-            else
+
+            try
             {
-                //method 'SetRequestAndResponseCallbacks' has not been called by client
-                HandleRequestError(requestBody, settings);
+                RequestBodyCallback(requestBody, settings);
+            }
+            finally
+            {
+                RequestBodyCallback = null;
             }
         }
 
 
         internal static void CallResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-            if (ResponseBodyCallback != null)
+            if (ResponseBodyCallback == null)
             {
-                try
-                {
-                    ResponseBodyCallback(responseBody, settings);
-                }
-                catch (Exception ex)
-                {
-                    //TODO save exception info
-                    HandleResponseError(responseBody, settings);
-                }
-                finally
-                {
-                    ResponseBodyCallback = null;
-                }
+                throw new LoggerException("method 'SetRequestAndResponseCallbacks' has not been called by client");
             }
-            else
+
+            try
             {
-                //method 'SetRequestAndResponseCallbacks' has not been called by client
-                HandleResponseError(responseBody, settings);
+                ResponseBodyCallback(responseBody, settings);
+            }
+            finally
+            {
+                ResponseBodyCallback = null;
             }
         }
 
-
-        private static void HandleRequestError(byte[] requestBody, SoapLoggerSettings settings)
-        {
-            SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
-        }
-
-        private static void HandleResponseError(byte[] responseBody, SoapLoggerSettings settings) 
-        {
-            SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
-        }
 
     }
 }

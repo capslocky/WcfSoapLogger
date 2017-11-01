@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -42,14 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorBody.cs" />
+    <Compile Include="FileSystem.cs" />
     <Compile Include="FileSystemAcccesDeniedException.cs" />
     <Compile Include="HandlerClientRequest.cs" />
     <Compile Include="HandlerClientResponse.cs" />
     <Compile Include="Handler.cs" />
     <Compile Include="HandlerServiceRequest.cs" />
     <Compile Include="HandlerServiceResponse.cs" />
+    <Compile Include="LoggerException.cs" />
     <Compile Include="SoapLoggerForClient.cs" />
-    <Compile Include="SoapLoggerHandler.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="TimeIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -76,8 +76,10 @@ namespace WcfSoapLogger
                     {
                         //very rare and strange case (time.DateTime > now)
                         time.Index++;
-                        throw new InvalidOperationException(string.Format("Temporary exception. 'time.DateTime > now' '{0}' > '{1}'", 
+#if DEBUG
+                        throw new InvalidOperationException(string.Format("Debug-only exception. 'time.DateTime > now' '{0}' > '{1}'", 
                             time.DateTime.ToString(DateTimeMask), now.ToString(DateTimeMask)));
+#endif
                     }
 
                     return time.GetCopy();

@@ -19,7 +19,6 @@ namespace WcfSoapLogger
 
         internal static void SetRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
         {
-            //TODO may be check fields for being null
             RequestBody = requestBody;
             Settings = settings;
         }
@@ -41,7 +40,7 @@ namespace WcfSoapLogger
 
             if (responseBodyCallback == null)
             {
-                throw new ArgumentNullException("responseBodyCallback");
+                throw new ArgumentNullException(nameof(responseBodyCallback));
             }
 
             requestBody = RequestBody;
@@ -60,9 +59,8 @@ namespace WcfSoapLogger
             {
                 //something went wrong, either pipeline execution didn't reach web-service method 
                 //or web-service method didn't call 'ReadRequestSetResponseCallback'
-                HandleRequestError(RequestBody, settings);
-                HandleResponseError(responseBody, settings);
-                return;
+
+                throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method ");
             }
 
             if (ResponseBodyCallback != null)
@@ -71,25 +69,11 @@ namespace WcfSoapLogger
                 {
                     ResponseBodyCallback(responseBody, settings);
                 }
-                catch (Exception ex)
-                {
-                    //TODO save exception info
-                    HandleResponseError(responseBody, settings);
-                }
                 finally
                 {
                     ResponseBodyCallback = null;
                 }
             }
-        }
-        private static void HandleRequestError(byte[] requestBody, SoapLoggerSettings settings) 
-        {
-            SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
-        }
-
-        private static void HandleResponseError(byte[] responseBody, SoapLoggerSettings settings) 
-        {
-            SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
         }
     }
 }

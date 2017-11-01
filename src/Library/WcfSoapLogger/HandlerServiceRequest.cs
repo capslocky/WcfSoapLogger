@@ -8,19 +8,15 @@ namespace WcfSoapLogger
 {
     internal class HandlerServiceRequest : Handler
     {
-        internal override byte[] HandleBody(SoapLoggerSettings settings, byte[] body)
-        {
-            try
-            {
-                throw new NotImplementedException();
+        internal override bool IsRequest {
+            get{
+                return true;
             }
-            catch (Exception ex)
-            {
-                string xmlError = "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body></s:Body></s:Envelope>";
-                byte[] errorBody = Encoding.UTF8.GetBytes(xmlError);
-                return errorBody;
-            }
+        }
 
+        protected override string CustomHandler(SoapLoggerSettings settings, byte[] body)
+        {
+            SoapLoggerForService.SetRequestBody(body, settings);
             return null;
         }
     }

@@ -6,7 +6,7 @@ namespace WcfSoapLogger.EncodingExtension
     {
         internal SoapLoggerSettings Settings { get; }
         internal string MediaType { get; }
-        internal string CharSet { get; }
+//        internal string CharSet { get; }
         internal MessageEncoderFactory InnerMessageFactory { get; }
 
         public override MessageVersion MessageVersion { get; }
@@ -16,7 +16,7 @@ namespace WcfSoapLogger.EncodingExtension
         {
             Settings = settings;
             MediaType = mediaType;
-            CharSet = charSet;
+//            CharSet = charSet;
             MessageVersion = version;
             InnerMessageFactory = messageFactory;
             Encoder = new LoggingEncoder(this);
