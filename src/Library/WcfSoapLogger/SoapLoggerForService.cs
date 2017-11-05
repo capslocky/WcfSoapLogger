@@ -16,6 +16,9 @@ namespace WcfSoapLogger
         [ThreadStatic]
         private static Action<byte[], SoapLoggerSettings> ResponseBodyCallback;
 
+        [ThreadStatic]
+        private static Exception RequestException;
+
 
         internal static void SetRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
         {
@@ -23,13 +26,12 @@ namespace WcfSoapLogger
             Settings = settings;
         }
 
-
-        public static void ReadRequestSetResponseCallback(out byte[] requestBody, out SoapLoggerSettings settings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
+        public static void ReadRequestSetResponseCallback(out byte[] outRequestBody, out SoapLoggerSettings outSettings, Action<byte[], SoapLoggerSettings> responseBodyCallback)
         {
             if (Settings == null)
             {
-                requestBody = null;
-                settings = null;
+                outRequestBody = null;
+                outSettings = null;
                 return;
             }
 
@@ -43,8 +45,8 @@ namespace WcfSoapLogger
                 throw new ArgumentNullException(nameof(responseBodyCallback));
             }
 
-            requestBody = RequestBody;
-            settings = Settings;
+            outRequestBody = RequestBody;
+            outSettings = Settings;
 
             RequestBody = null;
             Settings = null;
@@ -60,6 +62,8 @@ namespace WcfSoapLogger
                 //something went wrong, either pipeline execution didn't reach web-service method 
                 //or web-service method didn't call 'ReadRequestSetResponseCallback'
 
+                //TODO determine case and log both files for first case
+
                 throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method or web-service method didn't call 'ReadRequestSetResponseCallback'");
             }
 
@@ -74,6 +78,19 @@ namespace WcfSoapLogger
                     ResponseBodyCallback = null;
                 }
             }
+        }
+
+        internal static void SetRequestException(Exception ex)
+        {
+            RequestException = ex;
+        }
+
+
+        internal static Exception GetRequestException() 
+        {
+            var ex = RequestException;
+            RequestException = null;
+            return ex;
         }
     }
 }

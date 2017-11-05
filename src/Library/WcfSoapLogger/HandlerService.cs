@@ -23,19 +23,13 @@ namespace WcfSoapLogger
 
         protected override byte[] GetRequestErrorBody(Exception ex)
         {
-            string message = null;
+            //this can happen only with default handler
+            //typically when lacking access to file system 
+            SoapLoggerForService.SetRequestException(ex);
 
-            if (ex is LoggerException)
-            {
-                message = ex.Message;
-            }
-            else
-            {
-                message = ex.ToString();
-            }
-
-            byte[] errorBody = Encoding.UTF8.GetBytes(message);  //TODO
-            return errorBody;
+            //in order to force HTTP 500 Internal Server Error and avoid processing
+            //we overwrite request with deliberately invalid body
+            return ErrorBody.GetSoapInvalidRequest();
         }
 
         protected override byte[] GetResponseErrorBody(Exception ex)

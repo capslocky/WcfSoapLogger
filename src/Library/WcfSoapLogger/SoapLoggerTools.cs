@@ -13,7 +13,8 @@ namespace WcfSoapLogger
     {
         private const string Response = "Response";
 
-        public static void AddFileNamePart(StringBuilder fileName, string value) {
+        public static void AddFileNamePart(StringBuilder fileName, string value)
+        {
             if (value == null)
             {
                 return;
@@ -28,7 +29,8 @@ namespace WcfSoapLogger
             fileName.Append(value).Append("_");
         }
 
-        public static void WriteFile(string fileName, string text, byte[] bytes, bool error, string logPath) {
+        public static void WriteFile(string fileName, string text, byte[] bytes, string logPath)
+        {
             fileName = fileName.Remove(fileName.Length - 1, 1);
 
             var timeIndex = TimeIndex.GetUnique(fileName);
@@ -68,10 +70,6 @@ namespace WcfSoapLogger
        
 
         public static void WriteFileDefault(byte[] bytes, bool request, string logPath) {
-//            string text = new UTF8Encoding().GetString(bytes);
-//            throw new InvalidOperationException("oops!");
-
-
             var fileName = new StringBuilder();
 
             try
@@ -82,7 +80,6 @@ namespace WcfSoapLogger
                 {
                     xmlDoc = XDocument.Load(reader);
                 }
-
 
                 AddFileNamePart(fileName, GetSoapOperationName(xmlDoc));
 
@@ -97,15 +94,19 @@ namespace WcfSoapLogger
 
                 string indentedXml = GetIndentedXml(xmlDoc);
 
-                WriteFile(fileName.ToString(), indentedXml, null, false, logPath);
+                WriteFile(fileName.ToString(), indentedXml, null, logPath);
+            }
+            catch (FileSystemAcccesDeniedException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
                 AddFileNamePart(fileName, "ERROR");
-                WriteFile(fileName.ToString(), null, bytes, true, logPath);
+                WriteFile(fileName.ToString(), null, bytes, logPath);
 
                 AddFileNamePart(fileName, "exception");
-                WriteFile(fileName.ToString(), ex.ToString(), null, true, logPath);
+                WriteFile(fileName.ToString(), ex.ToString(), null, logPath);
             }
         }
 

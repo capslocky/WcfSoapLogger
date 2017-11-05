@@ -19,7 +19,7 @@ namespace WcfSoapLogger
 
         public override string Message{
             get{
-                return originalMessage + " You need grant access to the user: " + currentUserName;
+                return originalMessage + " You need to grant access to the user: " + currentUserName;
             }
         }
     }

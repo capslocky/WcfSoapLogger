@@ -80,6 +80,7 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
+
         private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage)
         {
             //XOR, because request is writeMessage for client and readMessage for web-service
@@ -88,7 +89,7 @@ namespace WcfSoapLogger.EncodingExtension
             try
             {
                 byte[] body = new byte[buffer.Count];
-                Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length); //TODO check if already normal array
+                Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
 
                 _handler.HandleBody(body, request);
                 return new ArraySegment<byte>();

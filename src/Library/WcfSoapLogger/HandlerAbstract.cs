@@ -14,8 +14,20 @@ namespace WcfSoapLogger
             this.settings = settings;
         }
 
+        //Debug.QuickWatch: Encoding.UTF8.GetString(body)
+
         internal void HandleBody(byte[] body, bool request)
         {
+            if (settings.IsService && !request)
+            {
+                var requestException = SoapLoggerForService.GetRequestException();
+
+                if (requestException != null)
+                {
+                    throw requestException;
+                }
+            }
+
             if (settings.UseCustomHandler)
             {
                 if (request)
@@ -30,6 +42,7 @@ namespace WcfSoapLogger
                 return;
             }
 
+            //default handler
             SoapLoggerTools.WriteFileDefault(body, request, settings.LogPath);
         }
 
