@@ -60,7 +60,7 @@ namespace WcfSoapLogger
                 //something went wrong, either pipeline execution didn't reach web-service method 
                 //or web-service method didn't call 'ReadRequestSetResponseCallback'
 
-                throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method ");
+                throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method or web-service method didn't call 'ReadRequestSetResponseCallback'");
             }
 
             if (ResponseBodyCallback != null)

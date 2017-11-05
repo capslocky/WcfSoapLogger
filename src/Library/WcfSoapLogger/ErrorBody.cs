@@ -9,18 +9,16 @@ namespace WcfSoapLogger
 <s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
     <s:Body>
         <s:Fault>
-            <faultcode>s:{0}</faultcode>
-            <faultstring>{1}</faultstring>
+            <faultcode>s:Server</faultcode>
+            <faultstring>{0}</faultstring>
         </s:Fault>
     </s:Body>
 </s:Envelope>";
 
-        public static string GetSoapFault(string message, bool server = true)
+        public static string GetSoapFault(string message)
         {
-            string code = server ? "Server" : "Client";
             string escapedMessage = SecurityElement.Escape(message);
-
-            string faultBody = string.Format(SoapFaultTemplate, code, escapedMessage);
+            string faultBody = string.Format(SoapFaultTemplate, escapedMessage);
             return faultBody;
         }
 

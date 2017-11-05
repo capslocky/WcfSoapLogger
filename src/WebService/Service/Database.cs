@@ -15,12 +15,16 @@ namespace Service
 
         public JuiceInfo[] FindSimilar(JuiceInfo juice)
         {
-//            throw new InvalidOperationException("Oops, went wrong.");
-
+            Console.WriteLine(juice.Id + ": received.");
+            
             byte[] requestBody;
             SoapLoggerSettings settings;
 
+            //should be on the very top of method
             SoapLoggerForService.ReadRequestSetResponseCallback(out requestBody, out settings, ResponseCallback);
+
+
+//            throw new InvalidOperationException("Problem in Service - FindSimilar");
 
             if (requestBody != null)
             {
@@ -29,7 +33,7 @@ namespace Service
 
             var context = OperationContext.Current;
 
-            return new JuiceInfo[]
+            var result  = new JuiceInfo[]
             {
                 new JuiceInfo()
                 {
@@ -47,6 +51,8 @@ namespace Service
                 },
             };
 
+            Console.WriteLine(juice.Id + ": returning. Count: " + result.Length);
+            return result;
         }
 
         private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)

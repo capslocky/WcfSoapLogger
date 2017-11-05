@@ -12,6 +12,7 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
         private readonly SoapLoggerSettings _settings;
+        private readonly HandlerAbstract _handler;
 
         public override string ContentType {
             get {
@@ -37,16 +38,17 @@ namespace WcfSoapLogger.EncodingExtension
             _innerEncoder = factory.InnerMessageFactory.Encoder;
             _contentType = factory.MediaType;
             _settings = factory.Settings;
+            _handler = factory.Settings.IsService ? (HandlerAbstract) new HandlerService(factory.Settings) : new HandlerClient(factory.Settings);
         }
 
 
-        public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType) 
+        public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType)
         {
-            ArraySegment<byte> bufferError = HandleMessage(buffer, false);
+            ArraySegment<byte> errorBuffer = HandleMessage(buffer, false);
 
-            if (bufferError.Count > 0)
+            if (errorBuffer.Array != null)
             {
-                buffer = bufferError;
+                buffer = errorBuffer;
             }
 
             var message = _innerEncoder.ReadMessage(buffer, bufferManager, contentType);
@@ -58,15 +60,15 @@ namespace WcfSoapLogger.EncodingExtension
             return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
         }
 
-
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) 
         {
             ArraySegment<byte> buffer = _innerEncoder.WriteMessage(message, maxMessageSize, bufferManager, messageOffset);
-            ArraySegment<byte> bufferError = HandleMessage(buffer, true);
 
-            if (bufferError.Count > 0)
+            ArraySegment<byte> errorBuffer = HandleMessage(buffer, true);
+
+            if (errorBuffer.Array != null)
             {
-                buffer = bufferError;
+                buffer = errorBuffer;
             }
 
             return buffer;
@@ -78,34 +80,34 @@ namespace WcfSoapLogger.EncodingExtension
         }
 
 
-        private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage) 
+        private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage)
         {
             //XOR, because request is writeMessage for client and readMessage for web-service
             bool request = writeMessage ^ _settings.IsService;
 
-            byte[] body = new byte[buffer.Count];
-            Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length);
-
-            Handler handler;
-
-            if (_settings.IsService)
+            try
             {
-                handler = request ? (Handler) new HandlerServiceRequest() : new HandlerServiceResponse();
+                byte[] body = new byte[buffer.Count];
+                Array.Copy(buffer.Array, buffer.Offset, body, 0, body.Length); //TODO check if already normal array
+
+                _handler.HandleBody(body, request);
+                return new ArraySegment<byte>();
             }
-            else
+            catch (Exception ex)
             {
-                handler = request ? (Handler) new HandlerClientRequest() : new HandlerClientResponse();
+                if (_settings.IsClient)
+                {
+                    throw;
+                }
+
+                byte[] errorBody = _handler.GetErrorBody(ex, request);
+                var errorBuffer = new ArraySegment<byte>(errorBody);
+                return errorBuffer;
             }
-
-            byte[] errorBody =  handler.HandleBody(_settings, body);
-
-            if (errorBody != null)
-            {
-                return new ArraySegment<byte>(errorBody);
-            }
-
-            return new ArraySegment<byte>();
         }
+
+
+    
 
     }
 }

@@ -46,11 +46,9 @@
     <Compile Include="ErrorBody.cs" />
     <Compile Include="FileSystem.cs" />
     <Compile Include="FileSystemAcccesDeniedException.cs" />
-    <Compile Include="HandlerClientRequest.cs" />
-    <Compile Include="HandlerClientResponse.cs" />
-    <Compile Include="Handler.cs" />
-    <Compile Include="HandlerServiceRequest.cs" />
-    <Compile Include="HandlerServiceResponse.cs" />
+    <Compile Include="HandlerClient.cs" />
+    <Compile Include="HandlerAbstract.cs" />
+    <Compile Include="HandlerService.cs" />
     <Compile Include="LoggerException.cs" />
     <Compile Include="SoapLoggerForClient.cs" />
     <Compile Include="SoapLoggerSettings.cs" />

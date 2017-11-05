@@ -31,7 +31,8 @@ namespace WcfSoapLogger
         {
             if (RequestBodyCallback == null)
             {
-                throw new LoggerException("method 'SetRequestAndResponseCallbacks' has not been called by client");
+                string methodName = typeof(SoapLoggerForClient).Name + "." + nameof(SetRequestAndResponseCallbacks);
+                throw new LoggerException("You have enabled 'useCustomHandler' for client class of given service. So method '" + methodName+ "' should be called before making any request. Make sure to call it everywhere.");
             }
 
             try
