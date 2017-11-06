@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WcfSoapLogger.CustomHandlers;
+using WcfSoapLogger.Exceptions;
 
 namespace WcfSoapLogger
 {
@@ -13,19 +15,19 @@ namespace WcfSoapLogger
 
         protected override void HandleRequest(byte[] body)
         {
-            SoapLoggerForService.SetRequestBody(body, settings);
+            SoapLoggerService.SetRequestBody(body);
         }
 
         protected override void HandleResponse(byte[] body)
         {
-            SoapLoggerForService.CallResponseCallback(body, settings);
+            SoapLoggerService.CallResponseCallback(body, settings);
         }
 
         protected override byte[] GetRequestErrorBody(Exception ex)
         {
             //this can happen only with default handler
             //typically when lacking access to file system 
-            SoapLoggerForService.SetRequestException(ex);
+            SoapLoggerService.SetRequestException(ex);
 
             //in order to force HTTP 500 Internal Server Error and avoid processing
             //we overwrite request with deliberately invalid body

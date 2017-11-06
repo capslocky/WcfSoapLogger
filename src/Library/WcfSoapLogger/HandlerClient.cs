@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WcfSoapLogger.CustomHandlers;
 
 namespace WcfSoapLogger
 {
@@ -13,12 +14,12 @@ namespace WcfSoapLogger
 
         protected override void HandleRequest(byte[] body)
         {
-            SoapLoggerForClient.CallRequestCallback(body, settings);
+            SoapLoggerClient.CallRequestCallback(body, settings);
         }
 
         protected override void HandleResponse(byte[] body)
         {
-            SoapLoggerForClient.CallResponseCallback(body, settings);
+            SoapLoggerClient.CallResponseCallback(body, settings);
         }
 
         protected override byte[] GetRequestErrorBody(Exception ex)

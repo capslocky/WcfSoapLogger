@@ -43,14 +43,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ErrorBody.cs" />
+    <Compile Include="Exceptions\ErrorBody.cs" />
     <Compile Include="FileSystem.cs" />
-    <Compile Include="FileSystemAcccesDeniedException.cs" />
+    <Compile Include="Exceptions\FileSystemAcccesDeniedException.cs" />
     <Compile Include="HandlerClient.cs" />
     <Compile Include="HandlerAbstract.cs" />
     <Compile Include="HandlerService.cs" />
-    <Compile Include="LoggerException.cs" />
-    <Compile Include="SoapLoggerForClient.cs" />
+    <Compile Include="CustomHandlers\ISoapLoggerHandlerClient.cs" />
+    <Compile Include="CustomHandlers\ISoapLoggerHandlerService.cs" />
+    <Compile Include="Exceptions\LoggerException.cs" />
+    <Compile Include="CustomHandlers\SoapLoggerClient.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="TimeIndex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,7 +60,7 @@
     <Compile Include="EncodingExtension\LoggingExtensionElement.cs" />
     <Compile Include="EncodingExtension\LoggingEncoder.cs" />
     <Compile Include="EncodingExtension\LoggingEncoderFactory.cs" />
-    <Compile Include="SoapLoggerForService.cs" />
+    <Compile Include="CustomHandlers\SoapLoggerService.cs" />
     <Compile Include="SoapLoggerTools.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

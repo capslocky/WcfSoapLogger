@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Principal;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.Exceptions
 {
     public class FileSystemAcccesDeniedException : LoggerException
     {

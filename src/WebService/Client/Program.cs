@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Client.DatabaseService;
 using WcfSoapLogger;
+using WcfSoapLogger.CustomHandlers;
 
 namespace Client
 {
@@ -64,29 +65,36 @@ namespace Client
             juiceInfo.Name = "Amazing lemon";
             juiceInfo.Id = id;
 
-            SoapLoggerForClient.SetRequestAndResponseCallbacks(RequestCallback, ResponseCallback);
+            SoapLoggerClient.SetCustomHandlerCallbacks(new MyClientCustomHandler());
 
             var similarArray = client.FindSimilar(juiceInfo);
             Console.WriteLine(id + ": finished. Count: " + similarArray.Length);
         }
 
+    }
 
+    public class MyClientCustomHandler : ISoapLoggerHandlerClient
+    {
         private const string LogDirectory = @"C:\SoapLogCustomClient";
 
-        private static void RequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
+        public void HandleRequestBodyCallback(byte[] requestBody, SoapLoggerSettings settings)
         {
-//            throw new Exception("Problem in Client - RequestCallback"); //TODO message is lost now
+            //            throw new Exception("Problem in Client - HandleRequestBodyCallback");
             SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
         }
 
-        private static void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings) 
+        public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-//            throw new Exception("Problem in Client - ResponseCallback"); //TODO message is lost now
+            //            throw new Exception("Problem in Client - HandleResponseBodyCallback");
             SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 
-
+        public void CustomHandlersDisabledCallback(SoapLoggerSettings settings)
+        {
+            Console.WriteLine("CustomHandlersDisabledCallback");
+        }
     }
 
-    
+
+
 }

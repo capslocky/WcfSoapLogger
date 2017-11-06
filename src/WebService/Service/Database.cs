@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using WcfSoapLogger;
+using WcfSoapLogger.CustomHandlers;
 
 namespace Service
 {
-    public class Database : IDatabase
+    public class Database : IDatabase, ISoapLoggerHandlerService
     {
         private const string LogDirectory = @"C:\SoapLogCustomService";
 
@@ -17,19 +18,10 @@ namespace Service
         {
             Console.WriteLine(juice.Id + ": received.");
             
-            byte[] requestBody;
-            SoapLoggerSettings settings;
-
             //should be on the very top of method
-            SoapLoggerForService.ReadRequestSetResponseCallback(out requestBody, out settings, ResponseCallback);
-
+            SoapLoggerService.CallCustomHandlers(this);
 
 //            throw new InvalidOperationException("Problem in Service - FindSimilar");
-
-            if (requestBody != null)
-            {
-                SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
-            }
 
             var context = OperationContext.Current;
 
@@ -55,51 +47,25 @@ namespace Service
             return result;
         }
 
-        private void ResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
+
+
+        public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
         {
-//            throw new InvalidOperationException("Problem in Service - ResponseCallback.");
+            //            throw new InvalidOperationException("Problem in Service - HandleRequestBody.");
+            SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
+        }
+
+        public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings) 
+        {
+            //            throw new InvalidOperationException("Problem in Service - HandleResponseBodyCallback.");
             SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
         }
 
+        public void CustomHandlersDisabled(SoapLoggerSettings settings) 
+        {
+            Console.WriteLine("CustomHandlersDisabled");
+        }
+        
 
-
-
-//        public static string GetRequestId(XmlDocument xmlDoc) {
-//            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "metadata", "RequestMessageId");
-//
-//            if (node == null)
-//            {
-//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProductResponse", "SendProductResult", "RequestMessageId");
-//            }
-//
-//            if (node == null)
-//            {
-//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersData", "metadata", "RequestMessageId");
-//            }
-//
-//            if (node == null)
-//            {
-//                node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendClustersDataResponse", "SendClustersDataResult", "RequestMessageId");
-//            }
-//
-//            if (node == null)
-//            {
-//                return null;
-//            }
-//
-//            return node.InnerText;
-//        }
-//
-//
-//        public static string GetProductIdentifier(XmlDocument xmlDoc) {
-//            XmlNode node = SoapLoggerTools.FindNodeByPath(xmlDoc, "Envelope", "Body", "SendProduct", "product", "ProductIdentifier");
-//
-//            if (node == null)
-//            {
-//                return null;
-//            }
-//
-//            return node.InnerText;
-//        }
     }
 }

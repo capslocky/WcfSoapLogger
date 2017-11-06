@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using WcfSoapLogger.Exceptions;
 
 namespace WcfSoapLogger
 {
@@ -16,7 +17,7 @@ namespace WcfSoapLogger
             {
                 throw new FileSystemAcccesDeniedException(ex);
             }
-            catch (DirectoryNotFoundException ex)
+            catch (DirectoryNotFoundException)
             {
                 throw;
             }
@@ -33,7 +34,7 @@ namespace WcfSoapLogger
             {
                 throw new FileSystemAcccesDeniedException(ex);
             }
-            catch (DirectoryNotFoundException ex)
+            catch (DirectoryNotFoundException)
             {
                 throw;
             }

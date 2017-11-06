@@ -1,7 +1,7 @@
 ﻿using System.Security;
 using System.Text;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.Exceptions
 {
     internal static class ErrorBody
     {

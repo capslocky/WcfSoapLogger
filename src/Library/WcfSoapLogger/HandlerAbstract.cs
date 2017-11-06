@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
+using WcfSoapLogger.CustomHandlers;
 
 namespace WcfSoapLogger
 {
@@ -18,9 +19,14 @@ namespace WcfSoapLogger
 
         internal void HandleBody(byte[] body, bool request)
         {
+            if (settings.IsService && request)
+            {
+                SoapLoggerService.SetSettings(settings);
+            }
+
             if (settings.IsService && !request)
             {
-                var requestException = SoapLoggerForService.GetRequestException();
+                var requestException = SoapLoggerService.GetRequestException();
 
                 if (requestException != null)
                 {
@@ -38,12 +44,17 @@ namespace WcfSoapLogger
                 {
                     HandleResponse(body);
                 }
-
-                return;
             }
+            else
+            {
+                if (settings.IsClient && request)
+                {
+                    SoapLoggerClient.CallCustomHandlersDisabledCallback(settings);
+                }
 
-            //default handler
-            SoapLoggerTools.WriteFileDefault(body, request, settings.LogPath);
+                //default handler
+                SoapLoggerTools.WriteFileDefault(body, request, settings.LogPath);    
+            }
         }
 
 

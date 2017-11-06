@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.Exceptions
 {
     public class LoggerException : Exception
     {
