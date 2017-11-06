@@ -111,7 +111,17 @@ namespace WcfSoapLogger
         }
 
 
+        public static void AddFileNamePartByPath(StringBuilder fileName, XDocument xmlDoc, params string[] array)
+        {
+            var node = FindNodeByPath(xmlDoc, array);
 
+            if (node == null)
+            {
+                return;
+            }
+
+            SoapLoggerTools.AddFileNamePart(fileName, node.Value);
+        }
 
 
 
@@ -123,7 +133,7 @@ namespace WcfSoapLogger
 
 
 
-        private static string GetIndentedXml(XDocument xmlDoc) {
+        public static string GetIndentedXml(XDocument xmlDoc) {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings xmlSettings = new XmlWriterSettings();
             xmlSettings.Indent = true;
@@ -143,7 +153,7 @@ namespace WcfSoapLogger
 
 
 
-        private static string GetSoapOperationName(XDocument xml)
+        public static string GetSoapOperationName(XDocument xml)
         {
             string result = "SoapOperationNameNotFound";
             XElement nodeBody = FindNodeByPath(xml, "Body");
