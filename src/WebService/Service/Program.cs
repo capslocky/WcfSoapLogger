@@ -11,8 +11,9 @@ namespace Service
     {
         static void Main(string[] args) 
         {
-//            Console.WriteLine("Press any key to start service.");
-//            Console.ReadKey();
+            Console.Title = "Service";
+            //            Console.WriteLine("Press any key to start service.");
+            //            Console.ReadKey();
 
             var serviceHost = new ServiceHost(typeof(Database));
 

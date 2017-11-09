@@ -15,6 +15,7 @@ namespace Client
     {
         static void Main(string[] args)
         {
+            Console.Title = "Client";
             Console.WriteLine("Press any key to start client.");
             Console.ReadKey();
 
