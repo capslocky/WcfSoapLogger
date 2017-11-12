@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WcfSoapLogger</id>
+    <version>0.9.2</version>
+    <title>WcfSoapLogger</title>
+    <authors>Baurzhan Atanov</authors>
+    <owners>Baurzhan Atanov</owners>
+    <licenseUrl>https://opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>https://github.com/capslocky/WcfSoapLogger</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Logging SOAP request/response body at binary level</description>
+    <releaseNotes>Config transformation added.</releaseNotes>
+    <tags>wcf soap log</tags>
+  </metadata>
+  <files>
+    <file src="..\bin\$configuration$\WcfSoapLogger.dll" target="lib\net45\" />
+    <file src="..\bin\$configuration$\WcfSoapLogger.pdb" target="lib\net45\" />
+    <file src="app.config.install.xdt" target="content" />
+    <file src="web.config.install.xdt" target="content" />
+    <file src="readme.txt" target="" />
+  </files>
+</package>

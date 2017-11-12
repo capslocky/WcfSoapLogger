@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Security.Principal;
-using System.Text;
 using WcfSoapLogger.CustomHandlers;
 
 namespace WcfSoapLogger

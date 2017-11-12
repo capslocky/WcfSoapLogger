@@ -41,8 +41,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="WcfSoapLogger">
-      <HintPath>..\..\Library\WcfSoapLogger\bin\Debug\WcfSoapLogger.dll</HintPath>
+    <Reference Include="WcfSoapLogger, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WcfSoapLogger.0.9.2\lib\net45\WcfSoapLogger.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="RunAsUser.bat" />
     <None Include="Service References\DatabaseService\Client.DatabaseService.JuiceInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

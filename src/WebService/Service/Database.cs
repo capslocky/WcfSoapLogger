@@ -5,12 +5,10 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using WcfSoapLogger;
-using WcfSoapLogger.CustomHandlers;
 
 namespace Service
 {
-    public class Database : IDatabase, ISoapLoggerHandlerService
+    public class Database : IDatabase //, ISoapLoggerHandlerService
     {
         private const string LogDirectory = @"C:\SoapLogCustomService";
 
@@ -19,7 +17,7 @@ namespace Service
             Console.WriteLine(juice.Id + ": received.");
             
             //should be on the very top of method
-            SoapLoggerService.CallCustomHandlers(this);
+//            SoapLoggerService.CallCustomHandlers(this);
 
 //            throw new InvalidOperationException("Problem in Service - FindSimilar");
 
@@ -49,22 +47,22 @@ namespace Service
 
 
 
-        public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
-        {
-            //            throw new InvalidOperationException("Problem in Service - HandleRequestBody.");
-            SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
-        }
-
-        public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings) 
-        {
-            //            throw new InvalidOperationException("Problem in Service - HandleResponseBodyCallback.");
-            SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
-        }
-
-        public void CustomHandlersDisabled(SoapLoggerSettings settings) 
-        {
-            Console.WriteLine("CustomHandlersDisabled");
-        }
+//        public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings) 
+//        {
+//            //            throw new InvalidOperationException("Problem in Service - HandleRequestBody.");
+//            SoapLoggerTools.WriteFileDefault(requestBody, true, LogDirectory);
+//        }
+//
+//        public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings) 
+//        {
+//            //            throw new InvalidOperationException("Problem in Service - HandleResponseBodyCallback.");
+//            SoapLoggerTools.WriteFileDefault(responseBody, false, LogDirectory);
+//        }
+//
+//        public void CustomHandlersDisabled(SoapLoggerSettings settings) 
+//        {
+//            Console.WriteLine("CustomHandlersDisabled");
+//        }
         
 
     }
