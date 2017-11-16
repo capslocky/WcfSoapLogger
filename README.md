@@ -14,11 +14,11 @@ Add log results screenshot here
 ```
 
 ## Installation ##
-* Via [NuGet] (https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
+* Via [NuGet](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
 ```
 Install-Package WcfSoapLogger
 ```
-* [Manually] (ManualInstallation.md) (for system administators)
+* [Manually](ManualInstallation.md) (for system administators)
 
 ## Demo ##
 Repository contains demo web-service and client.
