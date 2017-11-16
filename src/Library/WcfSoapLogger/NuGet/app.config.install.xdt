@@ -11,6 +11,7 @@
           <soapLoggerExtension logPath="C:\SoapLogDefault"  useCustomHandler="false"  />
           <!-- warning 'The element 'binding' has invalid child element' - that's OK-->
           <httpTransport />
+          <!--<httpsTransport />-->
         </binding>
       </customBinding>
     </bindings>

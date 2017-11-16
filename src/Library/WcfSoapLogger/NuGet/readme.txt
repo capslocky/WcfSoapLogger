@@ -38,7 +38,7 @@ Project site:
 https://github.com/capslocky/WcfSoapLogger
 
 Contact me if you have any questions:
-atanov.b * gmail * com
+atanov.b@gmail.com
 
 Baurzhan Atanov
 12 November 2017

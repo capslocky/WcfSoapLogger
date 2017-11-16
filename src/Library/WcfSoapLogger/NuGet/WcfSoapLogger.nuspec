@@ -2,15 +2,24 @@
 <package >
   <metadata>
     <id>WcfSoapLogger</id>
-    <version>0.9.2</version>
-    <title>WcfSoapLogger</title>
+    <version>0.9.3</version>
+    <title>Logging SOAP request/response body at binary level</title>
     <authors>Baurzhan Atanov</authors>
     <owners>Baurzhan Atanov</owners>
     <licenseUrl>https://opensource.org/licenses/mit-license.php</licenseUrl>
     <projectUrl>https://github.com/capslocky/WcfSoapLogger</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Logging SOAP request/response body at binary level</description>
-    <releaseNotes>Config transformation added.</releaseNotes>
+    <description>Features
+* Exact byte content of each request and response
+* Including any malformed requests and soap faults
+* Each request and response is a separate file
+* Works for both web-services and clients
+* No code modification needed - just put dll and adjust config file
+* Custom handling of byte content in your code
+
+https://github.com/capslocky/WcfSoapLogger
+	</description>
+    <releaseNotes></releaseNotes>
     <tags>wcf soap log</tags>
   </metadata>
   <files>
