@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="http://localhost:62060/Database.svc?wsdl" docRef="http://localhost:62060/Database.svc" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <contractRef ref="https://baur.im:62062/Service?wsdl" docRef="https://baur.im:62062/Service" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
 </discovery>

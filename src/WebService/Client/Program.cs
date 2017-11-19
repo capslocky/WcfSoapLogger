@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Client.DatabaseService;
+using Client.MyHttps;
 
 namespace Client
 {

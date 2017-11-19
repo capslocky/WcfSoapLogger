@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\DatabaseService\Reference.cs">
+    <Compile Include="Service References\MyHttps\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -58,18 +58,21 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="RunAsUser.bat" />
-    <None Include="Service References\DatabaseService\Client.DatabaseService.JuiceInfo.datasource">
+    <None Include="RunAsUser.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Service References\MyHttps\Client.MyHttps.JuiceInfo.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\DatabaseService\Database.wsdl" />
-    <None Include="Service References\DatabaseService\Database.xsd">
+    <None Include="Service References\MyHttps\Database.wsdl" />
+    <None Include="Service References\MyHttps\Service.wsdl" />
+    <None Include="Service References\MyHttps\Service.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\DatabaseService\Database1.xsd">
+    <None Include="Service References\MyHttps\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\DatabaseService\Database2.xsd">
+    <None Include="Service References\MyHttps\Service2.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -77,19 +80,19 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\DatabaseService\" />
+    <WCFMetadataStorage Include="Service References\MyHttps\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\DatabaseService\Database.disco" />
+    <None Include="Service References\MyHttps\Service.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\DatabaseService\configuration91.svcinfo" />
+    <None Include="Service References\MyHttps\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\DatabaseService\configuration.svcinfo" />
+    <None Include="Service References\MyHttps\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\DatabaseService\Reference.svcmap">
+    <None Include="Service References\MyHttps\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

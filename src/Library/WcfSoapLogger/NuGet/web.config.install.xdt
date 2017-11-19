@@ -18,6 +18,7 @@
 
     <extensions xdt:Transform="InsertIfMissing">
       <bindingElementExtensions xdt:Transform="InsertIfMissing">
+        <!-- logging wrapper for <textMessageEncoding messageVersion="Soap11" />-->
         <add name="soapLoggerExtension" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
       </bindingElementExtensions>
     </extensions>

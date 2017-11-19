@@ -55,8 +55,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="GrantHostingPermission.bat" />
+    <None Include="LinkSSLtoPort.bat" />
     <None Include="packages.config" />
-    <None Include="RunAsUser.bat" />
+    <None Include="RunAsUser.bat">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

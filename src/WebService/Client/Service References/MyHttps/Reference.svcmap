@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="282f33a5-8488-4224-9fe8-a512f33588cd" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="https://baur.im:62062/Service" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="4faa6c66-b55a-4957-8ba4-79c76c4bb0f9" SourceId="1" SourceUrl="https://baur.im:62062/Service?wsdl=wsdl0" />
+    <MetadataFile FileName="Database.wsdl" MetadataType="Wsdl" ID="4d672c82-b4e2-46a9-811e-9fd7deece67e" SourceId="1" SourceUrl="https://baur.im:62062/Service?wsdl" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="0046db4d-063b-4ed3-8026-a9e36e17690b" SourceId="1" SourceUrl="https://baur.im:62062/Service?xsd=xsd0" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="52172f45-d2f5-4f15-889d-4e647e07f575" SourceId="1" SourceUrl="https://baur.im:62062/Service?xsd=xsd1" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="81698711-e7da-4768-b12a-026be9ba0be6" SourceId="1" SourceUrl="https://baur.im:62062/Service?xsd=xsd2" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="0bb689fb-4353-474b-a43c-6c161449be9f" SourceId="1" SourceUrl="https://baur.im:62062/Service?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

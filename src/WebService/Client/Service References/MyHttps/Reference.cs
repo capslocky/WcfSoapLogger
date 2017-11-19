@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Client.DatabaseService {
+namespace Client.MyHttps {
     using System.Runtime.Serialization;
     using System;
     
@@ -107,23 +107,23 @@ namespace Client.DatabaseService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="DatabaseService.IDatabase")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyHttps.IDatabase")]
     public interface IDatabase {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabase/FindSimilar", ReplyAction="http://tempuri.org/IDatabase/FindSimilarResponse")]
-        Client.DatabaseService.JuiceInfo[] FindSimilar(Client.DatabaseService.JuiceInfo juice);
+        Client.MyHttps.JuiceInfo[] FindSimilar(Client.MyHttps.JuiceInfo juice);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IDatabase/FindSimilar", ReplyAction="http://tempuri.org/IDatabase/FindSimilarResponse")]
-        System.Threading.Tasks.Task<Client.DatabaseService.JuiceInfo[]> FindSimilarAsync(Client.DatabaseService.JuiceInfo juice);
+        System.Threading.Tasks.Task<Client.MyHttps.JuiceInfo[]> FindSimilarAsync(Client.MyHttps.JuiceInfo juice);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IDatabaseChannel : Client.DatabaseService.IDatabase, System.ServiceModel.IClientChannel {
+    public interface IDatabaseChannel : Client.MyHttps.IDatabase, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class DatabaseClient : System.ServiceModel.ClientBase<Client.DatabaseService.IDatabase>, Client.DatabaseService.IDatabase {
+    public partial class DatabaseClient : System.ServiceModel.ClientBase<Client.MyHttps.IDatabase>, Client.MyHttps.IDatabase {
         
         public DatabaseClient() {
         }
@@ -144,11 +144,11 @@ namespace Client.DatabaseService {
                 base(binding, remoteAddress) {
         }
         
-        public Client.DatabaseService.JuiceInfo[] FindSimilar(Client.DatabaseService.JuiceInfo juice) {
+        public Client.MyHttps.JuiceInfo[] FindSimilar(Client.MyHttps.JuiceInfo juice) {
             return base.Channel.FindSimilar(juice);
         }
         
-        public System.Threading.Tasks.Task<Client.DatabaseService.JuiceInfo[]> FindSimilarAsync(Client.DatabaseService.JuiceInfo juice) {
+        public System.Threading.Tasks.Task<Client.MyHttps.JuiceInfo[]> FindSimilarAsync(Client.MyHttps.JuiceInfo juice) {
             return base.Channel.FindSimilarAsync(juice);
         }
     }
