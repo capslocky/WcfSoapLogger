@@ -14,22 +14,6 @@ Acting on low level it captures raw XML SOAP data.
 Add log results screenshot here
 ```
 
-## Comparison with alternatives ##
-* **SvcTraceViewer.exe (<system.diagnostics>)**
-(Link 1)[https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging]
-(Link 2)[https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe]  
-big result files   
-request seeking is difficult
-
-* **IDispatchMessageInspector (IClientMessageInspector)** 
-(Link 1) [https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors]  
-can't see malformed requests  
-can't see XML tags beyond expected scheme
-
-* **Fiddler**
-(Link 1) [https://www.telerik.com/fiddler]
-
-
 ## Installation ##
 * As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
 ```
@@ -37,8 +21,25 @@ Install-Package WcfSoapLogger
 ```
 * [Manually](/docs/ManualInstallation.md) (for system administators)
 
+
 ## Usage Examples ##
-This repository contains [usage examples](\src\UsageExamples)
+This repository contains [usage examples](/src/UsageExamples)
+
+
+## Comparison with alternatives ##
+* **SvcTraceViewer.exe (<system.diagnostics>)**
+[Link 1] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)  
+[Link 2] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe)  
+big result files   
+request seeking is difficult
+
+* **IDispatchMessageInspector (IClientMessageInspector)** 
+[Link 1] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)  
+can't see malformed requests  
+can't see XML tags beyond expected scheme
+
+* **Fiddler**
+[Link 1] (https://www.telerik.com/fiddler)
 
 
 ## Contributing ##
