@@ -1,28 +1,45 @@
 # WcfSoapLogger #
-This library is a tracing tool for web-services or clients built with WCF.
+This library is a tracing tool for web-services and clients built with WCF.
+Acting on low level it captures raw XML SOAP data.
 
 ## Features ##
 * Exact byte content of each request and response
 * Including any malformed requests and soap faults
 * Each request and response is a separate file
 * Works for both web-services and clients
-* Easy start, no code modification needed - just put dll and [adjust](ConfigFile.md) config file
-* [Custom handling](CustomHandling.md) of byte content in your code
+* Easy start, no code modification needed - just put dll and [adjust](/docs/ConfigFile.md) config file
+* [Custom handling](/docs/CustomHandling.md) of byte content in your code
 
 ```
 Add log results screenshot here
 ```
 
+## Comparison with alternatives ##
+* **SvcTraceViewer.exe (<system.diagnostics>)**
+(Link 1)[https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging]
+(Link 2)[https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe]  
+big result files   
+request seeking is difficult
+
+* **IDispatchMessageInspector (IClientMessageInspector)** 
+(Link 1) [https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors]  
+can't see malformed requests  
+can't see XML tags beyond expected scheme
+
+* **Fiddler**
+(Link 1) [https://www.telerik.com/fiddler]
+
+
 ## Installation ##
-* Via [NuGet](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
+* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
 ```
 Install-Package WcfSoapLogger
 ```
-* [Manually](ManualInstallation.md) (for system administators)
+* [Manually](/docs/ManualInstallation.md) (for system administators)
 
-## Demo ##
-Repository contains demo web-service and client.
-https://github.com/capslocky/WcfSoapLogger/tree/master/src/WebService
+## Usage Examples ##
+This repository contains [usage examples](\src\UsageExamples)
+
 
 ## Contributing ##
 If you find this project useful you are welcome to make it better!

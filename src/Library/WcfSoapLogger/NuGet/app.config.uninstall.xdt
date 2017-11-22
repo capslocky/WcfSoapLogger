@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
+
+  <system.serviceModel>
+
+    <bindings>
+      <customBinding>
+        <binding name="soapLoggerBinding" xdt:Transform="Remove"  xdt:Locator="Match(name)">
+        </binding>
+      </customBinding>
+    </bindings>
+
+    <extensions>
+      <bindingElementExtensions>
+        <add name="soapLoggerExtension" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="Remove" xdt:Locator="Match(name)"/>
+      </bindingElementExtensions>
+    </extensions>
+
+  </system.serviceModel>
+
+</configuration>

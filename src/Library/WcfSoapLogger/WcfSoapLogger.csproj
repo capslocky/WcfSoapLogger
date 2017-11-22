@@ -62,11 +62,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="NuGet\app.config.install.xdt" />
+    <None Include="NuGet\app.config.uninstall.xdt" />
     <None Include="NuGet\Pack.bat" />
     <None Include="NuGet\Pusblish.bat" />
     <None Include="NuGet\SetKey.bat" />
     <None Include="NuGet\WcfSoapLogger.nuspec" />
     <None Include="NuGet\web.config.install.xdt" />
+    <None Include="NuGet\web.config.uninstall.xdt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NuGet\nuget.exe" />

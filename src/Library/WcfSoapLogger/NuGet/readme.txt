@@ -3,9 +3,9 @@ Logging SOAP request/response body at binary level.
 
 All you need to start default logging is:
 
-1) Set these two attributes to your endpoint elelment
+1) Set these two attributes to your endpoint element (inside <service> or <client>)
 
-<endpoint address="http://some-address/" binding="customBinding" bindingConfiguration="soapLoggerBinding"
+<endpoint address="http://web-service-address/" binding="customBinding" bindingConfiguration="soapLoggerBinding"
 
 2) Specify folder to save files. Make sure user account has write access to it.
 
@@ -13,7 +13,8 @@ All you need to start default logging is:
 
 ============================================================================
 
-Two elements have been automatically added under <system.serviceModel> of your config file:
+Two elements have been automatically added under <system.serviceModel> of your config file.
+Both will be automatially removed on package uninstallation.
 
 <bindings>
 	<customBinding>
@@ -31,7 +32,7 @@ Two elements have been automatically added under <system.serviceModel> of your c
 
 ============================================================================
 
-This library is in beta status.
+This library is under active development.
 Any help would be much appreciated.
 
 Project site:
@@ -41,4 +42,4 @@ Contact me if you have any questions:
 atanov.b@gmail.com
 
 Baurzhan Atanov
-12 November 2017
+22 November 2017
