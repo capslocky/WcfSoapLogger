@@ -28,18 +28,18 @@ This repository contains [usage examples](/src/UsageExamples)
 
 ## Comparison with alternatives ##
 * **SvcTraceViewer.exe (<system.diagnostics>)**
-[Link 1] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)  
-[Link 2] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe)  
+[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)
+[Link 2](https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe)  
 big result files   
 request seeking is difficult
 
 * **IDispatchMessageInspector (IClientMessageInspector)** 
-[Link 1] (https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)  
+[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)  
 can't see malformed requests  
 can't see XML tags beyond expected scheme
 
 * **Fiddler**
-[Link 1] (https://www.telerik.com/fiddler)
+[Link 1](https://www.telerik.com/fiddler)
 
 
 ## Contributing ##
