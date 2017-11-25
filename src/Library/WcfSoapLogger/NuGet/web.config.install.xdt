@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-
   <system.serviceModel  xdt:Transform="InsertIfMissing">
 
     <bindings xdt:Transform="InsertIfMissing">
@@ -8,21 +7,18 @@
         <binding name="soapLoggerBinding" xdt:Transform="InsertIfMissing"  xdt:Locator="Match(name)">
           <!-- set these attributes for your endpoint: -->
           <!-- binding="customBinding" bindingConfiguration="soapLoggerBinding"-->
-          <soapLoggerExtension logPath="C:\SoapLogDefault"  useCustomHandler="false"  />
+          <soapLoggerMessageEncoding logPath="C:\SoapLogDefault"  useCustomHandler="false"  />
           <!-- warning 'The element 'binding' has invalid child element' - that's OK-->
           <httpTransport />
-          <!--<httpsTransport />-->
         </binding>
       </customBinding>
     </bindings>
 
     <extensions xdt:Transform="InsertIfMissing">
       <bindingElementExtensions xdt:Transform="InsertIfMissing">
-        <!-- logging wrapper for <textMessageEncoding messageVersion="Soap11" />-->
-        <add name="soapLoggerExtension" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
+        <add name="soapLoggerMessageEncoding" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="InsertIfMissing" xdt:Locator="Match(name)"/>
       </bindingElementExtensions>
     </extensions>
 
   </system.serviceModel>
-
 </configuration>

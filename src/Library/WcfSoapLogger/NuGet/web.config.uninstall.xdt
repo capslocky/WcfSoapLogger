@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-
   <system.serviceModel>
 
     <bindings>
@@ -12,10 +11,9 @@
 
     <extensions>
       <bindingElementExtensions>
-        <add name="soapLoggerExtension" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="Remove" xdt:Locator="Match(name)"/>
+        <add name="soapLoggerMessageEncoding" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" xdt:Transform="Remove" xdt:Locator="Match(name)"/>
       </bindingElementExtensions>
     </extensions>
 
   </system.serviceModel>
-
-</configuration>`
+</configuration>

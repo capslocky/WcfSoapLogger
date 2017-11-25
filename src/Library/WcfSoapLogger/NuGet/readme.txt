@@ -5,15 +5,15 @@ All you need to start default logging is:
 
 1) Set these two attributes to your endpoint element (inside <service> or <client>)
 
-<endpoint address="http://web-service-address/" binding="customBinding" bindingConfiguration="soapLoggerBinding"
+<endpoint address="http://server/web-service" binding="customBinding" bindingConfiguration="soapLoggerBinding"
 
 2) Specify folder to save files. Make sure user account has write access to it.
 
-<soapLoggerExtension logPath="D:\MyService\SoapLogs" useCustomHandler="false"/>
+<soapLoggerMessageEncoding logPath="D:\MyService\SoapLogs" useCustomHandler="false"/>
 
 ============================================================================
 
-Two elements have been automatically added under <system.serviceModel> of your config file.
+Two elements have been automatically added under <system.serviceModel> element of your config file.
 Both will be automatially removed on package uninstallation.
 
 <bindings>
@@ -26,7 +26,7 @@ Both will be automatially removed on package uninstallation.
 
 <extensions>
 	<bindingElementExtensions>
-		<add name="soapLoggerExtension" ... >
+		<add name="soapLoggerMessageEncoding" ... >
 	</bindingElementExtensions>
 </extensions>
 
@@ -42,4 +42,4 @@ Contact me if you have any questions:
 atanov.b@gmail.com
 
 Baurzhan Atanov
-22 November 2017
+25 November 2017

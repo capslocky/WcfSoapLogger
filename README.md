@@ -7,7 +7,7 @@ Acting on low level it captures raw XML SOAP data.
 * Including any malformed requests and soap faults
 * Each request and response is a separate file
 * Works for both web-services and clients
-* Easy start, no code modification needed - just put dll and [adjust](/docs/ConfigFile.md) config file
+* Easy start, no code modification needed - just put dll and adjust config file
 * [Custom handling](/docs/CustomHandling.md) of byte content in your code
 
 ```
@@ -15,7 +15,7 @@ Add log results screenshot here
 ```
 
 ## Installation ##
-* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project
+* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager)
 ```
 Install-Package WcfSoapLogger
 ```
@@ -43,5 +43,5 @@ can't see XML tags beyond expected scheme
 
 
 ## Contributing ##
-If you find this project useful you are welcome to make it better!
-Feel free to report issues here or to my email.
+If you find this project useful you are welcome to make it better! 
+Feel free to contact me if you have any ideas, questions or concerns.
