@@ -12,6 +12,7 @@ namespace WcfSoapLogger
 {
     public static class SoapLoggerTools
     {
+        private const string Request = "Request";
         private const string Response = "Response";
 
         public static void AddFileNamePart(StringBuilder fileName, string value)
@@ -86,11 +87,11 @@ namespace WcfSoapLogger
 
                 if (request)
                 {
-                    AddFileNamePart(fileName, "Request");
+                    AddFileNamePart(fileName, "_" + Request);
                 }
                 else
                 {
-                    AddFileNamePart(fileName, Response);
+                    AddFileNamePart(fileName, "_" + Response);
                 }
 
                 string indentedXml = GetIndentedXml(xmlDoc);
@@ -134,9 +135,10 @@ namespace WcfSoapLogger
 
 
 
-        public static string GetIndentedXml(XDocument xmlDoc) {
-            StringBuilder sb = new StringBuilder();
-            XmlWriterSettings xmlSettings = new XmlWriterSettings();
+        public static string GetIndentedXml(XDocument xmlDoc) 
+        {
+            var sb = new StringBuilder();
+            var xmlSettings = new XmlWriterSettings();
             xmlSettings.Indent = true;
             xmlSettings.IndentChars = "  ";
             xmlSettings.NewLineChars = "\r\n";
