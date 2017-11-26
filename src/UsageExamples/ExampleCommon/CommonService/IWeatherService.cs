@@ -2,9 +2,9 @@
 using System.Runtime.Serialization;
 using System.ServiceModel;
 
-namespace Service
+namespace CommonService
 {
-    [ServiceContract]
+    [ServiceContract(Namespace = XmlNamespaces.WeatherService)]
     public interface IWeatherService
     {
         [OperationContract]
@@ -12,10 +12,13 @@ namespace Service
 
         [OperationContract]
         WeatherReport GetLastReportByLocation(string location);
+
+        [OperationContract]
+        WeatherReport[] GetForecastByLocation(string location, int days);
     }
 
 
-    [DataContract]
+    [DataContract(Namespace = XmlNamespaces.WeatherService)]
     public class WeatherReport
     {
         [DataMember]
@@ -41,6 +44,12 @@ namespace Service
 
         [DataMember]
         public double WindDirection { get; set; }
+    }
+
+
+    public static class XmlNamespaces
+    {
+        public const string WeatherService = "http://wcf-soap-logger.org/weather-service";
     }
 
 }

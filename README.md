@@ -43,5 +43,4 @@ can't see XML tags beyond expected scheme
 
 
 ## Contributing ##
-If you find this project useful you are welcome to make it better! 
-Feel free to contact me if you have any ideas, questions or concerns.
+If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns.

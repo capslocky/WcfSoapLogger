@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using CommonService;
 
 namespace Service
 {
@@ -27,7 +24,6 @@ namespace Service
             }
 
             Console.WriteLine("Service started.");
-//            Process.Start("http://localhost:5580/ExampleAlpha");
 
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();
