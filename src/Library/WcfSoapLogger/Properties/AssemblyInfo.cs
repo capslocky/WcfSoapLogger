@@ -13,7 +13,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: Guid("36bfe869-f4ba-4aec-b1eb-955893481adc")]
 
-[assembly: AssemblyVersion("0.9.2")]
-[assembly: AssemblyFileVersion("0.9.2")]
-[assembly: AssemblyInformationalVersion("0.9.2-beta")]
+[assembly: AssemblyVersion("0.9.3")]
+[assembly: AssemblyFileVersion("0.9.3")]
+[assembly: AssemblyInformationalVersion("0.9.3")]
 
+[assembly: AssemblyKeyFile("StrongNameKey.snk")]

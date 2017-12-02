@@ -73,6 +73,7 @@
     <None Include="NuGet\WcfSoapLogger.nuspec" />
     <None Include="NuGet\web.config.install.xdt" />
     <None Include="NuGet\web.config.uninstall.xdt" />
+    <None Include="StrongNameKey.snk" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="NuGet\nuget.exe" />

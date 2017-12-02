@@ -2,6 +2,7 @@
 This library is a tracing tool for web-services and clients built with WCF.
 Acting on low level it captures raw XML SOAP data.
 
+
 ## Features ##
 * Exact byte content of each request and response
 * Including any malformed requests and soap faults
@@ -14,6 +15,7 @@ Acting on low level it captures raw XML SOAP data.
 Add log results screenshot here
 ```
 
+
 ## Installation ##
 * As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager)
 ```
@@ -22,10 +24,12 @@ Install-Package WcfSoapLogger
 * [Manually](/docs/ManualInstallation.md) (for system administators)
 
 
-## Usage Examples ##
-This repository contains [usage examples](/src/UsageExamples)
-
-
+## Usage examples ##
+This repository contains [usage examples](/src/UsageExamples).
+To clone repository execute following command or download it as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
+```
+git clone https://github.com/capslocky/WcfSoapLogger.git
+```
 
 
 ## Comparison with alternatives ##
@@ -44,7 +48,7 @@ can't see XML tags beyond expected scheme
 * **Fiddler**
 [Link 1](https://www.telerik.com/fiddler)
 [Link 2](https://www.telerik.com/fiddler/fiddlercore)  
-Fiddler - external desktop application
+Fiddler - external desktop application  
 FiddlerCore - to check
 
 
