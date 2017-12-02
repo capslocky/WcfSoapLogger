@@ -1,5 +1,6 @@
 ﻿using System;
 using CommonClient;
+using CommonClient.CustomHandling;
 
 namespace Client
 {
@@ -12,7 +13,7 @@ namespace Client
             Console.WriteLine();
 
             var serviceClient = new WeatherServiceClient();
-            var randomDataClient = new RandomDataClient(serviceClient);
+            var randomDataClient = new RandomDataClientCustomHandler(serviceClient);
             randomDataClient.StartThreads();
 
             Console.ReadLine();

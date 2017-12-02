@@ -26,6 +26,8 @@ Install-Package WcfSoapLogger
 This repository contains [usage examples](/src/UsageExamples)
 
 
+
+
 ## Comparison with alternatives ##
 * **SvcTraceViewer.exe (<system.diagnostics>)**
 [Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)
@@ -34,12 +36,16 @@ big result files
 request seeking is difficult
 
 * **IDispatchMessageInspector (IClientMessageInspector)** 
-[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)  
+[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)
+[Link 2](https://blogs.msdn.microsoft.com/endpoint/2011/04/23/wcf-extensibility-message-inspectors/)  
 can't see malformed requests  
 can't see XML tags beyond expected scheme
 
 * **Fiddler**
 [Link 1](https://www.telerik.com/fiddler)
+[Link 2](https://www.telerik.com/fiddler/fiddlercore)  
+Fiddler - external desktop application
+FiddlerCore - to check
 
 
 ## Contributing ##

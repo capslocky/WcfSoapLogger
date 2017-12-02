@@ -58,6 +58,7 @@ namespace CommonClient
             newReport.WindDirection = GetRandomValue(0, 360);
 
             Console.WriteLine("Report for " + location + ": sending.");
+            SetCustomHandler();
             long id = _client.SendReport(newReport);
 
             Console.WriteLine("Report for " + location + ": Report ID = " + id);
@@ -78,8 +79,9 @@ namespace CommonClient
             }
         }
 
-        private void GetLastReport(string location) 
+        private void GetLastReport(string location)
         {
+            SetCustomHandler();
             var report = _client.GetLastReportByLocation(location);
 
             if (report == null)
@@ -103,8 +105,16 @@ namespace CommonClient
 
         private void GetForecast(string location, int days) 
         {
+            SetCustomHandler();
             var forecastArray = _client.GetForecastByLocation(location, days);
             Console.WriteLine("Forecast for " + location + " for " + days + " days received.");
         }
+
+
+        protected virtual void SetCustomHandler()
+        {
+        }
+
+
     }
 }

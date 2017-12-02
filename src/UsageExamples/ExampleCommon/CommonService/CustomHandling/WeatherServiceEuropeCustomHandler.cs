@@ -41,6 +41,7 @@ namespace CommonService.CustomHandling
 
 
 
+
         public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
         {
             SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
