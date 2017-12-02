@@ -54,7 +54,7 @@ namespace CommonClient
             newReport.Temperature = GetRandomValue(10, 15);
             newReport.Humidity = GetRandomValue(90, 97);
             newReport.Pressure = GetRandomValue(990, 1020);
-            newReport.WindSpeed = GetRandomValue(0.1, 8.0);
+            newReport.WindSpeed = GetRandomValue(0.1f, 8.0f);
             newReport.WindDirection = GetRandomValue(0, 360);
 
             Console.WriteLine("Report for " + location + ": sending.");
@@ -63,9 +63,9 @@ namespace CommonClient
             Console.WriteLine("Report for " + location + ": Report ID = " + id);
         }
 
-        private double GetRandomValue(double minimum, double maximum) 
+        private float GetRandomValue(float minimum, float maximum) 
         {
-            return _random.NextDouble() * (maximum - minimum) + minimum;
+            return (float)_random.NextDouble() * (maximum - minimum) + minimum;
         }
 
 

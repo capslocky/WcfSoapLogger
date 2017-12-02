@@ -23,19 +23,19 @@ namespace CommonClient
         
         private System.DateTime DateTimeField;
         
-        private double HumidityField;
+        private float HumidityField;
         
         private long IdField;
         
         private string LocationField;
         
-        private double PressureField;
+        private float PressureField;
         
-        private double TemperatureField;
+        private float TemperatureField;
         
-        private double WindDirectionField;
+        private float WindDirectionField;
         
-        private double WindSpeedField;
+        private float WindSpeedField;
         
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData
         {
@@ -63,7 +63,7 @@ namespace CommonClient
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Humidity
+        public float Humidity
         {
             get
             {
@@ -102,7 +102,7 @@ namespace CommonClient
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Pressure
+        public float Pressure
         {
             get
             {
@@ -115,7 +115,7 @@ namespace CommonClient
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double Temperature
+        public float Temperature
         {
             get
             {
@@ -128,7 +128,7 @@ namespace CommonClient
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double WindDirection
+        public float WindDirection
         {
             get
             {
@@ -141,7 +141,7 @@ namespace CommonClient
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public double WindSpeed
+        public float WindSpeed
         {
             get
             {

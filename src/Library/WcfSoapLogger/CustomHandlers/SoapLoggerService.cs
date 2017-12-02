@@ -1,5 +1,6 @@
 ﻿using System;
 using WcfSoapLogger.Exceptions;
+using WcfSoapLogger.FileWriting;
 
 namespace WcfSoapLogger.CustomHandlers
 {

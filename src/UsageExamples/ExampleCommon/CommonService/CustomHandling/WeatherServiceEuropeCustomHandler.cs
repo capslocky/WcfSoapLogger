@@ -3,8 +3,9 @@ using System.ServiceModel;
 using System.Threading;
 using WcfSoapLogger;
 using WcfSoapLogger.CustomHandlers;
+using WcfSoapLogger.FileWriting;
 
-namespace CommonService
+namespace CommonService.CustomHandling
 {
     [ServiceBehavior(Namespace = XmlNamespaces.WeatherService)]
     public class WeatherServiceEuropeCustomHandler : IWeatherService, ISoapLoggerHandlerService
@@ -31,11 +32,14 @@ namespace CommonService
 
         public WeatherReport[] GetForecastByLocation(string location, int days) 
         {
-            SoapLoggerService.CallCustomHandlers(this);
+            SoapLoggerService.CallCustomHandlers(new CustomHandler_GetForecastByLocation());
 
             Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(100, 2000)));
             return _forecastCalculator.GetForecast(location, days);
         }
+
+
+
 
         public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
         {

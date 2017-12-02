@@ -5,7 +5,7 @@ namespace WcfSoapLogger.Exceptions
 {
     internal static class ErrorBody
     {
-        public static string GetSoapFault(string message)
+        public static string GetSoapFaultResponse(string message)
         {
             string escapedMessage = SecurityElement.Escape(message);
             string faultBody = string.Format(SoapFaultResponseTemplate, escapedMessage);
@@ -41,7 +41,7 @@ namespace WcfSoapLogger.Exceptions
 @"<?xml version=""1.0"" encoding=""utf-8""?>
 <s:Envelope xmlns:s=""http://schemas.xmlsoap.org/soap/envelope/"">
     <s:Body>
-        <WcfSoapLoggerRequestError xmlns=""http://wcf-soap-logger.org/"">Exception</WcfSoapLoggerRequestError>
+        <WcfSoapLoggerRequestError xmlns=""http://wcf-soap-logger.org/"">This is an intentionally invalid request to force SOAP Fault (HTTP 500 Internal Server error)</WcfSoapLoggerRequestError>
     </s:Body>
 </s:Envelope>";
 

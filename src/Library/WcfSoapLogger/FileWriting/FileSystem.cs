@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using WcfSoapLogger.Exceptions;
 
-namespace WcfSoapLogger
+namespace WcfSoapLogger.FileWriting
 {
     internal static class FileSystem
     {

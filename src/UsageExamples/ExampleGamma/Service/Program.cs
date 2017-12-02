@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
-using CommonService;
+using CommonService.CustomHandling;
 
 namespace Service
 {

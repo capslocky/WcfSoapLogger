@@ -31,19 +31,19 @@ namespace CommonService
         public string Location { get; set; }
 
         [DataMember]
-        public double Temperature { get; set; }
+        public float Temperature { get; set; }
 
         [DataMember]
-        public double Humidity { get; set; }
+        public float Humidity { get; set; }
 
         [DataMember]
-        public double Pressure { get; set; }
+        public float Pressure { get; set; }
 
         [DataMember]
-        public double WindSpeed { get; set; }
+        public float WindSpeed { get; set; }
 
         [DataMember]
-        public double WindDirection { get; set; }
+        public float WindDirection { get; set; }
     }
 
 

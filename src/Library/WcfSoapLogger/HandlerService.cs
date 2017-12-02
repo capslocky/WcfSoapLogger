@@ -47,7 +47,7 @@ namespace WcfSoapLogger
                 message = ex.ToString();
             }
 
-            string soapFault = ErrorBody.GetSoapFault(message);
+            string soapFault = ErrorBody.GetSoapFaultResponse(message);
             byte[] errorBody = Encoding.UTF8.GetBytes(soapFault);
             return errorBody;
         }

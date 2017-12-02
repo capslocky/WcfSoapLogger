@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CommonService
 {
@@ -33,8 +30,9 @@ namespace CommonService
                 memoryStream.Position = 0;
                 var clone = (WeatherReport)serializer.ReadObject(memoryStream);
 
-                clone.DateTime = clone.DateTime.AddDays(i).Date;
-                clone.Temperature += GetRandomValue(0.1, 3);
+                clone.Id = -1;
+                clone.DateTime = clone.DateTime.AddDays(i + 1).Date;
+                clone.Temperature += GetRandomValue(0.1f, 3);
                 clone.Pressure += GetRandomValue(-10, +10);
 
                 list.Add(clone);
@@ -43,9 +41,9 @@ namespace CommonService
             return list.ToArray();
         }
 
-        private double GetRandomValue(double minimum, double maximum) 
+        private float GetRandomValue(float minimum, float maximum) 
         {
-            return _random.NextDouble() * (maximum - minimum) + minimum;
+            return (float)_random.NextDouble() * (maximum - minimum) + minimum;
         }
 
     }
