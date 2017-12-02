@@ -1,1 +1,0 @@
-runas /user:PC\MyService /savecred Client.exe
