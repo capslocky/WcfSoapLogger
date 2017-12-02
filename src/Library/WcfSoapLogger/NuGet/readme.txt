@@ -14,7 +14,7 @@ All you need to start default logging is:
 ============================================================================
 
 Two elements have been automatically added under <system.serviceModel> element of your config file.
-Both will be automatially removed on package uninstallation.
+Both will be automatically removed on package uninstallation.
 
 <bindings>
 	<customBinding>
