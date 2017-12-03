@@ -11,9 +11,7 @@ Acting on low level it captures raw XML SOAP data.
 * Easy start, no code modification needed - just put dll and adjust config file
 * [Custom handling](/docs/CustomHandling.md) of byte content in your code
 
-```
-Add log results screenshot here
-```
+![ExampleBeta](/docs/images/main_screenshot.png?raw=true)
 
 
 ## Installation ##
@@ -38,7 +36,7 @@ You can find examples [here](/src/AlternativesExamples).
 * **IDispatchMessageInspector (IClientMessageInspector)**
 [Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)
 [Link 2](https://blogs.msdn.microsoft.com/endpoint/2011/04/23/wcf-extensibility-message-inspectors/)  
-can't see malformed requests (HTTP/1.1 400 Bad Request)
+can't see malformed requests (HTTP/1.1 400 Bad Request)  
 can't see original content
 
 * **SvcTraceViewer.exe (<system.diagnostics>)**
