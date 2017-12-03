@@ -25,30 +25,33 @@ Install-Package WcfSoapLogger
 
 
 ## Usage examples ##
-This repository contains [usage examples](/src/UsageExamples).
-To clone repository execute following command or download it as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
+The repository contains [usage examples](/src/UsageExamples).
+To clone repository run this command or download as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
 ```
 git clone https://github.com/capslocky/WcfSoapLogger.git
 ```
 
 
 ## Comparison with alternatives ##
+You can find examples [here](/src/AlternativesExamples).
+
+* **IDispatchMessageInspector (IClientMessageInspector)**
+[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)
+[Link 2](https://blogs.msdn.microsoft.com/endpoint/2011/04/23/wcf-extensibility-message-inspectors/)  
+can't see malformed requests (HTTP/1.1 400 Bad Request)
+can't see original content
+
 * **SvcTraceViewer.exe (<system.diagnostics>)**
 [Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)
 [Link 2](https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe)  
-big result files   
-request seeking is difficult
+request seeking in big text files is difficult  
+no custom handling
 
-* **IDispatchMessageInspector (IClientMessageInspector)** 
-[Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/message-inspectors)
-[Link 2](https://blogs.msdn.microsoft.com/endpoint/2011/04/23/wcf-extensibility-message-inspectors/)  
-can't see malformed requests  
-can't see XML tags beyond expected scheme
 
 * **Fiddler**
 [Link 1](https://www.telerik.com/fiddler)
 [Link 2](https://www.telerik.com/fiddler/fiddlercore)  
-Fiddler - external desktop application  
+Fiddler - external application  
 FiddlerCore - to check
 
 

@@ -59,9 +59,16 @@ namespace CommonClient
 
             Console.WriteLine("Report for " + location + ": sending.");
             SetCustomHandler();
-            long id = _client.SendReport(newReport);
 
-            Console.WriteLine("Report for " + location + ": Report ID = " + id);
+            try
+            {
+                long id = _client.SendReport(newReport);
+                Console.WriteLine("Report for " + location + ": Report ID = " + id);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         private float GetRandomValue(float minimum, float maximum) 
@@ -82,15 +89,23 @@ namespace CommonClient
         private void GetLastReport(string location)
         {
             SetCustomHandler();
-            var report = _client.GetLastReportByLocation(location);
 
-            if (report == null)
+            try
             {
-                Console.WriteLine("GetLastReport for " + location + ": Report ID = null");
+                var report = _client.GetLastReportByLocation(location);
+
+                if (report == null)
+                {
+                    Console.WriteLine("GetLastReport for " + location + ": Report ID = null");
+                }
+                else
+                {
+                    Console.WriteLine("GetLastReport for " + location + ": Report ID = " + report.Id);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                Console.WriteLine("GetLastReport for " + location + ": Report ID = " + report.Id);
+                Console.WriteLine(ex.ToString());
             }
         }
 
@@ -106,8 +121,16 @@ namespace CommonClient
         private void GetForecast(string location, int days) 
         {
             SetCustomHandler();
-            var forecastArray = _client.GetForecastByLocation(location, days);
-            Console.WriteLine("Forecast for " + location + " for " + days + " days received.");
+
+            try
+            {
+                var forecastArray = _client.GetForecastByLocation(location, days);
+                Console.WriteLine("Forecast for " + location + " for " + forecastArray.Length + " days received.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
 
