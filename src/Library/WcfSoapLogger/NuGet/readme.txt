@@ -42,4 +42,4 @@ Contact me if you have any questions:
 atanov.b@gmail.com
 
 Baurzhan Atanov
-25 November 2017
+04 December 2017

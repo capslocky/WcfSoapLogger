@@ -7,7 +7,7 @@
     <summary>Logging SOAP request/response body at binary level</summary>
     <authors>Baurzhan Atanov</authors>
     <owners>Baurzhan Atanov</owners>
-    <licenseUrl>https://opensource.org/licenses/mit-license.php</licenseUrl>
+    <licenseUrl>https://github.com/capslocky/WcfSoapLogger/blob/master/LICENSE.md</licenseUrl>
     <projectUrl>https://github.com/capslocky/WcfSoapLogger</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Features

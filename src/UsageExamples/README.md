@@ -4,3 +4,10 @@
 * **Beta:** default logging (config only)
 * **Gamma:** custom logging (custom code)
 * **Delta:** https + basic authentication
+
+
+## How to launch both service and client ##
+
+![ExamplesLaunch_1](../../docs/images/ExamplesLaunch_1.png?raw=true)
+
+![ExamplesLaunch_2](../../docs/images/ExamplesLaunch_2.png?raw=true)

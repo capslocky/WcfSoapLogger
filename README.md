@@ -11,6 +11,8 @@ Acting on low level it captures raw XML SOAP data.
 * Easy start, no code modification needed - just put dll and adjust config file
 * [Custom handling](/docs/CustomHandling.md) of byte content in your code
 
+
+## Standard output sample ##
 ![ExampleBeta](/docs/images/main_screenshot.png?raw=true)
 
 

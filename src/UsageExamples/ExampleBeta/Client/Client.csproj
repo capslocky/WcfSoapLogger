@@ -38,7 +38,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="WcfSoapLogger, Version=0.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="WcfSoapLogger, Version=0.9.3.0, Culture=neutral, PublicKeyToken=a6981d1b425b6650, processorArchitecture=MSIL">
       <HintPath>..\packages\WcfSoapLogger.0.9.3\lib\net45\WcfSoapLogger.dll</HintPath>
       <Private>True</Private>
     </Reference>
