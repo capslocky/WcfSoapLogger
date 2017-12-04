@@ -7,19 +7,19 @@ using WcfSoapLogger.FileWriting;
 
 namespace CommonService.CustomHandling
 {
-    public class CustomHandler_GetForecastByLocation : ServiceCustomHandler
+    public class CustomHandler_GetForecastByLocation : ISoapLoggerHandlerService
     {
-        public override void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
+        public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
         {
             WriteFileCustom(requestBody, true, settings.LogPath);
         }
 
-        public override void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings)
+        public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
             WriteFileCustom(responseBody, false, settings.LogPath);
         }
 
-        public override void CustomHandlersDisabled(SoapLoggerSettings settings)
+        public void CustomHandlersDisabled(SoapLoggerSettings settings)
         {
             Console.WriteLine("CustomHandlersDisabled");
         }
@@ -36,7 +36,7 @@ namespace CommonService.CustomHandling
                 var message = SoapMessage.Parse(body, request);
                 fileNameFactory.AddSegment(message.GetOperationName());
 
-                fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocation", "location"));
+                fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocation", "Location"));
 
                 fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Location"));
                 fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Temperature"));

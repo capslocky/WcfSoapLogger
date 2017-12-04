@@ -1,41 +1,29 @@
 ﻿using System;
 using System.ServiceModel;
-using System.Threading;
 using WcfSoapLogger;
 using WcfSoapLogger.CustomHandlers;
 using WcfSoapLogger.FileWriting;
 
 namespace CommonService.CustomHandling
 {
-    [ServiceBehavior(Namespace = XmlNamespaces.WeatherService)]
-    public class WeatherServiceEuropeCustomHandler : IWeatherService, ISoapLoggerHandlerService
+    public class WeatherServiceEuropeCustomHandler : WeatherServiceEurope, ISoapLoggerHandlerService
     {
-        private static readonly ReportRepository _reportRepository = new ReportRepository();
-        private static readonly ForecastCalculator _forecastCalculator = new ForecastCalculator(_reportRepository);
-        private static readonly Random _random = new Random();
-
-        public long SendReport(WeatherReport report)
+        public override long SendReport(WeatherReport report)
         {
             SoapLoggerService.CallCustomHandlers(this);
-
-            long id = _reportRepository.Add(report);
-            Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(100, 1000)));
-            return id;
+            return base.SendReport(report);
         }
 
-        public WeatherReport GetLastReportByLocation(string location)
+        public override WeatherReport GetLastReportByLocation(string location)
         {
             SoapLoggerService.CallCustomHandlers(this);
-
-            return _reportRepository.GetLastByLocation(location);
+            return base.GetLastReportByLocation(location);
         }
 
-        public WeatherReport[] GetForecastByLocation(string location, int days) 
+        public override WeatherReport[] GetForecastByLocation(string location, int days) 
         {
             SoapLoggerService.CallCustomHandlers(new CustomHandler_GetForecastByLocation());
-
-            Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(100, 2000)));
-            return _forecastCalculator.GetForecast(location, days);
+            return base.GetForecastByLocation(location, days);
         }
 
 

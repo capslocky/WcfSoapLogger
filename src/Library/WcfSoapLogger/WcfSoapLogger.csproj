@@ -40,7 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomHandlers\ServiceCustomHandler.cs" />
     <Compile Include="Exceptions\ErrorBody.cs" />
     <Compile Include="FileWriting\FileNameFactory.cs" />
     <Compile Include="FileWriting\FileSystem.cs" />

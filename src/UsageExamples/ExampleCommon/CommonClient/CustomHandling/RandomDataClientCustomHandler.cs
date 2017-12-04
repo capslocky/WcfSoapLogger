@@ -41,19 +41,29 @@ namespace CommonClient.CustomHandling
         
 
 
-        private void WriteFileCustom(byte[] body, bool request, string logPath) {
-            logPath = Path.Combine(logPath, "GetForecastByLocation");
+        private void WriteFileCustom(byte[] body, bool request, string logPath)
+        {
+            const string operationNameToLog = "GetLastReportByLocation";
+            logPath = Path.Combine(logPath, operationNameToLog);
 
             var fileNameFactory = new FileNameFactory();
 
             try
             {
                 var message = SoapMessage.Parse(body, request);
-                fileNameFactory.AddSegment(message.GetOperationName());
+                string operationName = message.GetOperationName();
 
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "SendReport", "report", "location"));
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetLastReportByLocation", "location"));
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocation", "location"));
+                if (operationName != operationNameToLog)
+                {
+                    return;
+                }
+
+                fileNameFactory.AddSegment(operationName);
+
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetLastReportByLocation", "Location"));
+
+//                fileNameFactory.AddSegment(message.GetNodeValue("Body", "SendReport", "report", "location"));
+//                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocation", "location"));
 
                 fileNameFactory.AddDirection(request);
                 string indentedXml = message.GetIndentedXml();
