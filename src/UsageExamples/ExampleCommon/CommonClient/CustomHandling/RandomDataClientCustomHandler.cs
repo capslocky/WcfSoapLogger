@@ -24,6 +24,8 @@ namespace CommonClient.CustomHandling
 
 
 
+
+
         public void HandleRequestBodyCallback(byte[] requestBody, SoapLoggerSettings settings)
         {
             WriteFileCustom(requestBody, true, settings.LogPath);
@@ -39,6 +41,8 @@ namespace CommonClient.CustomHandling
             Console.WriteLine("CustomHandlersDisabled");
         }
         
+
+
 
 
         private void WriteFileCustom(byte[] body, bool request, string logPath)

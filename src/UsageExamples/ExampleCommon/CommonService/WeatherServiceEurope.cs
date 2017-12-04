@@ -13,20 +13,34 @@ namespace CommonService
 
         public virtual long SendReport(WeatherReport report)
         {
+            Console.WriteLine("SendReport for " + report.Location + ": request");
+
             long id = _reportRepository.Add(report);
             Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(100, 1000)));
+
+            Console.WriteLine("SendReport for " + report.Location + ": returning Report ID = " + id);
             return id;
         }
 
         public virtual WeatherReport GetLastReportByLocation(string location)
         {
-            return _reportRepository.GetLastByLocation(location);
+            Console.WriteLine("GetLastReport for " + location + ": request");
+
+            var lastReport = _reportRepository.GetLastByLocation(location);
+
+            Console.WriteLine("GetLastReport for " + location + ": returning Report ID = " + lastReport.Id);
+            return lastReport;
         }
 
         public virtual WeatherReport[] GetForecastByLocation(string location, int days)
         {
+            Console.WriteLine("Forecast for " + location + " for " + days + " days: request");
+
             Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(100, 2000)));
-            return _forecastCalculator.GetForecast(location, days);
+            var forecast =  _forecastCalculator.GetForecast(location, days);
+
+            Console.WriteLine("Forecast for " + location + " for " + days + " days: returning");
+            return forecast;
         }
     }
 }
