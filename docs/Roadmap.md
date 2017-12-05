@@ -1,7 +1,8 @@
 ## Roadmap ##
 
 ### Features ###
-* Allow passing XML formatting
+* Allow disabling XML formatting
+* Setting custom handling via specifing class name in config
 * Used disk space control
 
 

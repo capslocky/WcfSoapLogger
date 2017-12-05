@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WcfSoapLogger;
 using WcfSoapLogger.CustomHandlers;
 using WcfSoapLogger.Exceptions;
@@ -17,9 +13,20 @@ namespace CommonClient.CustomHandling
         {
         }
 
-        protected override void SetCustomHandler()
+        protected override void SendRandomReport(string location)
         {
             SoapLoggerClient.SetCustomHandlerCallbacks(this);
+            base.SendRandomReport(location);
+        }
+
+        protected override void GetLastReport(string location) {
+            SoapLoggerClient.SetCustomHandlerCallbacks(this);
+            base.GetLastReport(location);
+        }
+
+        protected override void GetForecast(string location, int days) {
+            SoapLoggerClient.SetCustomHandlerCallbacks(this);
+            base.GetForecast(location, days);
         }
 
 

@@ -46,7 +46,7 @@ namespace CommonClient
             Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(minValue, maxValue)));
         }
 
-        private void SendRandomReport(string location) {
+        protected virtual void SendRandomReport(string location) {
             WeatherReport newReport = new WeatherReport();
 
             newReport.DateTime = DateTime.Now;
@@ -61,7 +61,6 @@ namespace CommonClient
 
             try
             {
-                SetCustomHandler();
                 long id = _client.SendReport(newReport);
                 Console.WriteLine("Report for " + location + ": Report ID = " + id);
             }
@@ -86,11 +85,10 @@ namespace CommonClient
             }
         }
 
-        private void GetLastReport(string location)
+        protected virtual void GetLastReport(string location)
         {
             try
             {
-                SetCustomHandler();
                 var report = _client.GetLastReportByLocation(location);
 
                 if (report == null)
@@ -117,11 +115,10 @@ namespace CommonClient
             }
         }
 
-        private void GetForecast(string location, int days) 
+        protected virtual void GetForecast(string location, int days) 
         {
             try
             {
-                SetCustomHandler();
                 var forecastArray = _client.GetForecastByLocation(location, days);
                 Console.WriteLine("Forecast for " + location + " for " + forecastArray.Length + " days received.");
             }
@@ -129,11 +126,6 @@ namespace CommonClient
             {
                 Console.WriteLine(ex.ToString());
             }
-        }
-
-
-        protected virtual void SetCustomHandler()
-        {
         }
 
 
