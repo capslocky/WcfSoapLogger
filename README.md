@@ -1,7 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/0bemisvvtdtbih97/branch/master?svg=true)](https://ci.appveyor.com/project/capslocky/wcfsoaplogger/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/WcfSoapLogger.svg?colorB=0f81c1)](https://www.nuget.org/packages/WcfSoapLogger/)
+[![Quality Gate](https://sonarcloud.io/api/badges/gate?key=WcfSoapLogger)](https://sonarcloud.io/dashboard?id=WcfSoapLogger)
 [![PVS-Studio](https://img.shields.io/badge/pvs--studio-free-brightgreen.svg)](https://www.viva64.com/en/b/0457/)
-
 
 # WcfSoapLogger #
 This library is a tracing tool for web-services and clients built with WCF.

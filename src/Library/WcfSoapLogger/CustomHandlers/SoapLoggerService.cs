@@ -38,7 +38,7 @@ namespace WcfSoapLogger.CustomHandlers
         {
             if (service == null)
             {
-                throw new ArgumentNullException(nameof(service));
+                throw new ArgumentNullException("service");
             }
 
             if (Settings == null)

@@ -14,7 +14,7 @@ namespace WcfSoapLogger.CustomHandlers
         {
             if (client == null)
             {
-                throw new ArgumentNullException(nameof(client));
+                throw new ArgumentNullException("client");
             }
 
             Client = client;
@@ -24,7 +24,7 @@ namespace WcfSoapLogger.CustomHandlers
         {
             if (Client == null)
             {
-                string methodName = typeof(SoapLoggerClient).Name + "." + nameof(SetCustomHandlerCallbacks);
+                string methodName = "SoapLoggerClient.SetCustomHandlerCallbacks";
                 throw new LoggerException("You have enabled 'useCustomHandler' for client class of given service. So method '" + methodName+ "' should be called before making any request. Make sure to call it everywhere.");
             }
 
