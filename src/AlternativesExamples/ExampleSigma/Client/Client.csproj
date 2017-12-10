@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonClient">
-      <HintPath>..\..\ExampleCommon\CommonClient\bin\Debug\CommonClient.dll</HintPath>
+    <Reference Include="CommonClient, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\UsageExamples\ExampleCommon\CommonClient\bin\Debug\CommonClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

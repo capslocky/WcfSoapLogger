@@ -33,8 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CommonService">
-      <HintPath>..\..\ExampleCommon\CommonService\bin\Debug\CommonService.dll</HintPath>
+    <Reference Include="CommonService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\UsageExamples\ExampleCommon\CommonService\bin\Debug\CommonService.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
