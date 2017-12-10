@@ -1,5 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/0bemisvvtdtbih97/branch/master?svg=true)](https://ci.appveyor.com/project/capslocky/wcfsoaplogger/branch/master)
 [![NuGet](https://img.shields.io/nuget/v/WcfSoapLogger.svg?colorB=0f81c1)](https://www.nuget.org/packages/WcfSoapLogger/)
+[![PVS-Studio](https://img.shields.io/badge/pvs--studio-free-brightgreen.svg)](https://www.viva64.com/en/b/0457/)
+
 
 # WcfSoapLogger #
 This library is a tracing tool for web-services and clients built with WCF.
@@ -44,17 +46,18 @@ You can find examples [here](/src/AlternativesExamples).
 can't see malformed requests (HTTP/1.1 400 Bad Request)  
 can't see original content
 
+
 * **SvcTraceViewer.exe (<system.diagnostics>)**
 [Link 1](https://docs.microsoft.com/en-us/dotnet/framework/wcf/diagnostics/configuring-message-logging)
 [Link 2](https://docs.microsoft.com/en-us/dotnet/framework/wcf/service-trace-viewer-tool-svctraceviewer-exe)  
-request seeking in big text files is difficult  
-no custom handling
+external utility hard in use  
+no custom handling possible
 
 
 * **Fiddler**
 [Link 1](https://www.telerik.com/fiddler)
 [Link 2](https://www.telerik.com/fiddler/fiddlercore)  
-Fiddler - external application  
+Fiddler - external proxy application  
 FiddlerCore - to check
 
 

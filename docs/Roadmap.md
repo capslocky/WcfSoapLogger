@@ -1,9 +1,14 @@
 ## Roadmap ##
 
-### Features ###
+### Planned Features ###
 * Allow disabling XML formatting
-* Setting custom handling via specifing class name in config
+* Setting custom handling via specifying class name in config
+* Custom handling via global event
+* Logging for NLog and log4net
 * Used disk space control
+
+### Possible Features ###
+* 
 
 
 ### Refactoring ###
@@ -17,7 +22,7 @@
 
 ### Examples ###
 * IIS: check and add example
-* FiddlerCore: check what is it
+* FiddlerCore: check whether applicable
 
 
 ### Docs ###
