@@ -14,7 +14,7 @@ Acting on low level it captures raw XML SOAP data.
 * Each request and response is a separate file
 * Works for both web-services and clients
 * Easy start, no code modification needed - just put dll and adjust config file
-* [Custom handling](/docs/CustomHandling.md) of byte content in your code
+* Custom handling of byte content in your code
 
 
 ## Standard output sample ##
@@ -22,7 +22,7 @@ Acting on low level it captures raw XML SOAP data.
 
 
 ## Installation ##
-* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager)
+* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager). How to adjust [config file](/docs/ConfigFile.md).
 ```
 Install-Package WcfSoapLogger
 ```
