@@ -21,7 +21,8 @@
 
 
 ### Examples ###
-* IIS: check and add example
+* Code-only endpoint configuration
+* IIS:
 * FiddlerCore: check whether applicable
 
 

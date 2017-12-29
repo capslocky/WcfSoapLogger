@@ -25,10 +25,10 @@ But you can add more if different output folders for different endpoints needed.
 ```xml
 <bindings>
   <customBinding>
-	<binding name="soapLoggerBinding">
-	  <soapLoggerMessageEncoding logPath="C:\SoapLog\MyService" useCustomHandler="false" />
-	  <httpTransport />
-	</binding>
+    <binding name="soapLoggerBinding">
+      <soapLoggerMessageEncoding logPath="C:\SoapLog\MyService" useCustomHandler="false" />
+      <httpTransport />
+    </binding>
   </customBinding>
   <basicHttpBinding>
     ...
@@ -44,7 +44,7 @@ This element is also added automatically and should be declared only once.
 ```xml
 <extensions>
   <bindingElementExtensions>
-	<add name="soapLoggerMessageEncoding" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" />
+    <add name="soapLoggerMessageEncoding" type="WcfSoapLogger.EncodingExtension.LoggingExtensionElement, WcfSoapLogger" />
   </bindingElementExtensions>
 </extensions>
 ```

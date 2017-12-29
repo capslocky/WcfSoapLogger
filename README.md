@@ -4,15 +4,15 @@
 [![PVS-Studio](https://img.shields.io/badge/pvs--studio-free-brightgreen.svg)](https://www.viva64.com/en/b/0457/)
 
 # WcfSoapLogger #
-This library is a tracing tool for web-services and clients built with WCF.
-Acting on low level it captures raw XML SOAP data.
+This library is a message tracing tool for web-services and clients built with WCF.
+Acting as [custom message encoder](https://docs.microsoft.com/en-us/dotnet/framework/wcf/samples/custom-message-encoder-custom-text-encoder) it captures raw XML SOAP data as plain HTTP body.
 
 
 ## Features ##
 * Exact byte content of each request and response
 * Including any malformed requests and soap faults
-* Each request and response is a separate file
 * Works for both web-services and clients
+* Each request and response is a separate file
 * Easy start, no code modification needed - just put dll and adjust config file
 * Custom handling of byte content in your code
 
@@ -62,4 +62,4 @@ FiddlerCore - to check
 
 
 ## Contributing ##
-If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns.
+If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns. [Roadmap](/docs/Roadmap.md).
