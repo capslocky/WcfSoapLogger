@@ -7,6 +7,10 @@ namespace WcfSoapLogger.FileWriting
 {
     public class FileNameFactory
     {
+        public const string DateTimeFileNameFormat = "yyyy-MM-dd_'at'_HH-mm-ss-fff";
+        public const string Request = "Request";
+        public const string Response = "Response";
+
         public List<string> Segments { get; private set; }
 
         public FileNameFactory() 
@@ -61,7 +65,7 @@ namespace WcfSoapLogger.FileWriting
 
         public static string GetDateTimeText(DateTime dateTime) 
         {
-            return dateTime.ToString("yyyy-MM-dd_'at'_HH-mm-ss-fff");
+            return dateTime.ToString(DateTimeFileNameFormat);
         }
     }
 }

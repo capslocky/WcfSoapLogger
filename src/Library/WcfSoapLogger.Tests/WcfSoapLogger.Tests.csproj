@@ -54,10 +54,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="FullCycle\Client\PriceServiceClient.cs" />
+    <Compile Include="FullCycle\FullCycleBase.cs" />
+    <Compile Include="FullCycle\FullCycleDefaultClient.cs" />
+    <Compile Include="FullCycle\FullCycleDefaultService.cs" />
     <Compile Include="FullCycle\Service\IPriceService.cs" />
     <Compile Include="FullCycle\Service\PriceInfo.cs" />
     <Compile Include="FullCycle\Service\PriceServiceKiaMotors.cs" />
-    <Compile Include="FullCycle\PriceServiceTest.cs" />
     <Compile Include="TimeIndexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
