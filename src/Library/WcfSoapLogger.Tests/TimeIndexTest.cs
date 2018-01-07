@@ -109,7 +109,7 @@ namespace WcfSoapLogger.Tests
 
 
         [TestMethod]
-        public void OneKey() 
+        public void OneKeyTenThousandCalls() 
         {
             const string key = "'gamma";
             const int count = 10000;

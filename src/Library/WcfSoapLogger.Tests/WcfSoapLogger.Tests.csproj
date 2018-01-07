@@ -37,6 +37,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -51,6 +53,11 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="FullCycle\Client\PriceServiceClient.cs" />
+    <Compile Include="FullCycle\Service\IPriceService.cs" />
+    <Compile Include="FullCycle\Service\PriceInfo.cs" />
+    <Compile Include="FullCycle\Service\PriceServiceKiaMotors.cs" />
+    <Compile Include="FullCycle\PriceServiceTest.cs" />
     <Compile Include="TimeIndexTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,6 +66,14 @@
       <Project>{36BFE869-F4BA-4AEC-B1EB-955893481ADC}</Project>
       <Name>WcfSoapLogger</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="FullCycle\Client\GenerateClient.bat" />
+    <None Include="FullCycle\Client\PriceServiceClient.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FullCycle\Client\SvcUtil.exe" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

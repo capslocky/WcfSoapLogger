@@ -61,4 +61,4 @@ external proxy application
 
 
 ## Contributing ##
-If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns. Also see [issues](/issues).
+If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns. Also see [issues](https://github.com/capslocky/WcfSoapLogger/issues).
