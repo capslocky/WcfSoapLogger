@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0B42B064-0B7D-4BF3-9377-C7C51D41F515}</ProjectGuid>
+    <ProjectGuid>{D6D55BC4-2CF8-4952-961F-707BD1925DE6}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Client</RootNamespace>
@@ -34,18 +34,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CommonClient">
-      <HintPath>..\..\..\UsageExamples\ExampleCommon\CommonClient\bin\Debug\CommonClient.dll</HintPath>
+      <HintPath>..\..\ExampleCommon\CommonClient\bin\Debug\CommonClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="WcfSoapLogger, Version=0.9.3.0, Culture=neutral, PublicKeyToken=a6981d1b425b6650, processorArchitecture=MSIL">
+      <HintPath>..\packages\WcfSoapLogger.0.9.3\lib\net45\WcfSoapLogger.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

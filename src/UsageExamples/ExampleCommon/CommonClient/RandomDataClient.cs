@@ -10,9 +10,9 @@ namespace CommonClient
     public class RandomDataClient
     {
         private readonly Random _random;
-        private readonly WeatherServiceClient _client;
+        private readonly IWeatherService _client;
 
-        public RandomDataClient(WeatherServiceClient client)
+        public RandomDataClient(IWeatherService client)
         {
             _random = new Random();
             _client = client;

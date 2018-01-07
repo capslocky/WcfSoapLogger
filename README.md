@@ -30,7 +30,7 @@ Install-Package WcfSoapLogger
 
 
 ## Usage examples ##
-The repository contains [usage examples](/src/UsageExamples).
+The repository contains different [usage examples](/src/UsageExamples).
 To clone repository run this command or download as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
 ```
 git clone https://github.com/capslocky/WcfSoapLogger.git
@@ -57,9 +57,8 @@ no custom handling possible
 * **Fiddler**
 [Link 1](https://www.telerik.com/fiddler)
 [Link 2](https://www.telerik.com/fiddler/fiddlercore)  
-Fiddler - external proxy application  
-FiddlerCore - to check
+external proxy application
 
 
 ## Contributing ##
-If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns. [Roadmap](/docs/Roadmap.md).
+If you find this project useful you are welcome to make it better! Feel free to contact me if you have any ideas, questions or concerns. Also see [issues](/issues).

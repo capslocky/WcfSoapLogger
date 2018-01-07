@@ -2,8 +2,9 @@
 * **Common:** build this solution first
 * **Alpha:** basic web-service and client, no logging
 * **Beta:** default logging (config only)
-* **Gamma:** custom logging (custom code)
+* **Gamma:** custom logging (via custom code)
 * **Delta:** https + basic authentication
+* **Epsilon:** code-only endpoints (no config files at all)
 
 
 ## How to launch both service and client ##
