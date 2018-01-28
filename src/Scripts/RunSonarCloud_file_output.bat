@@ -1,0 +1,1 @@
+RunSonarCloud.bat  > RunSonarCloud_output.txt 2>RunSonarCloud_error.txt

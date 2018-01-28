@@ -6,8 +6,8 @@ before_build:
  - nuget restore
 
 build_script:
- - set login="a73e2dc3c1b2da9be687279b2dfbd4cac3035de0"
+
  - choco install "msbuild-sonarqube-runner" -y 
- - SonarQube.Scanner.MSBuild.exe begin /k:"WcfSoapLogger" /o:"capslocky-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login=%login%
- - MSBuild WcfSoapLogger.sln /verbosity:normal
- - SonarQube.Scanner.MSBuild.exe end /d:sonar.login=%login%
+ - SonarQube.Scanner.MSBuild.exe begin /k:"WcfSoapLogger" /o:"capslocky-github" /s:"../Scripts/RunSonarCloud.Settings.xml"
+ - MSBuild WcfSoapLogger.sln /verbosity:normal /t:Rebuild /p:Configuration="Release" /p:Platform="Any CPU"
+ - SonarQube.Scanner.MSBuild.exe end
