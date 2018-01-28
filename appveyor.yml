@@ -2,12 +2,12 @@ version: 1.0.{build}
 image: Visual Studio 2015
 
 before_build:
- - cd /d "src/Library/"
+ - set scriptsDir=C:\projects\wcfsoaplogger\src\Scripts\
+ - cd /d C:\projects\wcfsoaplogger\src\Library\
  - nuget restore
 
 build_script:
-
  - choco install "msbuild-sonarqube-runner" -y 
- - SonarQube.Scanner.MSBuild.exe begin /k:"WcfSoapLogger" /o:"capslocky-github" /s:"../Scripts/RunSonarCloud.Settings.xml"
+ - SonarQube.Scanner.MSBuild.exe begin /k:"WcfSoapLogger" /o:"capslocky-github" /s:"%scriptsDir%RunSonarCloud.Settings.xml"
  - MSBuild WcfSoapLogger.sln /verbosity:normal /t:Rebuild /p:Configuration="Release" /p:Platform="Any CPU"
  - SonarQube.Scanner.MSBuild.exe end
