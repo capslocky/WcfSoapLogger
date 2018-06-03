@@ -3,12 +3,12 @@
 using System;
 using WcfSoapLogger.Exceptions;
 
-namespace WcfSoapLogger.CustomHandlers
+namespace WcfSoapLogger.HandlerCustom
 {
     public static class SoapLoggerClient
     {
         [ThreadStatic]
-        private static ISoapLoggerHandlerClient Client;
+        private static ISoapLoggerHandlerClient _client;
 
         public static void SetCustomHandlerCallbacks(ISoapLoggerHandlerClient client)
         {
@@ -17,37 +17,37 @@ namespace WcfSoapLogger.CustomHandlers
                 throw new ArgumentNullException("client");
             }
 
-            Client = client;
+            _client = client;
         }
 
         internal static void CallRequestCallback(byte[] requestBody, SoapLoggerSettings settings) 
         {
-            if (Client == null)
+            if (_client == null)
             {
-                string methodName = "SoapLoggerClient.SetCustomHandlerCallbacks";
+                const string methodName = "SoapLoggerClient.SetCustomHandlerCallbacks";
                 throw new LoggerException("You have enabled 'useCustomHandler' for client class of given service. So method '" + methodName+ "' should be called before making any request. Make sure to call it everywhere.");
             }
 
-            Client.HandleRequestBodyCallback(requestBody, settings);
+            _client.HandleRequestBodyCallback(requestBody, settings);
         }
 
         internal static void CallResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
             try
             {
-                Client.HandleResponseBodyCallback(responseBody, settings);
+                _client.HandleResponseBodyCallback(responseBody, settings);
             }
             finally
             {
-                Client = null;
+                _client = null;
             }
         }
 
         internal static void CallCustomHandlersDisabledCallback(SoapLoggerSettings settings)
         {
-            if (Client != null)
+            if (_client != null)
             {
-                Client.CustomHandlersDisabledCallback(settings);
+                _client.CustomHandlersDisabledCallback(settings);
             }
         }
 

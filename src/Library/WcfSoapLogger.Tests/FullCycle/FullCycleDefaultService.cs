@@ -16,7 +16,7 @@ namespace WcfSoapLogger.Tests.FullCycle
         }
 
         [TestMethod]
-        public void Check() {
+        public void CheckDefaultService() {
             RunFullCycle();
         }
     }

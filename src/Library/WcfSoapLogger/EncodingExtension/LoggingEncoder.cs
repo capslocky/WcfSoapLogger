@@ -4,7 +4,8 @@ using System;
 using System.IO;
 using System.ServiceModel.Channels;
 using System.Text;
-using System.Threading;
+using WcfSoapLogger.Exceptions;
+using WcfSoapLogger.HandlerCustom;
 
 namespace WcfSoapLogger.EncodingExtension
 {
@@ -14,7 +15,8 @@ namespace WcfSoapLogger.EncodingExtension
         private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
         private readonly SoapLoggerSettings _settings;
-        private readonly HandlerAbstract _handler;
+        private readonly HandlerDefault _handler;
+
 
         public override string ContentType {
             get {
@@ -40,7 +42,15 @@ namespace WcfSoapLogger.EncodingExtension
             _innerEncoder = factory.InnerMessageFactory.Encoder;
             _contentType = factory.MediaType;
             _settings = factory.Settings;
-            _handler = factory.Settings.IsService ? (HandlerAbstract) new HandlerService(factory.Settings) : new HandlerClient(factory.Settings);
+
+            if (factory.Settings.UseCustomHandler)
+            {
+                _handler = new HandlerCustom.HandlerCustom(_settings);
+            }
+            else
+            {
+                _handler = new HandlerDefault(_settings);
+            }
         }
 
 
@@ -61,6 +71,7 @@ namespace WcfSoapLogger.EncodingExtension
         {
             return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
         }
+
 
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) 
         {
@@ -85,7 +96,7 @@ namespace WcfSoapLogger.EncodingExtension
 
         private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage)
         {
-            //XOR, because request is writeMessage for client and readMessage for web-service
+            //XOR, because request is writeMessage on client side and readMessage on service side
             bool request = writeMessage ^ _settings.IsService;
 
             try
@@ -100,17 +111,47 @@ namespace WcfSoapLogger.EncodingExtension
             {
                 if (_settings.IsClient)
                 {
+                    // on client side exception would naturally emerge for both request and response
                     throw;
                 }
 
-                byte[] errorBody = _handler.GetErrorBody(ex, request);
+                byte[] errorBody = GetServiceSideErrorBody(ex, request);
+
                 var errorBuffer = new ArraySegment<byte>(errorBody);
                 return errorBuffer;
             }
         }
 
 
-    
+        private byte[] GetServiceSideErrorBody(Exception ex, bool request) {
+            if (request)
+            {
+                //this can happen only with default handler on service side
+                //typically when lacking access to file system 
+                SoapLoggerService.SetRequestException(ex);
 
-    }
+                //in order to force HTTP 500 Internal Server Error and avoid processing
+                //we overwrite request with deliberately invalid body
+                return ErrorBody.InvalidRequest();
+            }
+
+            // response
+            string message = null;
+
+            if (ex is LoggerException)
+            {
+                message = ex.Message;
+            }
+            else
+            {
+                message = ex.ToString();
+            }
+
+            string soapFault = ErrorBody.CreateSoapFaultResponse(message);
+            byte[] errorBody = Encoding.UTF8.GetBytes(soapFault);
+            return errorBody;
+        }
+
+
+  }
 }

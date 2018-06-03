@@ -8,19 +8,20 @@ namespace Client
 {
     static class Program
     {
-        private static void Main() {
+        private static void Main() 
+        {
             Console.Title = "ExampleEpsilon.Client";
             Console.WriteLine("Press any key to start client.");
             Console.ReadKey();
             Console.WriteLine();
 
-            const string serviceUrl = @"http://localhost:5580/weatherService";
+            const string serviceUrl = "http://localhost:5580/weatherService";
             var address = new EndpointAddress(serviceUrl);
 
-            string logPath = @"C:\SoapLog\Epsilon\Client";
-            string useCustomHandler = Boolean.FalseString;
+            const string logPath = @"C:\SoapLog\Epsilon\Client";
+            const string useCustomHandler = "False";
 
-            CustomBinding customBinding = new CustomBinding();
+            var customBinding = new CustomBinding();
 
             customBinding.Elements.Add(new LoggingBindingElement(logPath, useCustomHandler));
             customBinding.Elements.Add(new HttpTransportBindingElement());

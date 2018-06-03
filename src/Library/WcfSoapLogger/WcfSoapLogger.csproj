@@ -40,17 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EncodingExtension\HandlerDefault.cs" />
     <Compile Include="Exceptions\ErrorBody.cs" />
     <Compile Include="FileWriting\FileNameFactory.cs" />
     <Compile Include="FileWriting\FileSystem.cs" />
     <Compile Include="Exceptions\FileSystemAcccesDeniedException.cs" />
-    <Compile Include="HandlerClient.cs" />
-    <Compile Include="HandlerAbstract.cs" />
-    <Compile Include="HandlerService.cs" />
-    <Compile Include="CustomHandlers\ISoapLoggerHandlerClient.cs" />
-    <Compile Include="CustomHandlers\ISoapLoggerHandlerService.cs" />
+    <Compile Include="HandlerCustom\HandlerCustom.cs" />
+    <Compile Include="HandlerCustom\ISoapLoggerHandlerClient.cs" />
+    <Compile Include="HandlerCustom\ISoapLoggerHandlerService.cs" />
     <Compile Include="Exceptions\LoggerException.cs" />
-    <Compile Include="CustomHandlers\SoapLoggerClient.cs" />
+    <Compile Include="HandlerCustom\SoapLoggerClient.cs" />
     <Compile Include="FileWriting\FileName.cs" />
     <Compile Include="SoapLoggerSettings.cs" />
     <Compile Include="FileWriting\SoapMessage.cs" />
@@ -60,7 +59,7 @@
     <Compile Include="EncodingExtension\LoggingExtensionElement.cs" />
     <Compile Include="EncodingExtension\LoggingEncoder.cs" />
     <Compile Include="EncodingExtension\LoggingEncoderFactory.cs" />
-    <Compile Include="CustomHandlers\SoapLoggerService.cs" />
+    <Compile Include="HandlerCustom\SoapLoggerService.cs" />
     <Compile Include="FileWriting\SoapLoggerTools.cs" />
   </ItemGroup>
   <ItemGroup>

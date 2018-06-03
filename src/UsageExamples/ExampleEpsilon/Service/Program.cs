@@ -24,10 +24,10 @@ namespace Service
 
             serviceHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
 
-            string logPath = @"C:\SoapLog\Epsilon\Service";
-            string useCustomHandler = Boolean.FalseString;
+            const string logPath = @"C:\SoapLog\Epsilon\Service";
+            const string useCustomHandler = "False";
 
-            CustomBinding customBinding = new CustomBinding();
+            var customBinding = new CustomBinding();
             customBinding.Elements.Add(new LoggingBindingElement(logPath, useCustomHandler));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 

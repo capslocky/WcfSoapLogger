@@ -1,15 +1,20 @@
 ﻿WcfSoapLogger
 Logging SOAP request/response body at binary level.
 
+
 All you need to start default logging is:
 
 1) Set these two attributes to your endpoint element (inside <service> or <client>)
 
-<endpoint address="http://server/web-service" binding="customBinding" bindingConfiguration="soapLoggerBinding"
+   <endpoint address="http://server/web-service" binding="customBinding" bindingConfiguration="soapLoggerBinding"
 
-2) Specify folder to save files. Make sure user account has write access to it.
+2) Specify folder to log files. Make sure user account of application has writing access.
 
-<soapLoggerMessageEncoding logPath="D:\MyService\SoapLogs" useCustomHandler="false"/>
+   <soapLoggerMessageEncoding logPath="D:\MyService\SoapLogs" useCustomHandler="false"/>
+
+
+More info:
+https://github.com/capslocky/WcfSoapLogger/docs/ConfigFile.md
 
 ============================================================================
 
@@ -42,4 +47,4 @@ Contact me if you have any questions:
 atanov.b@gmail.com
 
 Baurzhan Atanov
-04 December 2017
+04 February 2018

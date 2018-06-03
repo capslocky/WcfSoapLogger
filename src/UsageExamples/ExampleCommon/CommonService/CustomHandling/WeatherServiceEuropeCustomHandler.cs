@@ -1,8 +1,7 @@
 ﻿using System;
-using System.ServiceModel;
 using WcfSoapLogger;
-using WcfSoapLogger.CustomHandlers;
 using WcfSoapLogger.FileWriting;
+using WcfSoapLogger.HandlerCustom;
 
 namespace CommonService.CustomHandling
 {

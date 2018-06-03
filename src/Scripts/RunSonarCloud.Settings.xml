@@ -5,6 +5,7 @@
  
   <Property Name="sonar.host.url">https://sonarcloud.io</Property>
   <Property Name="sonar.login">a73e2dc3c1b2da9be687279b2dfbd4cac3035de0</Property>
+  <Property Name="sonar.language">cs</Property>
   <Property Name="sonar.coverage.exclusions">**/*.*</Property>
   <Property Name="sonar.verbose">false</Property>  
 

@@ -4,7 +4,7 @@ using System;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
 
-namespace WcfSoapLogger.CustomHandlers
+namespace WcfSoapLogger.HandlerCustom
 {
     public static class SoapLoggerService
     {
@@ -12,26 +12,26 @@ namespace WcfSoapLogger.CustomHandlers
         // That's how we can relate intercepted request/response bodies with appropriate execution of external method
 
         [ThreadStatic]
-        private static SoapLoggerSettings Settings;
+        private static SoapLoggerSettings _settings;
 
         [ThreadStatic]
-        private static byte[] RequestBody;
+        private static byte[] _requestBody;
 
         [ThreadStatic]
-        private static ISoapLoggerHandlerService Service;
+        private static ISoapLoggerHandlerService _service;
 
         [ThreadStatic]
-        private static Exception RequestException;
+        private static Exception _requestException;
 
 
         internal static void SetSettings(SoapLoggerSettings settings) 
         {
-            Settings = settings;
+            _settings = settings;
         }
 
         internal static void SetRequestBody(byte[] requestBody) 
         {
-            RequestBody = requestBody;
+            _requestBody = requestBody;
         }
 
         public static void CallCustomHandlers(ISoapLoggerHandlerService service)
@@ -41,41 +41,41 @@ namespace WcfSoapLogger.CustomHandlers
                 throw new ArgumentNullException("service");
             }
 
-            if (Settings == null)
+            if (_settings == null)
             {
-                throw new InvalidOperationException("Settings is null");
+                throw new InvalidOperationException("_settings is null");
             }
 
-            if (RequestBody == null)
+            if (_requestBody == null)
             {
-                service.CustomHandlersDisabled(Settings);
+                service.CustomHandlersDisabled(_settings);
                 return;
             }
 
-            Service = service;
+            _service = service;
 
             try
             {
-                Service.HandleRequestBody(RequestBody, Settings);
+                _service.HandleRequestBody(_requestBody, _settings);
             }
             finally
             {
-                RequestBody = null;
-                Settings = null;
+                _requestBody = null;
+                _settings = null;
             }
         }
 
         internal static void CallResponseCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-            if (RequestBody != null)
+            if (_requestBody != null)
             {
                 //something went wrong, either pipeline execution didn't reach web-service method 
                 //or web-service method didn't call 'ReadRequestSetResponseCallback'
 
                 //TODO determine case and log both files for first case
 
-                var requestBody = RequestBody;
-                RequestBody = null;
+                var requestBody = _requestBody;
+                _requestBody = null;
 
                 SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
                 SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
@@ -87,24 +87,24 @@ namespace WcfSoapLogger.CustomHandlers
 
             try
             {
-                Service.HandleResponseBodyCallback(responseBody, settings);
+                _service.HandleResponseBodyCallback(responseBody, settings);
             }
             finally
             {
-                Service = null;
+                _service = null;
             }
         }
 
         internal static void SetRequestException(Exception ex)
         {
-            RequestException = ex;
+            _requestException = ex;
         }
 
 
         internal static Exception GetRequestException() 
         {
-            var ex = RequestException;
-            RequestException = null;
+            var ex = _requestException;
+            _requestException = null;
             return ex;
         }
     }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using WcfSoapLogger;
-using WcfSoapLogger.CustomHandlers;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
+using WcfSoapLogger.HandlerCustom;
 
 namespace CommonService.CustomHandling
 {

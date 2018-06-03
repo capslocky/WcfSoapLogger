@@ -7,7 +7,8 @@ namespace WcfSoapLogger.Exceptions
 {
     internal static class ErrorBody
     {
-        public static string GetSoapFaultResponse(string message)
+        //invalid response - Soap Fault
+        public static string CreateSoapFaultResponse(string message)
         {
             string escapedMessage = SecurityElement.Escape(message);
             string faultBody = string.Format(SoapFaultResponseTemplate, escapedMessage);
@@ -26,12 +27,15 @@ namespace WcfSoapLogger.Exceptions
 </s:Envelope>";
 
 
+
+        //invalid request
+        //this is an intentionally invalid request to force SOAP Fault (HTTP 500 Internal Server error)
         static ErrorBody()
         {
             SoapInvalidRequestBytes = Encoding.UTF8.GetBytes(SoapInvalidRequest);
         }
 
-        public static byte[] GetSoapInvalidRequest() 
+        public static byte[] InvalidRequest() 
         {
             return SoapInvalidRequestBytes;
         }

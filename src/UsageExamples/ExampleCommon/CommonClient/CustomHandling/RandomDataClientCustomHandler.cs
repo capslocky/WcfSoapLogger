@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using WcfSoapLogger;
-using WcfSoapLogger.CustomHandlers;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
+using WcfSoapLogger.HandlerCustom;
 
 namespace CommonClient.CustomHandling
 {
@@ -71,7 +71,7 @@ namespace CommonClient.CustomHandling
 
                 fileNameFactory.AddSegment(operationName);
 
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetLastReportByLocation", "Location"));
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", operationNameToLog, "Location"));
 
 //                fileNameFactory.AddSegment(message.GetNodeValue("Body", "SendReport", "report", "location"));
 //                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocation", "location"));
