@@ -25,6 +25,8 @@ namespace Service
 
             Console.WriteLine("Service started.");
 
+            Process.Start("http://localhost:5580/weatherService");
+
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();
 

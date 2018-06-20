@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
+using System.Threading.Tasks;
 using CommonClient;
 using WcfSoapLogger.EncodingExtension;
 
@@ -30,6 +32,8 @@ namespace Client
 
             var randomDataClient = new RandomDataClient(serviceClient);
             randomDataClient.StartThreads();
+
+            Task.Delay(500).ContinueWith(_ => Process.Start("explorer.exe", logPath));
 
             Console.ReadLine();
         }

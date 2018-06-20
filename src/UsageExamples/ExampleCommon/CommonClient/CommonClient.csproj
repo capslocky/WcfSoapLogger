@@ -34,9 +34,8 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="WcfSoapLogger, Version=0.9.3.0, Culture=neutral, PublicKeyToken=a6981d1b425b6650, processorArchitecture=MSIL">
-      <HintPath>..\packages\WcfSoapLogger.0.9.4\lib\net45\WcfSoapLogger.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WcfSoapLogger">
+      <HintPath>..\..\..\Library\WcfSoapLogger\bin\Debug\WcfSoapLogger.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GenerateClient.bat" />
-    <None Include="packages.config" />
     <None Include="WeatherServiceClient.config" />
   </ItemGroup>
   <ItemGroup>

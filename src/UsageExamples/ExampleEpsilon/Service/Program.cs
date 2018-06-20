@@ -1,7 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
-using System.ServiceModel.Configuration;
 using System.ServiceModel.Description;
 using CommonService;
 using WcfSoapLogger.EncodingExtension;
@@ -10,7 +10,8 @@ namespace Service
 {
     static class Program
     {
-        private static void Main() {
+        private static void Main() 
+        {
             Console.Title = "ExampleEpsilon.Service";
      
             const string baseAddress  ="http://localhost:5580/weatherService";
@@ -45,6 +46,8 @@ namespace Service
             }
 
             Console.WriteLine("Service started.");
+
+            Process.Start("http://localhost:5580/weatherService");
 
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();

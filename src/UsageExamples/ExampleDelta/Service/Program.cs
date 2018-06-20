@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.ServiceModel;
 using CommonService;
 
@@ -6,7 +7,8 @@ namespace Service
 {
     static class Program
     {
-        private static void Main() {
+        private static void Main() 
+        {
             Console.Title = "ExampleDelta.Service";
 
             var serviceHost = new ServiceHost(typeof(WeatherServiceEurope));
@@ -22,6 +24,8 @@ namespace Service
             }
 
             Console.WriteLine("Service started.");
+
+            Process.Start("https://wcf.mozilla.org:5581/weatherService");
 
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();

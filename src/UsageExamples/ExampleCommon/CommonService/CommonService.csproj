@@ -35,9 +35,8 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.XML" />
-    <Reference Include="WcfSoapLogger, Version=0.9.3.0, Culture=neutral, PublicKeyToken=a6981d1b425b6650, processorArchitecture=MSIL">
-      <HintPath>..\packages\WcfSoapLogger.0.9.4\lib\net45\WcfSoapLogger.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="WcfSoapLogger">
+      <HintPath>..\..\..\Library\WcfSoapLogger\bin\Debug\WcfSoapLogger.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -48,9 +47,6 @@
     <Compile Include="CustomHandling\CustomHandler_GetForecastByLocation.cs" />
     <Compile Include="WeatherServiceEurope.cs" />
     <Compile Include="CustomHandling\WeatherServiceEuropeCustomHandler.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
