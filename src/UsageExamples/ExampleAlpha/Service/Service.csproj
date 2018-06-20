@@ -36,6 +36,10 @@
     <StartupObject>Service.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonService, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\ExampleCommon\CommonService\bin\Debug\CommonService.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
