@@ -17,7 +17,7 @@ namespace Client
             Console.ReadKey();
             Console.WriteLine();
 
-            const string serviceUrl = "http://localhost:5580/weatherService";
+            const string serviceUrl = "http://localhost:5585/weatherServiceEpsilon";
             var address = new EndpointAddress(serviceUrl);
 
             const string logPath = @"C:\SoapLog\Epsilon\Client";

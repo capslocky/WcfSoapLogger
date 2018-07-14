@@ -19,6 +19,12 @@ namespace CommonService
         public WeatherReport[] GetForecast(string location, int days) 
         {
             var lastReport = _reportRepository.GetLastByLocation(location);
+
+            if (lastReport == null)
+            {
+                return new WeatherReport[0];
+            }
+
             var list = new List<WeatherReport>();
 
             var memoryStream = new MemoryStream();
@@ -45,6 +51,5 @@ namespace CommonService
         {
             return (float)_random.NextDouble() * (maximum - minimum) + minimum;
         }
-
     }
 }

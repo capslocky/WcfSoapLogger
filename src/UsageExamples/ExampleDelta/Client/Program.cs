@@ -16,8 +16,8 @@ namespace Client
 
             var serviceClient = new WeatherServiceClient();
 
-            serviceClient.ClientCredentials.UserName.UserName = "admin";
-            serviceClient.ClientCredentials.UserName.Password = "password";
+            serviceClient.ClientCredentials.UserName.UserName = "neo";
+            serviceClient.ClientCredentials.UserName.Password = "matrix";
 
             var randomDataClient = new RandomDataClient(serviceClient);
             randomDataClient.StartThreads();

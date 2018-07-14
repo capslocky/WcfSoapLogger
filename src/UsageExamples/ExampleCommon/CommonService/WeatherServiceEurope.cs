@@ -28,6 +28,12 @@ namespace CommonService
 
             var lastReport = _reportRepository.GetLastByLocation(location);
 
+            if (lastReport == null)
+            {
+                Console.WriteLine("GetLastReport for " + location + ": null");
+                return null;
+            }
+
             Console.WriteLine("GetLastReport for " + location + ": returning Report ID = " + lastReport.Id);
             return lastReport;
         }

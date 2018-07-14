@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CommonService
 {
@@ -13,6 +14,12 @@ namespace CommonService
             {
                 report.Id = _reports.Count + 1;
                 _reports.Add(report);
+
+                if (report.Id % 5 == 0)
+                {
+                    throw new InvalidOperationException($"Oops! Report with ID '{report.Id}' produced an error on server. Look for its Fault_Response.xml in log folder.");
+                }
+
                 return report.Id;
             }
         }

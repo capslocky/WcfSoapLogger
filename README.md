@@ -30,7 +30,7 @@ Install-Package WcfSoapLogger
 
 
 ## Usage examples ##
-The repository contains [usage examples](/src/UsageExamples) covering different scenarios.
+The repository contains **[usage examples](/src/UsageExamples)** covering different scenarios.
 To clone run this command or download as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
 ```
 git clone https://github.com/capslocky/WcfSoapLogger.git

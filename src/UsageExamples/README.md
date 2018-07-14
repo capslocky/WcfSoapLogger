@@ -12,7 +12,7 @@
 1. Clone the repository or download as [zip file](https://github.com/capslocky/WcfSoapLogger/archive/master.zip).
 2. Open and build solution **\src\Library** (so you will have \WcfSoapLogger\bin\Debug\WcfSoapLogger.dll)
 3. Open and build solution **\src\UsageExamples\ExampleCommon** (it contains common example code as dll)
-4. Open example solution and set to launch both service and client
+4. Open any example solution **as admin** and set it to launch both service and client
 5. Build and run solution, it will automatically open service url and logging folder
 
 

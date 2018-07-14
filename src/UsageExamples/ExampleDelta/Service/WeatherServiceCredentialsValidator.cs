@@ -13,7 +13,7 @@ namespace Service
                 throw new ArgumentNullException();
             }
 
-            if (userName != "admin" || password != "password")
+            if (userName != "neo" || password != "matrix")
             {
                 throw new SecurityTokenException("Unknown Username or Incorrect Password.");
             }

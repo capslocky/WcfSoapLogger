@@ -25,7 +25,7 @@ namespace Service
 
             Console.WriteLine("Service started.");
 
-            Process.Start("https://wcf.mozilla.org:5581/weatherService");
+            Process.Start("https://wcf.mozilla.org:5584/weatherServiceDelta");
 
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();

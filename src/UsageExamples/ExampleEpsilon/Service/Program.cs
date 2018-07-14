@@ -14,7 +14,7 @@ namespace Service
         {
             Console.Title = "ExampleEpsilon.Service";
      
-            const string baseAddress  ="http://localhost:5580/weatherService";
+            const string baseAddress  = "http://localhost:5585/weatherServiceEpsilon";
             var serviceHost = new ServiceHost(typeof(WeatherServiceEurope), new Uri(baseAddress));
 
             serviceHost.Description.Behaviors.Find<ServiceDebugBehavior>().IncludeExceptionDetailInFaults = true;
@@ -47,7 +47,7 @@ namespace Service
 
             Console.WriteLine("Service started.");
 
-            Process.Start("http://localhost:5580/weatherService");
+            Process.Start("http://localhost:5585/weatherServiceEpsilon");
 
             Console.WriteLine("Press Enter to stop.");
             Console.ReadLine();
