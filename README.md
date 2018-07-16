@@ -22,7 +22,7 @@ Acting as [custom message encoder](https://docs.microsoft.com/en-us/dotnet/frame
 
 
 ## Installation ##
-* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager). How to adjust [config file](/docs/ConfigFile.md).
+* As [NuGet package](https://www.nuget.org/packages/WcfSoapLogger/) in Visual Studio project (Tools -> NuGet -> Console / Manager  -> Choose project). How to adjust [config file](/docs/ConfigFile.md).
 ```
 Install-Package WcfSoapLogger
 ```

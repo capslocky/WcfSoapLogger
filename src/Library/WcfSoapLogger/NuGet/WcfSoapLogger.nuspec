@@ -19,7 +19,7 @@
 * Custom handling of byte content in your code
     </description>
     <releaseNotes>More info: https://github.com/capslocky/WcfSoapLogger </releaseNotes>
-    <tags>wcf soap log</tags>
+    <tags>wcf soap log trace http</tags>
   </metadata>
   <files>
     <file src="..\bin\$configuration$\WcfSoapLogger.dll" target="lib\net45\" />

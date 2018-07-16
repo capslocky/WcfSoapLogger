@@ -8,7 +8,7 @@
           <!-- set these attributes for your endpoint: -->
           <!-- binding="customBinding" bindingConfiguration="soapLoggerBinding"-->
           <soapLoggerMessageEncoding logPath="C:\SoapLogDefault"  useCustomHandler="false"  />
-          <!-- warning 'The element 'binding' has invalid child element' - that's OK-->
+          <!-- visual studio warning 'The element 'binding' has invalid child element' - that's OK-->
           <httpTransport />
         </binding>
       </customBinding>

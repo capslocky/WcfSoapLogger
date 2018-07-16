@@ -1,6 +1,6 @@
 ## Usage examples ##
 
-* **Alpha:** basic web-service and client, no logging
+* **Alpha:** basic web-service and client, no logging, so try to add it by yourself
 * **Beta:** default logging (config only)
 * **Gamma:** custom logging (via custom code)
 * **Delta:** https + basic authentication
