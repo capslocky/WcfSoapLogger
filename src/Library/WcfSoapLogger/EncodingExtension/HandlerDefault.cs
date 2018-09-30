@@ -14,7 +14,7 @@ namespace WcfSoapLogger.EncodingExtension
 
         public virtual void HandleBody(byte[] body, bool request)
         {
-            SoapLoggerTools.WriteFileDefault(body, request, _settings.LogPath);
+            SoapLoggerTools.WriteFileDefault(body, request, _settings.LogPath, _settings.SaveOriginalBinaryBody);
 
             if (!_settings.UseCustomHandler && _settings.IsClient && request)
             {

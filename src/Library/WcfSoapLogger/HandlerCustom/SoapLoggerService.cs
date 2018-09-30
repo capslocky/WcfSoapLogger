@@ -77,8 +77,8 @@ namespace WcfSoapLogger.HandlerCustom
                 var requestBody = _requestBody;
                 _requestBody = null;
 
-                SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
-                SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
+                SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath, false);
+                SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath, false);
 
                 //TODO add logging error message to file
 

@@ -34,7 +34,7 @@ namespace WcfSoapLogger.FileWriting
 
        
 
-        public static void WriteFileDefault(byte[] body, bool request, string logPath)
+        public static void WriteFileDefault(byte[] body, bool request, string logPath, bool saveOriginalBinaryBody)
         {
             var fileNameFactory = new FileNameFactory();
 
@@ -44,9 +44,15 @@ namespace WcfSoapLogger.FileWriting
                 fileNameFactory.AddSegment(message.GetOperationName());
                 fileNameFactory.AddDirection(request);
 
+              if (saveOriginalBinaryBody)
+              {
+                WriteFile(fileNameFactory.GetFileName(), null, body, logPath);
+              }
+              else
+              {
                 string indentedXml = message.GetIndentedXml();
-
                 WriteFile(fileNameFactory.GetFileName(), indentedXml, null, logPath);
+              }
             }
             catch (FileSystemAcccesDeniedException)
             {

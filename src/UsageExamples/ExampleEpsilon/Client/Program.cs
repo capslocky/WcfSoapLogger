@@ -21,11 +21,12 @@ namespace Client
             var address = new EndpointAddress(serviceUrl);
 
             const string logPath = @"C:\SoapLog\Epsilon\Client";
-            const string useCustomHandler = "False";
+            const string saveOriginalBinaryBody = "false";
+            const string useCustomHandler = "false";
 
             var customBinding = new CustomBinding();
 
-            customBinding.Elements.Add(new LoggingBindingElement(logPath, useCustomHandler));
+            customBinding.Elements.Add(new LoggingBindingElement(logPath, saveOriginalBinaryBody, useCustomHandler));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 
             var serviceClient = new WeatherServiceClient(customBinding, address);

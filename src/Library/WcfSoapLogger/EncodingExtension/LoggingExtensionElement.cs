@@ -10,13 +10,22 @@ namespace WcfSoapLogger.EncodingExtension
     public class LoggingExtensionElement : BindingElementExtensionElement
     {
         private const string LogPathName = "logPath";
+        private const string SaveOriginalBinaryBodyName = "SaveOriginalBinaryBody";
         private const string UseCustomHandlerName = "useCustomHandler";
+
 
         [ConfigurationProperty(LogPathName, IsRequired = true)]
         public string LogPath {
             get {
                 return (string)base[LogPathName];
             }
+        }
+
+        [ConfigurationProperty(SaveOriginalBinaryBodyName, IsRequired = false)]
+        public string SaveOriginalBinaryBody {
+          get {
+            return (string)base[SaveOriginalBinaryBodyName];
+          }
         }
 
         [ConfigurationProperty(UseCustomHandlerName, IsRequired = false)]
@@ -28,7 +37,7 @@ namespace WcfSoapLogger.EncodingExtension
 
         protected override BindingElement CreateBindingElement() 
         {
-            var bindingElement = new LoggingBindingElement(LogPath, UseCustomHandler);
+            var bindingElement = new LoggingBindingElement(LogPath, SaveOriginalBinaryBody, UseCustomHandler);
             ApplyConfiguration(bindingElement);
             return bindingElement;
         }

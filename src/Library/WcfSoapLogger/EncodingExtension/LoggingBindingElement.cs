@@ -18,13 +18,14 @@ namespace WcfSoapLogger.EncodingExtension
         private LoggingBindingElement(){
         }
 
-        public LoggingBindingElement(string logPath, string useCustomHandler)
+        public LoggingBindingElement(string logPath, string saveOriginalBinaryBody, string useCustomHandler)
         {
             this.InnerMessageEncodingBindingElement = new TextMessageEncodingBindingElement();
             this.InnerMessageEncodingBindingElement.MessageVersion = _messageVersion;
 
             this.Settings = new SoapLoggerSettings();
             this.Settings.LogPath = logPath;
+            this.Settings.SaveOriginalBinaryBody = saveOriginalBinaryBody.Equals(Boolean.TrueString, StringComparison.InvariantCultureIgnoreCase);
             this.Settings.UseCustomHandler = useCustomHandler.Equals(Boolean.TrueString, StringComparison.InvariantCultureIgnoreCase);
         }
 

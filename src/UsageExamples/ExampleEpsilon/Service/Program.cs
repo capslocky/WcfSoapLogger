@@ -26,10 +26,11 @@ namespace Service
             serviceHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
 
             const string logPath = @"C:\SoapLog\Epsilon\Service";
-            const string useCustomHandler = "False";
+            const string saveOriginalBinaryBody = "false";
+            const string useCustomHandler = "false";
 
             var customBinding = new CustomBinding();
-            customBinding.Elements.Add(new LoggingBindingElement(logPath, useCustomHandler));
+            customBinding.Elements.Add(new LoggingBindingElement(logPath, saveOriginalBinaryBody, useCustomHandler));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 
             serviceHost.AddServiceEndpoint(typeof(IWeatherService), customBinding, "");
