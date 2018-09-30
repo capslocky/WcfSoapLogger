@@ -40,6 +40,8 @@ namespace CommonService
                 clone.DateTime = clone.DateTime.AddDays(i + 1).Date;
                 clone.Temperature += GetRandomValue(0.1f, 3);
                 clone.Pressure += GetRandomValue(-10, +10);
+                clone.WindSpeed = GetRandomValue(0.1f, 8.0f);
+                clone.WindDirection = GetRandomValue(0, 360);
 
                 list.Add(clone);
             }
@@ -49,7 +51,11 @@ namespace CommonService
 
         private float GetRandomValue(float minimum, float maximum) 
         {
-            return (float)_random.NextDouble() * (maximum - minimum) + minimum;
+            double value = minimum + _random.NextDouble() * (maximum - minimum);
+            value = value * 100;
+            value = Math.Round(value, MidpointRounding.AwayFromZero);
+            value = value / 100;
+            return (float) value;
         }
     }
 }

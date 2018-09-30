@@ -39,7 +39,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomHandling\RandomDataClientCustomHandler.cs" />
+    <Compile Include="CustomHandling\WeatherServiceClientCustomHandler.cs" />
     <Compile Include="RandomDataClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeatherServiceClient.cs" />

@@ -5,11 +5,20 @@ using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
 using WcfSoapLogger.HandlerCustom;
 
-namespace CommonService.CustomHandling
+namespace CommonClient.CustomHandling
 {
-    public class CustomHandler_GetForecastByLocation : ISoapLoggerHandlerService
+    public class WeatherServiceClientCustomHandler : WeatherServiceClient, ISoapLoggerHandlerClient
     {
-        public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
+        public WeatherServiceClientCustomHandler()
+        {
+          // you need just this line in constructor of inherited client class to apply your custom handler to all requests
+          // NOTE: don't reuse this custom handling client class object twice, it should be instantiated for every new request
+            SoapLoggerClient.SetCustomHandlerCallbacks(this);
+        }
+
+
+
+        public void HandleRequestBodyCallback(byte[] requestBody, SoapLoggerSettings settings)
         {
             WriteFileCustom(requestBody, true, settings.LogPath);
         }
@@ -19,27 +28,33 @@ namespace CommonService.CustomHandling
             WriteFileCustom(responseBody, false, settings.LogPath);
         }
 
-        public void CustomHandlersDisabled(SoapLoggerSettings settings)
+        public void CustomHandlersDisabledCallback(SoapLoggerSettings settings)
         {
             Console.WriteLine("CustomHandlersDisabled");
         }
+        
 
 
+        // this custom handling method looks for 'GetLastReportByLocation' only
         private void WriteFileCustom(byte[] body, bool request, string logPath)
         {
-            logPath = Path.Combine(logPath, "GetForecastByLocation");
+            const string operationNameToLog = "GetLastReportByLocation";
+            logPath = Path.Combine(logPath, operationNameToLog);
 
             var fileNameFactory = new FileNameFactory();
 
             try
             {
                 var message = SoapMessage.Parse(body, request);
-                fileNameFactory.AddSegment(message.GetOperationName());
+                string operationName = message.GetOperationName();
 
-                fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocation", "Location"));
+                if (operationName != operationNameToLog)
+                {
+                    return;
+                }
 
-                fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Location"));
-                fileNameFactory.AddSegment(message.GetNodeValue("body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Temperature"));
+                fileNameFactory.AddSegment(operationName);
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", operationNameToLog, "Location"));
 
                 fileNameFactory.AddDirection(request);
                 string indentedXml = message.GetIndentedXml();
@@ -59,6 +74,7 @@ namespace CommonService.CustomHandling
                 SoapLoggerTools.WriteFile(fileNameFactory.GetFileName(), ex.ToString(), null, logPath);
             }
         }
+
 
     }
 }

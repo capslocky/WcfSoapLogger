@@ -13,7 +13,7 @@ namespace Client
             Console.WriteLine();
 
             var serviceClient = new WeatherServiceClient();
-            var randomDataClient = new RandomDataClient(serviceClient);
+            var randomDataClient = new RandomDataClient(() => serviceClient);
             randomDataClient.StartThreads();
 
             Console.ReadLine();

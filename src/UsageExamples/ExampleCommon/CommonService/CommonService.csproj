@@ -44,7 +44,6 @@
     <Compile Include="IWeatherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportRepository.cs" />
-    <Compile Include="CustomHandling\CustomHandler_GetForecastByLocation.cs" />
     <Compile Include="WeatherServiceEurope.cs" />
     <Compile Include="CustomHandling\WeatherServiceEuropeCustomHandler.cs" />
   </ItemGroup>

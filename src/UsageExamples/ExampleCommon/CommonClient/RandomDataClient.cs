@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,12 +7,12 @@ namespace CommonClient
     public class RandomDataClient
     {
         private readonly Random _random;
-        private readonly IWeatherService _client;
+        private readonly Func<IWeatherService> _getClient;
 
-        public RandomDataClient(IWeatherService client)
+        public RandomDataClient(Func<IWeatherService> getClient)
         {
             _random = new Random();
-            _client = client;
+            _getClient = getClient;
         }
 
         public void StartThreads()
@@ -46,7 +43,7 @@ namespace CommonClient
             Thread.Sleep(TimeSpan.FromMilliseconds(_random.Next(minValue, maxValue)));
         }
 
-        protected virtual void SendRandomReport(string location) {
+        protected void SendRandomReport(string location) {
             WeatherReport newReport = new WeatherReport();
 
             newReport.DateTime = DateTime.Now;
@@ -61,7 +58,7 @@ namespace CommonClient
 
             try
             {
-                long id = _client.SendReport(newReport);
+                long id = _getClient().SendReport(newReport);
                 Console.WriteLine("Report for " + location + ": Report ID = " + id);
             }
             catch (Exception ex)
@@ -70,10 +67,14 @@ namespace CommonClient
             }
         }
 
-        private float GetRandomValue(float minimum, float maximum) 
-        {
-            return (float)_random.NextDouble() * (maximum - minimum) + minimum;
-        }
+      private float GetRandomValue(float minimum, float maximum) 
+      {
+        double value = minimum + _random.NextDouble() * (maximum - minimum);
+        value = value * 100;
+        value = Math.Round(value, MidpointRounding.AwayFromZero);
+        value = value / 100;
+        return (float) value;
+      }
 
 
         private void WatchLastReport(string location) 
@@ -85,11 +86,11 @@ namespace CommonClient
             }
         }
 
-        protected virtual void GetLastReport(string location)
+        protected void GetLastReport(string location)
         {
             try
             {
-                var report = _client.GetLastReportByLocation(location);
+                var report = _getClient().GetLastReportByLocation(location);
 
                 if (report == null)
                 {
@@ -110,16 +111,16 @@ namespace CommonClient
         {
             while (true)
             {
-                ThreadSleep(4000, 7000);
+                ThreadSleep(3000, 6000);
                 GetForecast(location, days);
             }
         }
 
-        protected virtual void GetForecast(string location, int days) 
+        protected void GetForecast(string location, int days) 
         {
             try
             {
-                var forecastArray = _client.GetForecastByLocation(location, days);
+                var forecastArray = _getClient().GetForecastByLocation(location, days);
                 Console.WriteLine("Forecast for " + location + " for " + forecastArray.Length + " days received.");
             }
             catch (Exception ex)

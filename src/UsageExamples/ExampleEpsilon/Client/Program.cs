@@ -30,7 +30,7 @@ namespace Client
 
             var serviceClient = new WeatherServiceClient(customBinding, address);
 
-            var randomDataClient = new RandomDataClient(serviceClient);
+            var randomDataClient = new RandomDataClient(() => serviceClient);
             randomDataClient.StartThreads();
 
             Task.Delay(500).ContinueWith(_ => Process.Start("explorer.exe", logPath));

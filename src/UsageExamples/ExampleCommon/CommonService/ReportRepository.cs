@@ -17,6 +17,8 @@ namespace CommonService
 
                 if (report.Id % 5 == 0)
                 {
+                  
+                    Console.WriteLine("Throwing exception for Report ID = " + report.Id);
                     throw new InvalidOperationException($"Oops! Report with ID '{report.Id}' produced an error on server. Look for its Fault_Response.xml in log folder.");
                 }
 

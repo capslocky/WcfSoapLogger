@@ -15,11 +15,12 @@ namespace Client
             Console.ReadKey();
             Console.WriteLine();
 
-            var serviceClient = new WeatherServiceClient();
-            var randomDataClient = new RandomDataClientCustomHandler(serviceClient);
+            // if we use custom handling - each new request should use new client class object
+
+            var randomDataClient = new RandomDataClient(() => new WeatherServiceClientCustomHandler());
             randomDataClient.StartThreads();
 
-            Task.Delay(500).ContinueWith( _ => Process.Start("explorer.exe", @"C:\SoapLog\Gamma"));
+            Task.Delay(3000).ContinueWith( _ => Process.Start("explorer.exe", @"C:\SoapLog\Gamma"));
 
             Console.ReadLine();
         }

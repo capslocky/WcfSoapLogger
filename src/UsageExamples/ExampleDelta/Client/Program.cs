@@ -19,7 +19,7 @@ namespace Client
             serviceClient.ClientCredentials.UserName.UserName = "neo";
             serviceClient.ClientCredentials.UserName.Password = "matrix";
 
-            var randomDataClient = new RandomDataClient(serviceClient);
+            var randomDataClient = new RandomDataClient(() => serviceClient);
             randomDataClient.StartThreads();
 
             Task.Delay(500).ContinueWith(_ => Process.Start("explorer.exe", @"C:\SoapLog\Delta"));

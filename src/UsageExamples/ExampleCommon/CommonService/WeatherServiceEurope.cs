@@ -4,6 +4,8 @@ using System.Threading;
 
 namespace CommonService
 {
+    // this class is simple standard web-service example without any extra stuff
+
     [ServiceBehavior(Namespace = XmlNamespaces.WeatherService)]
     public class WeatherServiceEurope : IWeatherService
     {
@@ -11,7 +13,8 @@ namespace CommonService
         private static readonly ForecastCalculator _forecastCalculator  = new ForecastCalculator(_reportRepository);
         private static readonly Random _random = new Random();
 
-        public virtual long SendReport(WeatherReport report)
+
+        public long SendReport(WeatherReport report)
         {
             Console.WriteLine("SendReport for " + report.Location + ": request");
 
@@ -22,7 +25,8 @@ namespace CommonService
             return id;
         }
 
-        public virtual WeatherReport GetLastReportByLocation(string location)
+
+        public WeatherReport GetLastReportByLocation(string location)
         {
             Console.WriteLine("GetLastReport for " + location + ": request");
 
@@ -38,7 +42,8 @@ namespace CommonService
             return lastReport;
         }
 
-        public virtual WeatherReport[] GetForecastByLocation(string location, int days)
+
+        public WeatherReport[] GetForecastByLocation(string location, int days)
         {
             Console.WriteLine("Forecast for " + location + " for " + days + " days: request");
 

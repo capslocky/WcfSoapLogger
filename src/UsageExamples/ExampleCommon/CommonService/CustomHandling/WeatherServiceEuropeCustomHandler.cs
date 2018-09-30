@@ -1,47 +1,82 @@
 ﻿using System;
+using System.IO;
 using WcfSoapLogger;
+using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
 using WcfSoapLogger.HandlerCustom;
 
 namespace CommonService.CustomHandling
 {
+    // this class just inherits standard web-service example and adds own custom handler
     public class WeatherServiceEuropeCustomHandler : WeatherServiceEurope, ISoapLoggerHandlerService
     {
-        public override long SendReport(WeatherReport report)
+        public WeatherServiceEuropeCustomHandler()
         {
+            // you need just this line in web-service constructor to apply your custom handlers to all operation methods
+            // default WCF behavior is assumed here - creating new class instance 'per call'
             SoapLoggerService.CallCustomHandlers(this);
-            return base.SendReport(report);
         }
-
-        public override WeatherReport GetLastReportByLocation(string location)
-        {
-            SoapLoggerService.CallCustomHandlers(this);
-            return base.GetLastReportByLocation(location);
-        }
-
-        public override WeatherReport[] GetForecastByLocation(string location, int days) 
-        {
-            SoapLoggerService.CallCustomHandlers(new CustomHandler_GetForecastByLocation());
-            return base.GetForecastByLocation(location, days);
-        }
-
-
 
 
 
         public void HandleRequestBody(byte[] requestBody, SoapLoggerSettings settings)
         {
-            SoapLoggerTools.WriteFileDefault(requestBody, true, settings.LogPath);
+            WriteFileCustom(requestBody, true, settings.LogPath);
         }
 
         public void HandleResponseBodyCallback(byte[] responseBody, SoapLoggerSettings settings)
         {
-            SoapLoggerTools.WriteFileDefault(responseBody, false, settings.LogPath);
+            WriteFileCustom(responseBody, false, settings.LogPath);
         }
 
         public void CustomHandlersDisabled(SoapLoggerSettings settings)
         {
             Console.WriteLine("CustomHandlersDisabled");
         }
+
+
+
+        // this custom handling method looks for 'GetForecastByLocation' only
+        private void WriteFileCustom(byte[] body, bool request, string logPath)
+        {
+            const string operationNameToLog = "GetForecastByLocation";
+            logPath = Path.Combine(logPath, operationNameToLog);
+
+            var fileNameFactory = new FileNameFactory();
+
+            try
+            {
+                var message = SoapMessage.Parse(body, request);
+                string operationName = message.GetOperationName();
+
+                if (operationName != operationNameToLog)
+                {
+                  return;
+                }
+
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocation", "Location"));
+
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Location"));
+                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Temperature"));
+
+                fileNameFactory.AddDirection(request);
+                string indentedXml = message.GetIndentedXml();
+
+                SoapLoggerTools.WriteFile(fileNameFactory.GetFileName(), indentedXml, null, logPath);
+            }
+            catch (FileSystemAcccesDeniedException)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                fileNameFactory.AddSegment("ERROR");
+                SoapLoggerTools.WriteFile(fileNameFactory.GetFileName(), null, body, logPath);
+
+                fileNameFactory.AddSegment("exception");
+                SoapLoggerTools.WriteFile(fileNameFactory.GetFileName(), ex.ToString(), null, logPath);
+            }
+        }
+
     }
 }

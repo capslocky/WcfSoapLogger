@@ -25,7 +25,7 @@ namespace WcfSoapLogger.HandlerCustom
             if (_client == null)
             {
                 const string methodName = "SoapLoggerClient.SetCustomHandlerCallbacks";
-                throw new LoggerException("You have enabled 'useCustomHandler' for client class of given service. So method '" + methodName+ "' should be called before making any request. Make sure to call it everywhere.");
+                throw new LoggerException("You have enabled 'useCustomHandler' for client class of given service. So method '" + methodName+ "' should be called before each request (typically in constructor of inhereted client class).");
             }
 
             _client.HandleRequestBodyCallback(requestBody, settings);

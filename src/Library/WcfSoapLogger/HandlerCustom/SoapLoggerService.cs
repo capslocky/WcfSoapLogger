@@ -82,7 +82,7 @@ namespace WcfSoapLogger.HandlerCustom
 
                 //TODO add logging error message to file
 
-                throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method or web-service method didn't call 'ReadRequestSetResponseCallback'");
+                throw new LoggerException("something went wrong, either pipeline execution didn't reach web-service method or web-service method didn't execute 'SoapLoggerService.CallCustomHandlers'");
             }
 
             try

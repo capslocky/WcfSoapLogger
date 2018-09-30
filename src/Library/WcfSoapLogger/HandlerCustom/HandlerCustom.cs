@@ -1,7 +1,4 @@
-﻿using System;
-using System.Text;
-using WcfSoapLogger.EncodingExtension;
-using WcfSoapLogger.Exceptions;
+﻿using WcfSoapLogger.EncodingExtension;
 
 namespace WcfSoapLogger.HandlerCustom
 {
@@ -25,27 +22,32 @@ namespace WcfSoapLogger.HandlerCustom
                 this.HandleBodyOnClient(body, request);
             }
         }
-
+        
+        // see stages
+        // https://github.com/capslocky/WcfSoapLogger/blob/master/docs/GeneralFlow.md
 
         private void HandleBodyOnService(byte[] body, bool request)
         {
             if (request)
             {
+                // service request [stage 3. logging]
+
                 SoapLoggerService.SetSettings(_settings);
                 SoapLoggerService.SetRequestBody(body);
-                return;
             }
-
-            // service response [5. logging ]
-
-            var requestException = SoapLoggerService.GetRequestException();
-
-            if (requestException != null)
+            else
             {
-                throw requestException;
-            }
+                // service response [stage 5. logging ]
 
-            SoapLoggerService.CallResponseCallback(body, _settings);
+                var requestException = SoapLoggerService.GetRequestException();
+
+                if (requestException != null)
+                {
+                  throw requestException;
+                }
+
+                SoapLoggerService.CallResponseCallback(body, _settings);
+            }
         }
 
 
@@ -53,10 +55,12 @@ namespace WcfSoapLogger.HandlerCustom
         {
             if (request)
             {
+              // client request [stage 2. logging]
                 SoapLoggerClient.CallRequestCallback(body, _settings);
             }
             else
             {
+              // client response [stage 6. logging ]
                 SoapLoggerClient.CallResponseCallback(body, _settings);
             }
         }
