@@ -2,7 +2,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using CommonClient;
-using CommonClient.CustomHandling;
 
 namespace Client
 {
@@ -15,7 +14,7 @@ namespace Client
             Console.ReadKey();
             Console.WriteLine();
 
-            // if we use custom handling - each new request should use new client class object
+            // NOTE: if we use custom handling - each new request should use new client class object
 
             var randomDataClient = new RandomDataClient(() => new WeatherServiceClientCustomHandler());
             randomDataClient.StartThreads();

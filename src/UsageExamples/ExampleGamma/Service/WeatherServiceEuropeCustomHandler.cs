@@ -1,13 +1,14 @@
 ﻿using System;
 using System.IO;
+using CommonService;
 using WcfSoapLogger;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
 using WcfSoapLogger.HandlerCustom;
 
-namespace CommonService.CustomHandling
+namespace Service
 {
-    // this class just inherits standard web-service example and adds own custom handler
+    // this class just inherits standard web-service (from solution ExampleCommon) and adds own custom handler
     public class WeatherServiceEuropeCustomHandler : WeatherServiceEurope, ISoapLoggerHandlerService
     {
         public WeatherServiceEuropeCustomHandler()

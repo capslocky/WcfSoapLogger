@@ -1,18 +1,20 @@
 ﻿using System;
 using System.IO;
+using CommonClient;
 using WcfSoapLogger;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
 using WcfSoapLogger.HandlerCustom;
 
-namespace CommonClient.CustomHandling
+namespace Client
 {
+    // this class just inherits standard auto-generated client class (from solution ExampleCommon) and adds own custom handler
     public class WeatherServiceClientCustomHandler : WeatherServiceClient, ISoapLoggerHandlerClient
     {
         public WeatherServiceClientCustomHandler()
         {
-          // you need just this line in constructor of inherited client class to apply your custom handler to all requests
-          // NOTE: don't reuse this custom handling client class object twice, it should be instantiated for every new request
+            // you need just this line in constructor of inherited client class to apply your custom handler to all requests
+            // NOTE: don't reuse this custom handling client class object twice, it should be instantiated for every new request
             SoapLoggerClient.SetCustomHandlerCallbacks(this);
         }
 
