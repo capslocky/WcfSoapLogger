@@ -60,7 +60,13 @@ namespace WcfSoapLogger.FileWriting
             return operation;
         }
 
-        public string GetNodeValue(params string[] array)
+        public string GetNodeValue(string path)
+        {
+          string[] array = path.Split(new[] {'/'}, StringSplitOptions.RemoveEmptyEntries);
+          return GetNodeValueByArray(array);
+        }
+
+        public string GetNodeValueByArray(params string[] array)
         {
             XElement node = FindNodeByPath(array);
 
@@ -99,7 +105,7 @@ namespace WcfSoapLogger.FileWriting
         {
             foreach (XElement node in list)
             {
-                if (string.Equals(node.Name.LocalName, name, StringComparison.InvariantCultureIgnoreCase))
+                if (string.Equals(node.Name.LocalName, name.Trim(), StringComparison.InvariantCultureIgnoreCase))
                 {
                     return node;
                 }

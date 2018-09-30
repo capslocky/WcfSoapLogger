@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using CommonClient;
+using Service;
 using WcfSoapLogger;
 using WcfSoapLogger.Exceptions;
 using WcfSoapLogger.FileWriting;
@@ -55,8 +56,10 @@ namespace Client
                     return;
                 }
 
+//                _dbLoggingTest.LogToDatabase(message, request); // uncomment to see simple DB logging
+
                 fileNameFactory.AddSegment(operationName);
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", operationNameToLog, "Location"));
+                fileNameFactory.AddSegment(message.GetNodeValue($"Body / {operationNameToLog} / Location"));
 
                 fileNameFactory.AddDirection(request);
                 string indentedXml = message.GetIndentedXml();
@@ -77,6 +80,6 @@ namespace Client
             }
         }
 
-
+//        readonly DbLoggingTest _dbLoggingTest = new DbLoggingTest("Client" , "Body / GetLastReportByLocation / Location");
     }
 }

@@ -39,12 +39,14 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="WcfSoapLogger">
       <HintPath>..\..\..\Library\WcfSoapLogger\bin\Debug\WcfSoapLogger.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbLoggingTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WeatherServiceEuropeCustomHandler.cs" />

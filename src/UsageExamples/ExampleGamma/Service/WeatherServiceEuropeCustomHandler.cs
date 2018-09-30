@@ -36,6 +36,7 @@ namespace Service
         }
 
 
+      
 
         // this custom handling method looks for 'GetForecastByLocation' only
         private void WriteFileCustom(byte[] body, bool request, string logPath)
@@ -55,10 +56,12 @@ namespace Service
                   return;
                 }
 
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocation", "Location"));
+//                _dbLoggingTest.LogToDatabase(message, request); // uncomment to see simple DB logging
 
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Location"));
-                fileNameFactory.AddSegment(message.GetNodeValue("Body", "GetForecastByLocationResponse", "GetForecastByLocationResult", "WeatherReport", "Temperature"));
+                fileNameFactory.AddSegment(message.GetNodeValue("Body / GetForecastByLocation / Location"));
+
+                fileNameFactory.AddSegment(message.GetNodeValue("Body / GetForecastByLocationResponse / GetForecastByLocationResult / WeatherReport / Location"));
+                fileNameFactory.AddSegment(message.GetNodeValue("Body / GetForecastByLocationResponse / GetForecastByLocationResult / WeatherReport / Temperature"));
 
                 fileNameFactory.AddDirection(request);
                 string indentedXml = message.GetIndentedXml();
@@ -79,5 +82,6 @@ namespace Service
             }
         }
 
+//        readonly DbLoggingTest _dbLoggingTest = new DbLoggingTest("Service", "Body / GetForecastByLocation / Location");
     }
 }
