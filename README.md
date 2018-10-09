@@ -9,15 +9,15 @@ Acting as [custom message encoder](https://docs.microsoft.com/en-us/dotnet/frame
 
 
 ## Features ##
-* Exact byte content of each request and response
+* You get exact content of each request and response
 * Including any malformed requests and soap faults
-* Works for both web-services and clients
-* Each request and response is a separate file
+* It's applicable for both parties: web-services and clients
 * Easy start, no code modification needed - just put dll and adjust config file
-* Custom handling of byte content in your code
+* Default handler just saves each request and response as a separate file
+* But you can implement any **custom handler** instead
 
 
-## Standard output sample ##
+## Default output sample ##
 ![ExampleBeta](/docs/images/main_screenshot.png?raw=true)
 
 

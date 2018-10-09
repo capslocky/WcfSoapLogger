@@ -26,7 +26,7 @@ But you can add more if different output folders for different endpoints needed.
 <bindings>
   <customBinding>
     <binding name="soapLoggerBinding">
-      <soapLoggerMessageEncoding logPath="C:\SoapLog\MyService" useCustomHandler="false" />
+      <soapLoggerMessageEncoding logPath="C:\SoapLog\MyService" saveOriginalBinaryBody="false" useCustomHandler="false" />
       <httpTransport />
     </binding>
   </customBinding>
@@ -63,7 +63,7 @@ This is a full configuration of service in [example Beta](../src/UsageExamples/E
       <service name="CommonService.WeatherServiceEurope" behaviorConfiguration="weatherServiceBehavior">
         <host>
           <baseAddresses>
-            <add baseAddress="http://localhost:5580/weatherService" />
+            <add baseAddress="http://localhost:5582/weatherServiceBeta" />
           </baseAddresses>
         </host>
         <endpoint address="" 
@@ -76,7 +76,7 @@ This is a full configuration of service in [example Beta](../src/UsageExamples/E
     <bindings>
       <customBinding>
         <binding name="soapLoggerBinding">
-          <soapLoggerMessageEncoding logPath="C:\SoapLog\Beta\Service" useCustomHandler="false" />
+          <soapLoggerMessageEncoding logPath="C:\SoapLog\Beta\Service" saveOriginalBinaryBody="false" useCustomHandler="false" />
           <httpTransport />
         </binding>
       </customBinding>
@@ -112,7 +112,7 @@ This is a full configuration of client in [example Beta](../src/UsageExamples/Ex
   <system.serviceModel>
 
     <client>
-      <endpoint address="http://localhost:5580/weatherService"
+      <endpoint address="http://localhost:5582/weatherServiceBeta"
                 binding="customBinding" bindingConfiguration="soapLoggerBinding"
                 contract="CommonClient.IWeatherService" />
     </client>
@@ -120,7 +120,7 @@ This is a full configuration of client in [example Beta](../src/UsageExamples/Ex
     <bindings>
       <customBinding>
         <binding name="soapLoggerBinding">
-          <soapLoggerMessageEncoding logPath="C:\SoapLog\Beta\Client" useCustomHandler="false" />
+          <soapLoggerMessageEncoding logPath="C:\SoapLog\Beta\Client" saveOriginalBinaryBody="false" useCustomHandler="false" />
           <httpTransport />
         </binding>
       </customBinding>
@@ -134,7 +134,6 @@ This is a full configuration of client in [example Beta](../src/UsageExamples/Ex
 
   </system.serviceModel>
 </configuration>
-
 ```
 
 
