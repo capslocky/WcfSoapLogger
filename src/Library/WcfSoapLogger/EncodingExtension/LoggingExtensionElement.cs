@@ -10,7 +10,7 @@ namespace WcfSoapLogger.EncodingExtension
     public class LoggingExtensionElement : BindingElementExtensionElement
     {
         private const string LogPathName = "logPath";
-        private const string SaveOriginalBinaryBodyName = "SaveOriginalBinaryBody";
+        private const string SaveOriginalBinaryBodyName = "saveOriginalBinaryBody";
         private const string UseCustomHandlerName = "useCustomHandler";
 
 

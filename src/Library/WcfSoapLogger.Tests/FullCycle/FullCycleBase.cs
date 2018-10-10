@@ -148,11 +148,11 @@ namespace WcfSoapLogger.Tests.FullCycle
 
         protected PriceServiceClient GetClientWithDefaultLogging() {
             var address = new EndpointAddress(serviceUrl);
-            string SaveOriginalBinaryBody = Boolean.FalseString;
+            string saveOriginalBinaryBody = Boolean.FalseString;
             string useCustomHandler = Boolean.FalseString;
 
             CustomBinding customBinding = new CustomBinding();
-            customBinding.Elements.Add(new LoggingBindingElement(logPathClient, SaveOriginalBinaryBody, useCustomHandler));
+            customBinding.Elements.Add(new LoggingBindingElement(logPathClient, saveOriginalBinaryBody, useCustomHandler));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 
             var client = new PriceServiceClient(customBinding, address);
