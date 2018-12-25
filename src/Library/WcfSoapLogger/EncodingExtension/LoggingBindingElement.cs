@@ -40,7 +40,7 @@ namespace WcfSoapLogger.EncodingExtension
 
         public override MessageEncoderFactory CreateMessageEncoderFactory()
         {
-            return new LoggingEncoderFactory(this.Settings, "text/xml", _messageVersion, InnerMessageEncodingBindingElement.CreateMessageEncoderFactory());
+            return new LoggingEncoderFactory(this.Settings, "text/xml; charset=utf-8", _messageVersion, InnerMessageEncodingBindingElement.CreateMessageEncoderFactory());
         }
 
         public override BindingElement Clone() 
