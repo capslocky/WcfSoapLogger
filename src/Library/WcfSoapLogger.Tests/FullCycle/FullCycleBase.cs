@@ -124,8 +124,8 @@ namespace WcfSoapLogger.Tests.FullCycle
 
             serviceHost.AddServiceEndpoint(ServiceMetadataBehavior.MexContractName, MetadataExchangeBindings.CreateMexHttpBinding(), "mex");
 
-            string saveOriginalBinaryBody = Boolean.FalseString;
-            string useCustomHandler = Boolean.FalseString;
+            const bool saveOriginalBinaryBody = false;
+            const bool useCustomHandler = false;
 
             CustomBinding customBinding = new CustomBinding();
             customBinding.Elements.Add(new LoggingBindingElement(logPathService, saveOriginalBinaryBody, useCustomHandler));
@@ -148,8 +148,8 @@ namespace WcfSoapLogger.Tests.FullCycle
 
         protected PriceServiceClient GetClientWithDefaultLogging() {
             var address = new EndpointAddress(serviceUrl);
-            string saveOriginalBinaryBody = Boolean.FalseString;
-            string useCustomHandler = Boolean.FalseString;
+            const bool saveOriginalBinaryBody = false;
+            const bool useCustomHandler = false;
 
             CustomBinding customBinding = new CustomBinding();
             customBinding.Elements.Add(new LoggingBindingElement(logPathClient, saveOriginalBinaryBody, useCustomHandler));

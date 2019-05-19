@@ -37,9 +37,24 @@ namespace WcfSoapLogger.EncodingExtension
 
         protected override BindingElement CreateBindingElement() 
         {
-            var bindingElement = new LoggingBindingElement(LogPath, SaveOriginalBinaryBody, UseCustomHandler);
+            bool saveOriginalBinaryBody = ParseBoolean(SaveOriginalBinaryBody);
+            bool useCustomHandler = ParseBoolean(UseCustomHandler);
+
+            var bindingElement = new LoggingBindingElement(LogPath, saveOriginalBinaryBody, useCustomHandler);
             ApplyConfiguration(bindingElement);
             return bindingElement;
+        }
+
+        private bool ParseBoolean(string value)
+        {
+            try
+            {
+                return bool.Parse(value);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public override Type BindingElementType {
