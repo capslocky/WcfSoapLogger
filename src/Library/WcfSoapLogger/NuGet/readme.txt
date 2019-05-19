@@ -46,5 +46,5 @@ https://github.com/capslocky/WcfSoapLogger
 Contact me if you have any questions:
 atanov.b@gmail.com
 
-Baurzhan Atanov
-16 July 2018
+Baur Atanov
+19 May 2019

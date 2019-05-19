@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0"?>
 <configuration xmlns:xdt="http://schemas.microsoft.com/XML-Document-Transform">
-  <system.serviceModel  xdt:Transform="InsertIfMissing">
+  <system.serviceModel xdt:Transform="InsertIfMissing">
 
     <bindings xdt:Transform="InsertIfMissing">
       <customBinding xdt:Transform="InsertIfMissing">
