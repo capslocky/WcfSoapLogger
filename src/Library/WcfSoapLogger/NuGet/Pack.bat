@@ -1,6 +1,6 @@
 @echo off
 
 del *.nupkg
-nuget pack WcfSoapLogger.nuspec -properties Configuration=Release
+nuget pack ..\WcfSoapLogger.csproj -build -properties Configuration=Release
 
 pause

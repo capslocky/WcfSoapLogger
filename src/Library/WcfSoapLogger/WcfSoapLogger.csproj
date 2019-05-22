@@ -71,11 +71,9 @@
     <None Include="NuGet\WcfSoapLogger.nuspec" />
     <None Include="NuGet\web.config.install.xdt" />
     <None Include="NuGet\web.config.uninstall.xdt" />
+    <None Include="NuGet\nuget.exe" />
+    <None Include="NuGet\readme.txt" />
     <None Include="StrongNameKey.snk" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="NuGet\nuget.exe" />
-    <Content Include="NuGet\readme.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

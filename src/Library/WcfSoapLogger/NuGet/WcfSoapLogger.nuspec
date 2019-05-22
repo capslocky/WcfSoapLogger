@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>WcfSoapLogger</id>
-    <version>0.9.5</version>
+    <version>0.9.6</version><!-- need to update also in AssemblyInfo.cs -->
     <title>Logging SOAP request/response body at binary level</title>
     <summary>Logging SOAP request/response body at binary level</summary>
     <authors>Baur Atanov</authors>
