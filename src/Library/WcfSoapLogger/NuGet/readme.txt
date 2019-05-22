@@ -10,7 +10,7 @@ All you need to start default logging is:
 
 2) Specify folder to log files. Make sure user account of application has writing access.
 
-   <soapLoggerMessageEncoding logPath="C:\MyService\SoapLogs" useCustomHandler="false"/>
+   <soapLoggerMessageEncoding logPath="C:\MyService\SoapLogs" useCustomHandler="false" messageVersion="Soap11"/>
 
 
 More info:

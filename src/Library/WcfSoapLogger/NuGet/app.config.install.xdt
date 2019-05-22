@@ -7,7 +7,7 @@
         <binding name="soapLoggerBinding" xdt:Transform="InsertIfMissing"  xdt:Locator="Match(name)">
           <!-- set these attributes for your endpoint: -->
           <!-- binding="customBinding" bindingConfiguration="soapLoggerBinding"-->
-          <soapLoggerMessageEncoding logPath="C:\SoapLogDefault" saveOriginalBinaryBody="false" useCustomHandler="false"  />
+          <soapLoggerMessageEncoding logPath="C:\SoapLogDefault" saveOriginalBinaryBody="false" useCustomHandler="false" messageVersion="Soap11" />
           <!-- visual studio warning 'The element 'binding' has invalid child element' - that's OK-->
           <httpTransport />
         </binding>

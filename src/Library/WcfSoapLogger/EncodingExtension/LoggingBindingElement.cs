@@ -1,9 +1,9 @@
 ﻿// This is an open source non-commercial project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 using System;
-using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+using System.Text;
 using System.Xml;
 
 namespace WcfSoapLogger.EncodingExtension
@@ -13,15 +13,17 @@ namespace WcfSoapLogger.EncodingExtension
         public MessageEncodingBindingElement InnerMessageEncodingBindingElement { get; private set; }
         public SoapLoggerSettings Settings { get; private set; }
 
-        private readonly MessageVersion _messageVersion = MessageVersion.CreateVersion(EnvelopeVersion.Soap11, AddressingVersion.None);
 
-        private LoggingBindingElement(){
+        private LoggingBindingElement(MessageEncodingBindingElement messageEncodingBinding, SoapLoggerSettings settings)
+        {
+            this.InnerMessageEncodingBindingElement = messageEncodingBinding;
+            this.Settings = settings;
         }
 
-        public LoggingBindingElement(string logPath, bool saveOriginalBinaryBody, bool useCustomHandler)
+        public LoggingBindingElement(string logPath, bool saveOriginalBinaryBody, bool useCustomHandler, System.ServiceModel.Channels.MessageVersion messageVersion)
         {
-            this.InnerMessageEncodingBindingElement = new TextMessageEncodingBindingElement();
-            this.InnerMessageEncodingBindingElement.MessageVersion = _messageVersion;
+            var encoding = Encoding.UTF8; // we can set it via config if needed
+            this.InnerMessageEncodingBindingElement = new TextMessageEncodingBindingElement(messageVersion, encoding);
 
             this.Settings = new SoapLoggerSettings();
             this.Settings.LogPath = logPath;
@@ -40,16 +42,18 @@ namespace WcfSoapLogger.EncodingExtension
 
         public override MessageEncoderFactory CreateMessageEncoderFactory()
         {
-            return new LoggingEncoderFactory(this.Settings, "text/xml; charset=utf-8", _messageVersion, InnerMessageEncodingBindingElement.CreateMessageEncoderFactory());
+            return new LoggingEncoderFactory(
+                this.Settings,
+                InnerMessageEncodingBindingElement.CreateMessageEncoderFactory()
+            );
         }
 
-        public override BindingElement Clone() 
+        public override BindingElement Clone()
         {
-            return new LoggingBindingElement() 
-            {
-                InnerMessageEncodingBindingElement = this.InnerMessageEncodingBindingElement,
-                Settings = this.Settings,
-            };
+            return new LoggingBindingElement(
+                this.InnerMessageEncodingBindingElement, 
+                this.Settings
+            );
         }
 
         public override T GetProperty<T>(BindingContext context) 

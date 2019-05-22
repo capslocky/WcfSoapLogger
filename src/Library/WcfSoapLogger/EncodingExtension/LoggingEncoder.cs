@@ -11,8 +11,6 @@ namespace WcfSoapLogger.EncodingExtension
 {
     public class LoggingEncoder : MessageEncoder
     {
-        private readonly LoggingEncoderFactory _factory;
-        private readonly string _contentType;
         private readonly MessageEncoder _innerEncoder;
         private readonly SoapLoggerSettings _settings;
         private readonly HandlerDefault _handler;
@@ -20,30 +18,38 @@ namespace WcfSoapLogger.EncodingExtension
 
         public override string ContentType {
             get {
-                return _contentType;
+                return _innerEncoder.ContentType;
             }
         }
 
         public override string MediaType {
             get {
-                return _factory.MediaType;
+                return _innerEncoder.MediaType;
             }
         }
 
         public override MessageVersion MessageVersion {
             get {
-                return _factory.MessageVersion;
+                return _innerEncoder.MessageVersion;
             }
         }
 
-        public LoggingEncoder(LoggingEncoderFactory factory) 
+        public override T GetProperty<T>()
         {
-            _factory = factory;
-            _innerEncoder = factory.InnerMessageFactory.Encoder;
-            _contentType = factory.MediaType;
-            _settings = factory.Settings;
+            return _innerEncoder.GetProperty<T>();
+        }
 
-            if (factory.Settings.UseCustomHandler)
+        public override bool IsContentTypeSupported(string contentType)
+        {
+            return _innerEncoder.IsContentTypeSupported(contentType);
+        }
+
+        public LoggingEncoder(MessageEncoder innerEncoder, SoapLoggerSettings settings) 
+        {
+            _innerEncoder = innerEncoder;
+            _settings = settings;
+
+            if (_settings.UseCustomHandler)
             {
                 _handler = new HandlerCustom.HandlerCustom(_settings);
             }
@@ -52,6 +58,7 @@ namespace WcfSoapLogger.EncodingExtension
                 _handler = new HandlerDefault(_settings);
             }
         }
+
 
 
         public override Message ReadMessage(ArraySegment<byte> buffer, BufferManager bufferManager, string contentType)
@@ -67,10 +74,7 @@ namespace WcfSoapLogger.EncodingExtension
             return message;
         }
 
-        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType) 
-        {
-            return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
-        }
+
 
 
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset) 
@@ -87,11 +91,7 @@ namespace WcfSoapLogger.EncodingExtension
             return buffer;
         }
 
-        public override void WriteMessage(Message message, Stream stream) 
-        {
-            _innerEncoder.WriteMessage(message, stream);
-        }
-
+    
 
 
         private ArraySegment<byte> HandleMessage(ArraySegment<byte> buffer, bool writeMessage)
@@ -152,6 +152,26 @@ namespace WcfSoapLogger.EncodingExtension
             return errorBody;
         }
 
+        // no logging for stream transfer mode
 
-  }
+        public override Message ReadMessage(Stream stream, int maxSizeOfHeaders, string contentType)
+        {
+            return _innerEncoder.ReadMessage(stream, maxSizeOfHeaders, contentType);
+        }
+
+        public override void WriteMessage(Message message, Stream stream)
+        {
+            _innerEncoder.WriteMessage(message, stream);
+        }
+
+        public override IAsyncResult BeginWriteMessage(Message message, Stream stream, AsyncCallback callback, object state)
+        {
+            return _innerEncoder.BeginWriteMessage(message, stream, callback, state);
+        }
+
+        public override void EndWriteMessage(IAsyncResult result)
+        {
+            _innerEncoder.EndWriteMessage(result);
+        }
+    }
 }

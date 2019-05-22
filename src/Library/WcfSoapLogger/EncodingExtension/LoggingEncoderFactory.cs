@@ -6,24 +6,21 @@ namespace WcfSoapLogger.EncodingExtension
 {
     public class LoggingEncoderFactory : MessageEncoderFactory
     {
-        internal SoapLoggerSettings Settings { get; private set; }
-        internal string MediaType { get; private set; }
-        internal MessageEncoderFactory InnerMessageFactory { get; private set; }
-
         private readonly MessageVersion _messageVersion;
         private readonly MessageEncoder _encoder;
 
         public override MessageVersion MessageVersion { get { return _messageVersion; } }
         public override MessageEncoder Encoder { get { return _encoder; } }
 
-        internal LoggingEncoderFactory(SoapLoggerSettings settings, string mediaType, MessageVersion version, MessageEncoderFactory messageFactory)
+        internal LoggingEncoderFactory(SoapLoggerSettings settings, MessageEncoderFactory messageFactory)
         {
-            Settings = settings;
-            MediaType = mediaType;
-            InnerMessageFactory = messageFactory;
+            // messageFactory is an instance of internal class 'TextMessageEncoderFactory'
+            // encoder is an instance of internal class 'TextMessageEncoder'
 
-            _messageVersion = version;
-            _encoder = new LoggingEncoder(this);
+            var encoder = messageFactory.Encoder;
+
+            _messageVersion = messageFactory.MessageVersion;
+            _encoder = new LoggingEncoder(encoder, settings);
         }
     }
 }

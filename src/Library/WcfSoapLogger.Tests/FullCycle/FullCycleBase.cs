@@ -126,9 +126,10 @@ namespace WcfSoapLogger.Tests.FullCycle
 
             const bool saveOriginalBinaryBody = false;
             const bool useCustomHandler = false;
+            MessageVersion messageVersion = MessageVersion.Soap11;
 
             CustomBinding customBinding = new CustomBinding();
-            customBinding.Elements.Add(new LoggingBindingElement(logPathService, saveOriginalBinaryBody, useCustomHandler));
+            customBinding.Elements.Add(new LoggingBindingElement(logPathService, saveOriginalBinaryBody, useCustomHandler, messageVersion));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 
             serviceHost.AddServiceEndpoint(typeof(IPriceService), customBinding, "");
@@ -150,9 +151,10 @@ namespace WcfSoapLogger.Tests.FullCycle
             var address = new EndpointAddress(serviceUrl);
             const bool saveOriginalBinaryBody = false;
             const bool useCustomHandler = false;
+            MessageVersion messageVersion = MessageVersion.Soap11;
 
             CustomBinding customBinding = new CustomBinding();
-            customBinding.Elements.Add(new LoggingBindingElement(logPathClient, saveOriginalBinaryBody, useCustomHandler));
+            customBinding.Elements.Add(new LoggingBindingElement(logPathClient, saveOriginalBinaryBody, useCustomHandler, messageVersion));
             customBinding.Elements.Add(new HttpTransportBindingElement());
 
             var client = new PriceServiceClient(customBinding, address);
