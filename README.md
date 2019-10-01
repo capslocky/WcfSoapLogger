@@ -15,6 +15,7 @@ Acting as [custom message encoder](https://docs.microsoft.com/en-us/dotnet/frame
 * Easy start, no code modification needed - just put dll and adjust config file
 * Default handler just saves each request and response as a separate file
 * But you can implement any **custom handler** instead
+* Supports SOAP 1.1, SOAP 1.2, addressings
 
 
 ## Default output sample ##
